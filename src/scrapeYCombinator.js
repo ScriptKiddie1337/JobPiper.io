@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 // Connect to the Mongo DB
-MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/job_scraper_db";
+MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/joblisting_db";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -32,9 +32,6 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 function scrapeYCombinator(url, res, counter) {
-	console.log(`********************************
-	COUNTER # ${counter}
-	********************************`)
 	if (counter < 3) {
 		axios.get(url).then(function (response) {
 			// Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -61,9 +58,6 @@ function scrapeYCombinator(url, res, counter) {
 					url = result.link;
 				};
 			});
-			console.log(`********************************
-			new URL is ${url}
-			********************************`)
 			scrapeSite("https://news.ycombinator.com/"+url,res, counter+1);
 			// If we were able to successfully scrape and save an Job, send a message to the client
 			res.send('Scrape Complete');
@@ -82,7 +76,7 @@ function createJob(result) {
 	// but add the upsert option. If no record is found,
 	// the query will create a new record with the passed
 	// in parameters. This avoids duplicate data being scraped.
-	db.Job.findOneAndUpdate(query, record, {upsert:true})
+	db.JobListing.findOneAndUpdate(query, record, {upsert:true})
 
 		.then(function (dbJob) {
 
