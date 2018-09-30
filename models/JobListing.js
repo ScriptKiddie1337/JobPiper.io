@@ -27,6 +27,10 @@ var JobSchema = new Schema({
   note: {
     type: Schema.Types.ObjectId,
     ref: 'UserNote'
+  },
+  contact: {
+    type: Schema.Types.ObjectId,
+    ref: 'Contacts'
   }
 });
 
