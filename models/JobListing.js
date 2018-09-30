@@ -16,18 +16,22 @@ var JobSchema = new Schema({
     type: String,
     required: true
   },
+  image: {
+    type: String
+  },
+
   date: Date,
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Job with an associated Note
   note: {
     type: Schema.Types.ObjectId,
-    ref: 'Note'
+    ref: 'UserNote'
   }
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Job = mongoose.model('Job', JobSchema);
+var JobListing = mongoose.model('JobListing', JobSchema);
 
 // Export the Job model
-module.exports = Job;
+module.exports = JobListing;
