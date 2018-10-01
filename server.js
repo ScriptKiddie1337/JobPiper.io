@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+const scrapeYCombinator = require('./src/scrapeYCombinator')
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,8 +16,26 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
+MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/joblisting_db";
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+
+const rootLoad = async (req, res) => {
+	// scrape updated listings
+	await scrapeYCombinator('https://news.ycombinator.com/jobs', res, 0)
+
+	// GET route for root will scrape the most recent listings and then send the html
+	await app.get('/', function (req, res) {
+		res.sendFile('index.html')
+	})
+
+}
+// ! This is temporary and should be automated elsewhere
+// scrape ycombinator and then send index.html
+rootLoad();
 
 // Start the API server
 app.listen(PORT, function() {

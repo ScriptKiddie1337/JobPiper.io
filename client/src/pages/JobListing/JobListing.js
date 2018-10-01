@@ -6,30 +6,31 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import './JobListing.scss'
 
-class Books extends Component {
+class JobListing extends Component {
   state = {
-    books: [],
+    jobs: [],
     title: "",
     author: "",
     synopsis: ""
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadJobListing();
   }
 
-  loadBooks = () => {
-    API.getBooks()
+  loadJobListing = () => {
+    API.getJobListing()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ jobs: res.data, title: "", author: "", synopsis: "" })
       )
       .catch(err => console.log(err));
   };
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks())
+      .then(res => this.loadJobListing())
       .catch(err => console.log(err));
   };
 
@@ -48,7 +49,7 @@ class Books extends Component {
         author: this.state.author,
         synopsis: this.state.synopsis
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadJobListing())
         .catch(err => console.log(err));
     }
   };
@@ -59,7 +60,7 @@ class Books extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>What JobListing Should I Read?</h1>
             </Jumbotron>
             <form>
               <Input
@@ -90,18 +91,18 @@ class Books extends Component {
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>JobListing On My List</h1>
             </Jumbotron>
-            {this.state.books.length ? (
+            {this.state.jobs.length ? (
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
+                {this.state.jobs.map(job => (
+                  <ListItem key={job._id}>
+                    <Link to={"/jobs/" + job._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {job.title} by {job.author}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <DeleteBtn onClick={() => this.deleteBook(job._id)} />
                   </ListItem>
                 ))}
               </List>
@@ -115,4 +116,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default JobListing;
