@@ -6,36 +6,28 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new UserSchema object
 // This is similar to a Sequelize model
 var JobSchema = new Schema({
+  // object id
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    required: [true, 'id is required and should be auto-generating'],
+    auto: true,
+  },
   // `title` is required and of type String
   title: {
     type: String,
-    required: true
+    index: true,
+    required: [true, 'The title must be supplied']
   },
   // `link` is required and of type String
   link: {
     type: String,
-    required: true
+    required: [true, 'A URL must be supplied and should link directly to the job announcement']
   },
   image: {
     type: String
   },
-
-  date: Date,
-  // `note` is an object that stores a Note id
-  // The ref property links the ObjectId to the Note model
-  // This allows us to populate the Job with an associated Note
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: 'UserNote'
-  },
-  contact: {
-    type: Schema.Types.ObjectId,
-    ref: 'Contacts'
-  }
 });
 
-// This creates our model from the above schema, using mongoose's model method
-var JobListing = mongoose.model('JobListing', JobSchema);
-
-// Export the Job model
-module.exports = JobListing;
+// Export the JobListing model
+module.exports = mongoose.model('JobListing', JobSchema);
