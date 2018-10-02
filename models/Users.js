@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     auto: true,
   },
   // TODO: id from firebase?
-  userID: {
+  firebaseID: {
     type: String,
     index: true,
     required: true
@@ -40,9 +40,6 @@ const UserSchema = new Schema({
       unique: true
     },
     required: true
-  },
-  password: {
-    type: String
   },
   facebook_id: {
     type: String,
