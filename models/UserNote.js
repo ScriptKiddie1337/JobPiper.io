@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-
+//! do we need this model?
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 

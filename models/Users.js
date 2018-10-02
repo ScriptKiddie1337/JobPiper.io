@@ -1,22 +1,122 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const uniqueValidator = require('mongoose-unique-validator');
+const validator = require('validator');
 
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-// Using the Schema constructor, create a new UserSchema object
-// This is similar to a Sequelize model
-var Users = new Schema({
-  userID: String,
-  // `title` is of type String
-  title: String,
-  // `body` is of type String
-  body: String,
-  // date created
-  date: Date
+const UserSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    required: true,
+    auto: true,
+  },
+  // TODO: id from firebase?
+  userID: {
+    type: String,
+    index: true,
+    required: true
+  },
+  Name:{ // european standard is to do full name as one. Last name field is an american standard only
+    type: String,
+    required: [true, 'Name can be used for first or full name but must be included.']
+},
+  lastName: String,
+  email: {
+    type: String,
+    index: {
+      unique: true
+    },
+    required: true,
+    validate: [email => { 
+      return validator.isEmail(email)
+    }, 'user.invalidemail']
+  },
+  // * should pull email if no username is given
+  user_name: {
+    type: String,
+    index: {
+      unique: true
+    },
+    required: true
+  },
+  password: {
+    type: String
+  },
+  facebook_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+  twitter_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+  google_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+  github_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+  linkedin_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+  instagram_id: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true
+    }
+  },
+
+  // job title interests
+  titles: [{
+    title: String,
+    desc: String
+  }],
+  // dated planner for upcoming events "reminders"
+  events: [{
+    date: Date,
+    event: String
+  }],
+  // job interests
+  jobs: [{
+    jobID: String, // id of job user is interested in
+    // apply this date, 1st interview this date, etc...
+    taskList: [{
+      date: Date,
+      task: String
+    }],
+    contact: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Contacts'
+    }],
+    note: String
+  }]
 });
 
-// This creates our model from the above schema, using mongoose's model method
-var Users = mongoose.model("Users", UsersSchema);
+// run schema through validator
+UserSchema.plugin(uniqueValidator, {
+  message: 'mongoose.unique-error'
+});
 
 // Export the Users model
-module.exports = Users;
+module.exports = mongoose.model("Users", UsersSchema);
