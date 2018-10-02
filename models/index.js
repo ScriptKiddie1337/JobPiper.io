@@ -1,3 +1,4 @@
 module.exports = {
-  Book: require("./book")
+  JobListing: require("./JobListing"),
+  UserNote: require("./UserNote")
 };
