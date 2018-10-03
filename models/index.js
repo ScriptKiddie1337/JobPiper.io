@@ -1,4 +1,4 @@
 module.exports = {
   JobListing: require("./JobListing"),
-  UserNote: require("./UserNote")
+  //UserNote: require("./UserNote")
 };
