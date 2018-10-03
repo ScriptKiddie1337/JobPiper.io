@@ -24,6 +24,10 @@ var JobSchema = new Schema({
     type: String,
     required: [true, 'A URL must be supplied and should link directly to the job announcement']
   },
+  // body will contain any announcement info we're able to scrape
+  body: {
+    type: String
+  },
   image: {
     type: String
   },
