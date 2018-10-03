@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     auto: true,
   },
   // TODO: id from firebase?
-  firebaseID: {
+  firebase_id: {
     type: String,
     index: true,
     required: true
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Name can be used for first or full name but must be included.']
 },
-  lastName: String,
+  last_name: String,
   email: {
     type: String,
     index: {
@@ -96,7 +96,7 @@ const UserSchema = new Schema({
   }],
   // job interests
   jobs: [{
-    jobID: String, // id of job user is interested in
+    job_id: String, // id of job user is interested in
     // apply this date, 1st interview this date, etc...
     taskList: [{
       date: Date,
