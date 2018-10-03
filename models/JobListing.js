@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
+const validator = require('validator');
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-// Using the Schema constructor, create a new UserSchema object
+// Using the Schema constructor, create a new AddressSchema object
 // This is similar to a Sequelize model
-var JobSchema = new Schema({
+const JobSchema = new Schema({
   // object id
   _id: {
     type: mongoose.Schema.Types.ObjectId,
