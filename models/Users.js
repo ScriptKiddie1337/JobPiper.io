@@ -12,7 +12,6 @@ const UserSchema = new Schema({
     required: true,
     auto: true,
   },
-  // TODO: id from firebase?
   firebase_id: {
     type: String,
     index: true,
@@ -85,7 +84,7 @@ const UserSchema = new Schema({
   },
 
   // job title interests
-  titles: [{
+  job_interests: [{
     title: String,
     desc: String
   }],

@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
+const validator = require('validator');
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const CalendarSchema = new Schema({
     _id: {
@@ -54,6 +54,7 @@ const CalendarSchema = new Schema({
             return validator.isBoolean(repeat)
         }, 'calendar.repeat.invalidBooleanValue']
     },
+    // iterator for repeating events
     nth: {
         type: String,
         validate: [n => {
@@ -64,5 +65,6 @@ const CalendarSchema = new Schema({
         type: Date,
         default: Date.now
     }
-
 })
+
+module.exports = mongoose.model('Calendar', CalendarSchema);
