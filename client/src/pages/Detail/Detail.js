@@ -2,19 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
 
 class Detail extends Component {
   state = {
-    book: {}
+    job: {}
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
-  componentDidMount() {
-    API.getBook(this.props.match.params.id)
-      .then(res => this.setState({ book: res.data }))
-      .catch(err => console.log(err));
-  }
+
 
   render() {
     return (
@@ -23,7 +16,7 @@ class Detail extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {this.state.book.title} by {this.state.book.author}
+                {this.state.job.title} by {this.state.job.author}
               </h1>
             </Jumbotron>
           </Col>
@@ -33,7 +26,7 @@ class Detail extends Component {
             <article>
               <h1>Synopsis</h1>
               <p>
-                {this.state.book.synopsis}
+                {this.state.job.synopsis}
               </p>
             </article>
           </Col>
