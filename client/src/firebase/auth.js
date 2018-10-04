@@ -1,4 +1,4 @@
-import { auth } from './config'
+import { auth, provider } from './config'
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
@@ -19,3 +19,17 @@ export const doPasswordReset = email =>
 // Password Change
 export const doPasswordUpdate = password =>
   auth.currentUser.updatePassword(password)
+
+// Sign in pop up
+export const signInPopUp = () => {
+
+  provider.addScope('profile');
+  provider.addScope('email');
+  auth.signInWithPopup(provider).then(function (result) {
+    // This gives you a Google Access Token.
+    localStorage.setItem("GoogleAccessToken", result.credential.accessToken)
+    // The signed-in user info.
+    localStorage.setItem("GoogleUserInfo", JSON.stringify(result.user))
+  });
+}
+
