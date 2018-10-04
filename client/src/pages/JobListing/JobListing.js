@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Jumbotron from "../../components/Jumbotron";
 import './JobListing.scss'
 
 class JobListing extends Component {
@@ -30,7 +31,10 @@ class JobListing extends Component {
 
   render() {
     return (
-      <h1>Job Listings go here...</h1>
+	<div>
+		<Jumbotron /> 
+		<h1>Job Listings go here...</h1>
+	</div>
     );
   }
 }

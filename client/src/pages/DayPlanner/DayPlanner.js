@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Jumbotron from "../../components/Jumbotron";
 import './DayPlanner.scss'
 
 class DayPlanner extends Component {
@@ -30,7 +31,9 @@ class DayPlanner extends Component {
 
   render() {
     return (
+	<Jumbotron>
       <h1>Day Planner</h1>
+	  </Jumbotron>
     );
   }
 }
