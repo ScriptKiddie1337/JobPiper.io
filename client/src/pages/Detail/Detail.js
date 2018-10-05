@@ -7,7 +7,17 @@ class Detail extends Component {
   state = {
     job: {}
   };
+<<<<<<< HEAD
 
+=======
+  // When this component mounts, grab the job with the _id of this.props.match.params.id
+  // e.g. localhost:3000/jobs/599dcb67f0f16317844583fc
+  componentDidMount() {
+    API.getBook(this.props.match.params.id)
+      .then(res => this.setState({ job: res.data }))
+      .catch(err => console.log(err));
+  }
+>>>>>>> 3d6b98847fb56d3aeb0e7896eaefe45ab0605340
 
   render() {
     return (

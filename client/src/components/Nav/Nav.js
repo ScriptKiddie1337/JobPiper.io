@@ -16,7 +16,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+<<<<<<< HEAD
 // import './Nav.scss'
+=======
+//import './Nav.scss'
+>>>>>>> 3d6b98847fb56d3aeb0e7896eaefe45ab0605340
 
 const styles = theme => ({
   root: {
