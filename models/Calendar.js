@@ -4,12 +4,6 @@ const validator = require('validator');
 const Schema = mongoose.Schema;
 
 const CalendarSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        index: true,
-        required: [true, 'id is required and should be auto-generating'],
-        auto: true,
-    },
     // pull time from date
     date: {
         type: Date,

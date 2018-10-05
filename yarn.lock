@@ -17,8 +17,8 @@
     js-tokens "^4.0.0"
 
 "@types/node@*":
-  version "10.11.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.3.tgz#c055536ac8a5e871701aa01914be5731539d01ee"
+  version "10.11.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.4.tgz#e8bd933c3f78795d580ae41d86590bfc1f4f389d"
 
 abbrev@1:
   version "1.1.1"
@@ -215,7 +215,7 @@ aws4@^1.6.0, aws4@^1.8.0:
 
 axios@^0.18.0:
   version "0.18.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  resolved "http://registry.npmjs.org/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
   dependencies:
     follow-redirects "^1.3.0"
     is-buffer "^1.1.5"
@@ -1267,7 +1267,7 @@ get-stdin@^4.0.1:
 
 get-stream@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+  resolved "http://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
@@ -1304,8 +1304,8 @@ global-dirs@^0.1.0:
     ini "^1.3.4"
 
 globals@^11.7.0:
-  version "11.7.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-11.7.0.tgz#a583faa43055b1aca771914bf68258e2fc125673"
+  version "11.8.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.8.0.tgz#c1ef45ee9bed6badf0663c5cb90e8d1adec1321d"
 
 globby@^5.0.0:
   version "5.0.0"
@@ -1892,7 +1892,11 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
-lodash.get@4.4.2:
+lodash.foreach@^4.1.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
+
+lodash.get@4.4.2, lodash.get@^4.0.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 
@@ -2085,9 +2089,16 @@ mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
+mongoose-unique-validator@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/mongoose-unique-validator/-/mongoose-unique-validator-2.0.2.tgz#a980e68638157cd8fcea86d754eeb2cf67e6bb76"
+  dependencies:
+    lodash.foreach "^4.1.0"
+    lodash.get "^4.0.2"
+
 mongoose@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.3.0.tgz#5deadc5351cbf751c0af2d34f777fa9115a4a225"
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.3.1.tgz#52d5bfb67788a2194e5f7a2a5c0d597e4b86fd7a"
   dependencies:
     async "2.6.1"
     bson "~1.0.5"
@@ -3083,8 +3094,8 @@ spdx-correct@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-exceptions@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/spdx-exceptions/-/spdx-exceptions-2.1.0.tgz#2c7ae61056c714a5b9b9b2b2af7d311ef5c78fe9"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/spdx-exceptions/-/spdx-exceptions-2.2.0.tgz#2ea450aee74f2a89bfb94519c07fcd6f41322977"
 
 spdx-expression-parse@^3.0.0:
   version "3.0.0"
@@ -3179,7 +3190,7 @@ string_decoder@~1.1.1:
 
 strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
+  resolved "http://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
   dependencies:
     ansi-regex "^2.0.0"
 
@@ -3459,6 +3470,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+validator@^10.8.0:
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-10.8.0.tgz#8acb15a5c39411cbc8ef2be0c98c2514da4410a7"
 
 vary@~1.1.2:
   version "1.1.2"

@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 // Save a reference to the Schema constructor
 const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new AddressSchema object
 // This is similar to a Sequelize model
 const JobSchema = new Schema({
-  // object id
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
-    required: [true, 'id is required and should be auto-generating'],
-    auto: true,
-  },
   // `title` is required and of type String
   title: {
     type: String,
@@ -28,9 +20,13 @@ const JobSchema = new Schema({
   body: {
     type: String
   },
+  keywords: [{
+    type: String
+  }],
   image: {
     type: String
   },
+  date: {type: Date, default: Date.now}
 });
 
 // Export the JobListing model

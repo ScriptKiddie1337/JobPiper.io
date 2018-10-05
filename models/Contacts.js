@@ -6,12 +6,6 @@ const validator = require('validator');
 const Schema = mongoose.Schema;
 
 const ContactSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        index: true,
-        required: true,
-        auto: true,
-    },
     Name: { // european standard is to do full name as one. Last name field is an american standard only
         type: String,
         required: [true, 'Name can be used for first or full name but must be included.']

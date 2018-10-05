@@ -6,12 +6,6 @@ const validator = require('validator');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
-    required: true,
-    auto: true,
-  },
   firebase_id: {
     type: String,
     index: true,
@@ -115,4 +109,4 @@ UserSchema.plugin(uniqueValidator, {
 });
 
 // Export the Users model
-module.exports = mongoose.model("Users", UsersSchema);
+module.exports = mongoose.model("Users", UserSchema);
