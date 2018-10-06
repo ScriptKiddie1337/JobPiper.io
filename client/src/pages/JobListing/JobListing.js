@@ -3,9 +3,10 @@ import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from "../../components/Jumbotron";
 import { Col, Row, Container } from "../../components/Grid";
 import Grid from '@material-ui/core/Grid';
-import LabelBottomNavigation from '../../components/Footer/Footer'
-import './JobListing.scss'
+import LabelBottomNavigation from '../../components/Footer/Footer';
+import './JobListing.scss';
 //import { Table } from "@material-ui/core";
+import JobSearch from '../../components/JobSearch';
 
 class JobListing extends Component {
   state = {
@@ -36,7 +37,8 @@ class JobListing extends Component {
 
   render() {
     return (
-	<div style={{backgroundColor: '#8BC34A'}}>
+	<div style={{backgroundColor: 'red'}}>
+  <JobSearch></JobSearch>
   
 	</div>
     );

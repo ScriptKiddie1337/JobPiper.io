@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-
+import JobListing from '../../pages/JobListing';
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -59,7 +59,7 @@ class ScrollableTabsButtonAuto extends React.Component {
         </AppBar>
         {value === 0 && <TabContainer>Home</TabContainer>}
         {value === 1 && <TabContainer>Day Planner</TabContainer>}
-        {value === 2 && <TabContainer>Job Search</TabContainer>}
+        {value === 2 && <TabContainer><JobListing></JobListing></TabContainer>}
         {value === 3 && <TabContainer>Company News</TabContainer>}
         {value === 4 && <TabContainer>Meetups</TabContainer>}
       </div>
