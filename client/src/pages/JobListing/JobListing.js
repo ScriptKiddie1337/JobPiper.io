@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from "../../components/Jumbotron";
+import { Col, Row, Container } from "../../components/Grid";
 import './JobListing.scss'
+//import { Table } from "@material-ui/core";
 
 class JobListing extends Component {
   state = {
@@ -31,9 +34,14 @@ class JobListing extends Component {
 
   render() {
     return (
-	<div>
-		<Jumbotron /> 
-		<h1>Job Listings go here...</h1>
+	<div style={{backgroundColor: '#76FF03'}}>
+		<Jumbotron />
+		<Container>
+			<ScrollableTabsButtonAuto />
+			
+		</Container>
+		
+			
 	</div>
     );
   }
