@@ -36,7 +36,7 @@ class Home extends Component {
 
   render() {
     return (
-	<div style={{backgroundColor: '#8BC34A'}}>
+	<div>
   <Jumbotron />
    <Grid>
     <Grid item xs={12} md={9}>
