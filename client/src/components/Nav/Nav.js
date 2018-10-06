@@ -37,7 +37,7 @@ const styles = theme => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+	borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.black, 0.25),
@@ -161,7 +161,7 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className='appBar' style={{backgroundColor: '#FFD740'}}>
+        <AppBar position="static" className='appBar'>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
@@ -194,7 +194,7 @@ class PrimarySearchAppBar extends React.Component {
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
-                color="inherit"
+                color="secondary"
               >
                 <AccountCircle />
               </IconButton>
