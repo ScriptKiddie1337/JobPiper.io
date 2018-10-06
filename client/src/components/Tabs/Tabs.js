@@ -41,20 +41,20 @@ class ScrollableTabsButtonAuto extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" style={{backgroundColor: '#8BC34A', borderBottom: '10px solid #FFD740'}}>
+        <AppBar position="static" style={{borderBottom: '10px solid #FFD740'}}>
           <Tabs
             value={value}
             onChange={this.handleChange}
             indicatorColor="primary"
-            textColor="primary"
+            textColor="inherit"
             scrollable
             scrollButtons="auto" 
           >
-            <Tab label="Home" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Day Planner" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Job Search" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Company News" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Meetups" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Home" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Day Planner" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Job Search" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Company News" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Meetups" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer>Home</TabContainer>}

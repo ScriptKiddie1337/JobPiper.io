@@ -8,10 +8,39 @@ import DayPlanner from "./pages/DayPlanner";
 import Profile from "./pages/Profile";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+	palette: {
+	  primary: {
+		light: '#819ca9',
+		main: '#546e7a',
+		dark: '#29434e',
+		
+	  },
+	  secondary: {
+		light: '#ffff6b',
+		main: '#fdd835',
+		dark: '#c6a700',
+		
+	  },
+	  //error: '#ff1744',
+	  // Used by `getContrastText()` to maximize the contrast between the background and
+	  // the text.
+	  contrastThreshold: 3,
+	  // Used to shift a color's luminance by approximately
+	  // two indexes within its tonal palette.
+	  // E.g., shift from Red 500 to Red 300 or Red 700.
+	  tonalOffset: 0.2,
+	},
+
+  });
 
 const App = () => (
   <Router>
-    <div>
+    <MuiThemeProvider theme={theme}>
+	  <CssBaseline />
       <Nav />
       <Switch>
         <Route exact path="/" component={Login} />
@@ -24,7 +53,7 @@ const App = () => (
 		<Route path="/dayplanner/:id" component={DayPlanner} />
         <Route component={NoMatch} />
       </Switch>
-    </div>
+    </MuiThemeProvider>
   </Router>
 );
 

@@ -37,7 +37,7 @@ const styles = theme => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+	borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.black, 0.25),
@@ -58,10 +58,9 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black'
   },
   inputRoot: {
-    color: 'black',
+    color: 'inherit',
     width: '100%',
   },
   inputInput: {
@@ -162,12 +161,12 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className='appBar' style={{backgroundColor: '#FFD740'}}>
+        <AppBar position="static" className='appBar'>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="black" aria-label="Open drawer">
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="title" color="black" noWrap>
+            <Typography className={classes.title} variant="title" color="inherit" noWrap>
               Jobs
             </Typography>
             <div className={classes.search}>
@@ -185,23 +184,23 @@ class PrimarySearchAppBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="black">
+              <IconButton color="secondary">
                   <MailIcon />
               </IconButton>
-              <IconButton color="black">
+              <IconButton color="secondary">
                   <NotificationsIcon />
               </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
-                color="black"
+                color="secondary"
               >
                 <AccountCircle />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="black">
+              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MoreIcon />
               </IconButton>
             </div>

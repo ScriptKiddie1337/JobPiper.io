@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from "../../components/Jumbotron";
-//import { Col, Row, Container } from "../../components/Grid";
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer'
 
@@ -36,18 +35,16 @@ class Home extends Component {
 
   render() {
     return (
-	<div style={{backgroundColor: '#8BC34A'}}>
+	<div>
   <Jumbotron />
-   <Grid>
+   <Grid container>
+   <Grid item xs={12} md={3}>
+   </Grid>
     <Grid item xs={12} md={9}>
-      <Grid>
-		  
 			    <ScrollableTabsButtonAuto />
-		      <LabelBottomNavigation />
-		    
-      </Grid>
     </Grid>
   </Grid>
+		      <LabelBottomNavigation />
 	</div>
     );
   }

@@ -11,6 +11,12 @@ const JobSchema = new Schema({
     index: true,
     required: [true, 'The title must be supplied']
   },
+  // Site name the job was pulled from
+  site: {
+    type: String,
+    index: true,
+    required: [true, 'Site is required for filtering purposes']
+  },
   // `link` is required and of type String
   link: {
     type: String,
