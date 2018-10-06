@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 import { firebase } from '../firebase'
 import { config } from '../firebase/config'
-import SelectInput from '@material-ui/core/Select/SelectInput';
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
