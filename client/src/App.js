@@ -17,13 +17,13 @@ const theme = createMuiTheme({
 		light: '#819ca9',
 		main: '#546e7a',
 		dark: '#29434e',
-		contrastText: '#ffffff',
+		
 	  },
 	  secondary: {
 		light: '#ffff6b',
 		main: '#fdd835',
 		dark: '#c6a700',
-		contrastText: '#000000',
+		
 	  },
 	  //error: '#ff1744',
 	  // Used by `getContrastText()` to maximize the contrast between the background and
