@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from "../../components/Jumbotron";
-import { Col, Row, Container } from "../../components/Grid";
+//import { Col, Row, Container } from "../../components/Grid";
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer'
-import './JobListing.scss'
+
 //import { Table } from "@material-ui/core";
 
-class JobListing extends Component {
+class Home extends Component {
   state = {
     jobs: [],
     title: "",
@@ -37,10 +37,20 @@ class JobListing extends Component {
   render() {
     return (
 	<div style={{backgroundColor: '#8BC34A'}}>
-  
+  <Jumbotron />
+   <Grid>
+    <Grid item xs={12} md={9}>
+      <Grid>
+		  
+			    <ScrollableTabsButtonAuto />
+		      <LabelBottomNavigation />
+		    
+      </Grid>
+    </Grid>
+  </Grid>
 	</div>
     );
   }
 }
 
-export default JobListing;
+export default Home;
