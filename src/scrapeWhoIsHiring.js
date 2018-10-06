@@ -64,7 +64,7 @@ function scrapeWhoIsHiring(url, res) {
           title: result.title,
           keywords: result.keywords,
           body: result.body,
-          site: result.site // remove from query and throw if insert
+          site: result.site
         }
         const record = Object.assign({date:Date.now()}, query)
         // instead of using create, I use findOneAndUpdate
