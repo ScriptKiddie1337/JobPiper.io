@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
-// import API from "../../utils/API";
-// import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../../components/Grid";
-// import { List, ListItem } from "../../components/List";
-// import { Input, TextArea, FormBtn } from "../../components/Form";
+//import { Col, Row, Container } from "../../components/Grid";
 import './Login.scss'
+
 
 class Login extends Component {
   state = {
@@ -37,7 +32,9 @@ class Login extends Component {
 
   render() {
     return (
-      <h1>Login</h1>
+      <div>
+       <img src="https://images.pexels.com/photos/277593/pexels-photo-277593.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt='Doors' />
+      </div>
     );
   }
 }

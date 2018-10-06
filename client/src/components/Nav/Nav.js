@@ -16,7 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-// import './Nav.scss'
+import './Nav.scss'
 
 const styles = theme => ({
   root: {
@@ -38,9 +38,9 @@ const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.25),
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
@@ -58,9 +58,10 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'black'
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'black',
     width: '100%',
   },
   inputInput: {
@@ -161,12 +162,12 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className='appBar' style={{backgroundColor: '#FFD740'}}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            <IconButton className={classes.menuButton} color="black" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
+            <Typography className={classes.title} variant="title" color="black" noWrap>
               Jobs
             </Typography>
             <div className={classes.search}>
@@ -184,23 +185,23 @@ class PrimarySearchAppBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
+              <IconButton color="black">
                   <MailIcon />
               </IconButton>
-              <IconButton color="inherit">
+              <IconButton color="black">
                   <NotificationsIcon />
               </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
-                color="inherit"
+                color="black"
               >
                 <AccountCircle />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="black">
                 <MoreIcon />
               </IconButton>
             </div>
