@@ -20,11 +20,10 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-	width: '85%',
-	float: 'right',
-    backgroundColor: 'gold',
+  flexGrow: 1,
+	width: '100%',
   },
+  
 });
 
 class ScrollableTabsButtonAuto extends React.Component {
@@ -42,31 +41,27 @@ class ScrollableTabsButtonAuto extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" style={{backgroundColor: '#8BC34A', borderBottom: '10px solid #FFD740'}}>
           <Tabs
             value={value}
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
             scrollable
-            scrollButtons="auto"
+            scrollButtons="auto" 
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
-            <Tab label="Item Six" />
-            <Tab label="Item Seven" />
+            <Tab label="Home" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Day Planner" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Job Search" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Company News" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Meetups" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Item One</TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
-        {value === 3 && <TabContainer>Item Four</TabContainer>}
-        {value === 4 && <TabContainer>Item Five</TabContainer>}
-        {value === 5 && <TabContainer>Item Six</TabContainer>}
-        {value === 6 && <TabContainer>Item Seven</TabContainer>}
+        {value === 0 && <TabContainer>Home</TabContainer>}
+        {value === 1 && <TabContainer>Day Planner</TabContainer>}
+        {value === 2 && <TabContainer>Job Search</TabContainer>}
+        {value === 3 && <TabContainer>Company News</TabContainer>}
+        {value === 4 && <TabContainer>Meetups</TabContainer>}
       </div>
     );
   }
