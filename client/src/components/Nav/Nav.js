@@ -16,7 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-// import './Nav.scss'
+import './Nav.scss'
 
 const styles = theme => ({
   root: {
@@ -37,10 +37,10 @@ const styles = theme => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+	borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.25),
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
@@ -161,7 +161,7 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className='appBar'>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
@@ -184,17 +184,17 @@ class PrimarySearchAppBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
+              <IconButton color="secondary">
                   <MailIcon />
               </IconButton>
-              <IconButton color="inherit">
+              <IconButton color="secondary">
                   <NotificationsIcon />
               </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
-                color="inherit"
+                color="secondary"
               >
                 <AccountCircle />
               </IconButton>
