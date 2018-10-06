@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+// import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
+// import Jumbotron from "../../components/Jumbotron";
+// import { Col, Row, Container } from "../../components/Grid";
+// import Grid from '@material-ui/core/Grid';
+//import LabelBottomNavigation from '../../components/Footer/Footer'
 import './JobListing.scss'
+//import { Table } from "@material-ui/core";
 
 class JobListing extends Component {
   state = {
@@ -30,7 +36,9 @@ class JobListing extends Component {
 
   render() {
     return (
-      <h1>Job Listings go here...</h1>
+	<div style={{backgroundColor: '#8BC34A'}}>
+  
+	</div>
     );
   }
 }

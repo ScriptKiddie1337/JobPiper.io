@@ -8,7 +8,6 @@ class Detail extends Component {
     job: {}
   };
 
-
   render() {
     return (
       <Container fluid>

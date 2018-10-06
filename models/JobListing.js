@@ -20,9 +20,13 @@ const JobSchema = new Schema({
   body: {
     type: String
   },
+  keywords: [{
+    type: String
+  }],
   image: {
     type: String
   },
+  date: {type: Date, default: Date.now}
 });
 
 // Export the JobListing model
