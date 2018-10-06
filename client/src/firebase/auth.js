@@ -25,6 +25,7 @@ export const signInPopUp = () => {
 
   provider.addScope('profile');
   provider.addScope('email');
+  provider.addScope('https://www.googleapis.com/auth/calendar')
   auth.signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token.
     localStorage.setItem("GoogleAccessToken", result.credential.accessToken)

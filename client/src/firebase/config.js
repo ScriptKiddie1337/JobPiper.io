@@ -9,6 +9,15 @@ const config = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_SENDER_ID,
+  clientId: process.env.GOOGLE_CLIENT_ID,
+  scopes: [
+    "email",
+    "profile",
+    "https://www.googleapis.com/auth/calendar"
+  ],
+  discoveryDocs: [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  ]
 }
 
 
@@ -24,5 +33,6 @@ const provider = new firebase.auth.GoogleAuthProvider()
 export {
   db,
   auth,
-  provider
+  provider,
+  config
 }
