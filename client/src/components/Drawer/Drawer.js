@@ -4,13 +4,12 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+//import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+//import TextField from '@material-ui/core/TextField';
+//import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+
 
 const drawerWidth = 240;
 
@@ -27,7 +26,8 @@ const styles = theme => ({
     width: '100%',
   },
   appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
+	// width: `calc(100% - ${drawerWidth}px)`,
+	width: '100%'
   },
   'appBar-left': {
     marginLeft: drawerWidth,
@@ -72,9 +72,9 @@ class PermanentDrawer extends React.Component {
       >
         <div className={classes.toolbar} />
         <Divider />
-        <List>{mailFolderListItems}</List>
+        <List></List>
         <Divider />
-        <List>{otherMailFolderListItems}</List>
+        <List></List>
       </Drawer>
     );
 
@@ -89,33 +89,16 @@ class PermanentDrawer extends React.Component {
 
     return (
       <div className={classes.root}>
-        <TextField
-          id="permanent-anchor"
-          select
-          label="Anchor"
-          value={anchor}
-          onChange={this.handleChange}
-          margin="normal"
-        >
-          <MenuItem value="left">left</MenuItem>
-          <MenuItem value="right">right</MenuItem>
-        </TextField>
+    
         <div className={classes.appFrame}>
           <AppBar
             position="absolute"
             className={classNames(classes.appBar, classes[`appBar-${anchor}`])}
           >
-            <Toolbar>
-              <Typography variant="title" color="inherit" noWrap>
-                Permanent drawer
-              </Typography>
-            </Toolbar>
+           
           </AppBar>
           {before}
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Typography>{'You think water moves fast? You should see ice.'}</Typography>
-          </main>
+          
           {after}
         </div>
       </div>

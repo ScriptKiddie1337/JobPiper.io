@@ -11,7 +11,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 const styles = {
   root: {
     width: '100vw',
-    backgroundColor: '#FFD740'
+    backgroundColor: '#fdd835'
   },
 };
 
