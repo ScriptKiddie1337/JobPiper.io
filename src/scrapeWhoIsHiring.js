@@ -44,7 +44,8 @@ function scrapeWhoIsHiring(url, res) {
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch),
-            body: $p
+            body: $p,
+            site: 'yCombinator'
           });
         }
       })
@@ -63,13 +64,14 @@ function scrapeWhoIsHiring(url, res) {
           title: result.title,
           keywords: result.keywords,
           body: result.body,
-          date: Date.now()
+          site: result.site // remove from query and throw if insert
         }
+        const record = Object.assign({date:Date.now()}, query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
         // in parameters. This avoids duplicate data being scraped.
-        db.JobListing.findOneAndUpdate(query, query, {upsert:true})
+        db.JobListing.findOneAndUpdate(query, record, {upsert:true})
           .then(function (dbJob) {
             // View the added result in the console
             dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
