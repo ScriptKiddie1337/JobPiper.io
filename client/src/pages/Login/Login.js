@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { signInPopUp } from "../../firebase/auth";
 
 import './Login.scss'
@@ -33,7 +34,9 @@ class Login extends Component {
 
   render() {
     return (
-      <h1>Login</h1>
+      <div>
+        <img src="https://images.pexels.com/photos/277593/pexels-photo-277593.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt='Doors' />
+      </div>
     );
   }
 }

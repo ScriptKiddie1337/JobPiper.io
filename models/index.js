@@ -1,4 +1,7 @@
 module.exports = {
+  Address: require("./Address"),
+  Calendar: require("./Calendar"),
+  Contacts: require("./Contacts"),
   JobListing: require("./JobListing"),
-  //UserNote: require("./UserNote")
+  Users: require("./Users")
 };

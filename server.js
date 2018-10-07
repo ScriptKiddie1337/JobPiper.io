@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
-const scrapeYCombinator = require('./src/scrapeYCombinator')
+const scrapeWhoIsHiring = require('./src/scrapeWhoIsHiring')
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +25,7 @@ mongoose.connect(MONGODB_URI);
 
 const rootLoad = async (req, res) => {
 	// scrape updated listings
-	await scrapeYCombinator('https://news.ycombinator.com/jobs', res, 0)
+	await scrapeWhoIsHiring('https://news.ycombinator.com/item?id=18113144', res)
 
 	// GET route for root will scrape the most recent listings and then send the html
 	await app.get('/', function (req, res) {

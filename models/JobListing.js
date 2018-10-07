@@ -1,23 +1,21 @@
-var mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-// Using the Schema constructor, create a new UserSchema object
+// Using the Schema constructor, create a new AddressSchema object
 // This is similar to a Sequelize model
-var JobSchema = new Schema({
-  // object id
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
-    required: [true, 'id is required and should be auto-generating'],
-    auto: true,
-  },
+const JobSchema = new Schema({
   // `title` is required and of type String
   title: {
     type: String,
     index: true,
     required: [true, 'The title must be supplied']
+  },
+  // Site name the job was pulled from
+  site: {
+    type: String,
+    index: true,
+    required: [true, 'Site is required for filtering purposes']
   },
   // `link` is required and of type String
   link: {
@@ -28,9 +26,13 @@ var JobSchema = new Schema({
   body: {
     type: String
   },
+  keywords: [{
+    type: String
+  }],
   image: {
     type: String
   },
+  date: {type: Date, default: Date.now}
 });
 
 // Export the JobListing model
