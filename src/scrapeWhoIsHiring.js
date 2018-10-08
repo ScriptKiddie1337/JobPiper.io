@@ -56,7 +56,8 @@ function scrapeWhoIsHiring(url, res) {
           el.substring(0, el.indexOf('<p>'))
           .trim()
           .replace(/ *\([^)]*\) */g, "")
-          .replace(/ *\<[^)]*\> */g, "") :
+          .replace(/ *\<[^)]*\> */g, "")
+          .replace(/\-/g, ' ') :
           null).split('|').map(word => word.trim());
       }
       function createJob(result) {

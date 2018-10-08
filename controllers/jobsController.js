@@ -16,8 +16,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findByTerm: function(req, res) {
+    let term = req.params.term.replace(/\+/g, ' ')
     db.JobListing
-      .find({"keywords": {$regex : `.*(?i)${req.params.term}(?-i).*`} })
+      .find({"keywords": {$regex : `.*(?i)${term}(?-i).*`} })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
