@@ -36,7 +36,16 @@ const theme = createMuiTheme({
       textColorInherit: { // Name of the rule
 				color: 'black', // Some CSS
 			},
-    },
+		},
+		MuiTypography: {
+			root:{
+			backgroundColor: 'white',
+			minHeight: '65vh',
+			border: '2px solid #FFD740',
+			borderRadius: '0px 0px 10px 10px',
+			marginRight: "500px"
+		}
+		}
   },
   });
 
