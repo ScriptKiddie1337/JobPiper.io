@@ -44,7 +44,7 @@ class ScrollableTabsButtonAuto extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" style={{borderBottom: '10px solid #FFD740'}}>
+        <AppBar position="static">
           <Tabs
             value={value}
             onChange={this.handleChange}
@@ -53,11 +53,11 @@ class ScrollableTabsButtonAuto extends React.Component {
             scrollable
             scrollButtons="auto" 
           >
-            <Tab label="Home" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Day Planner" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Job Search" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Company News" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Meetups" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Home" />
+            <Tab label="Day Planner" />
+            <Tab label="Job Search" />
+            <Tab label="Company News" />
+            <Tab label="Meetups" />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer></TabContainer>}
