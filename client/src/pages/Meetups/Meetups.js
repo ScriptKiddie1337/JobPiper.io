@@ -3,9 +3,9 @@ import Jumbotron from "../../components/Jumbotron";
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import { Typography } from "@material-ui/core";
-import './DayPlanner.scss'
 
-class DayPlanner extends Component {
+
+class Meetups extends Component {
   state = {
     jobs: [],
     title: "",
@@ -16,7 +16,7 @@ class DayPlanner extends Component {
   };
 
   componentDidMount() {
-    // this.loadDayPlanner();
+    // this.loadMeetups();
   }
 ;
 
@@ -35,10 +35,10 @@ class DayPlanner extends Component {
   render() {
     return (
       <div>
-  		dayplanner
+  		Meet Ups
 	</div>
     );
   }
 }
 
-export default DayPlanner;
+export default Meetups;

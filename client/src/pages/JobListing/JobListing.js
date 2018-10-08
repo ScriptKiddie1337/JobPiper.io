@@ -35,8 +35,8 @@ class JobListing extends Component {
 
   render() {
     return (
-	<div style={{backgroundColor: '#8BC34A'}}>
-  
+	<div >
+      Jobs!
 	</div>
     );
   }
