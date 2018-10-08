@@ -50,7 +50,7 @@ class Home extends Component {
               </Grid>
           </Hidden>
     			<Grid item xs={12} md={10}>
-			    	<ScrollableTabsButtonAuto />
+			    	<ScrollableTabsButtonAuto /> 
     			</Grid>
   			</Grid>
 		<LabelBottomNavigation />
