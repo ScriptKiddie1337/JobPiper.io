@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Home from '../../pages/Home';
+import DayPlanner from '../../pages/DayPlanner';
+import JobListing from '../../pages/JobListing';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -50,18 +53,18 @@ class ScrollableTabsButtonAuto extends React.Component {
             scrollable
             scrollButtons="auto" 
           >
-            <Tab label="Home" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Day Planner" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Job Search" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Company News" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
-            <Tab label="Meetups" style={{margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Home" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Day Planner" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Job Search" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Company News" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
+            <Tab label="Meetups" style={{backgroundColor: '#FFD740', margin: '0px 0px 0px 20px', borderRadius: '10px 10px 0px 0px'}} />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer>Home</TabContainer>}
-        {value === 1 && <TabContainer>Day Planner</TabContainer>}
-        {value === 2 && <TabContainer>Job Search</TabContainer>}
-        {value === 3 && <TabContainer>Company News</TabContainer>}
-        {value === 4 && <TabContainer>Meetups</TabContainer>}
+        {value === 0 && <TabContainer></TabContainer>}
+        {value === 1 && <TabContainer><DayPlanner /></TabContainer>}
+        {value === 2 && <TabContainer><JobListing /></TabContainer>}
+        {value === 3 && <TabContainer></TabContainer>}
+        {value === 4 && <TabContainer></TabContainer>}
       </div>
     );
   }

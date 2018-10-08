@@ -17,6 +17,7 @@ const theme = createMuiTheme({
 	  contrastThreshold: 3,
 	  tonalOffset: 0.2,
 	},
+	
   });
 
   export default theme;

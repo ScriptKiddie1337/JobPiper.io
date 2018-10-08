@@ -8,10 +8,15 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
+
 const styles = {
   root: {
     width: '100vw',
-    backgroundColor: '#fdd835'
+    backgroundColor: '#fdd835',
+    position: "fixed",
+    left: 0,
+    bottom: 0,
+    textAlign: "center",
   },
 };
 
