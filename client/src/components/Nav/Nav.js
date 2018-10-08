@@ -163,15 +163,12 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className='appBar'>
           <Toolbar>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              Jobs
-            </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
               <Input
-                placeholder="Search…"
+                placeholder="Search Jobs…"
                 disableUnderline
                 classes={{
                   root: classes.inputRoot,
@@ -179,14 +176,9 @@ class PrimarySearchAppBar extends React.Component {
                 }}
               />
             </div>
+            <div>Jobs</div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="secondary">
-                  <MailIcon />
-              </IconButton>
-              <IconButton color="secondary">
-                  <NotificationsIcon />
-              </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
