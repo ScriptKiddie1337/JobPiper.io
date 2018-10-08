@@ -6,6 +6,8 @@ import React, { Component } from "react";
 import './JobListing.scss'
 //import { Table } from "@material-ui/core";
 import JobSearch from '../../components/JobSearch';
+import JobListingDetails from './JobListingDetails';
+import JobListingList from './JobListingList';
 
 class JobListing extends Component {
   state = {
@@ -38,7 +40,8 @@ class JobListing extends Component {
     return (
 	<div style={{backgroundColor: 'red'}}>
   <JobSearch></JobSearch>
-  
+  <JobListingList></JobListingList>
+  <JobListingDetails></JobListingDetails>
 	</div>
     );
   }
