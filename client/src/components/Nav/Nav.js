@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 //import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -163,15 +163,12 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className='appBar'>
           <Toolbar>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              Jobs
-            </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
               <Input
-                placeholder="Search…"
+                placeholder="Search Jobs…"
                 disableUnderline
                 classes={{
                   root: classes.inputRoot,
@@ -179,14 +176,9 @@ class PrimarySearchAppBar extends React.Component {
                 }}
               />
             </div>
+            <div>Jobs</div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="secondary">
-                  <MailIcon />
-              </IconButton>
-              <IconButton color="secondary">
-                  <NotificationsIcon />
-              </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"

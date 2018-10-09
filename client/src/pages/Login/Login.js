@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Nav from '../../components/Nav'
 
 import './Login.scss'
 
@@ -33,6 +34,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <Nav />
        <img src="https://images.pexels.com/photos/277593/pexels-photo-277593.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt='Doors' />
       </div>
     );
