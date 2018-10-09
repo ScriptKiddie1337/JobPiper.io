@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import HomeIcons from '../../components/HomeIcons';
 import Hidden from '@material-ui/core/Hidden';
-
+import './Home.scss'
 // import { Typography } from '@material-ui/core';
 // import { Table } from '@material-ui/core';
 
@@ -41,13 +41,7 @@ class Home extends Component {
     return (
 	<div>
   		<Jumbotron>
-		 
-		  	<Grid container>
-			  	<Grid item xs={3}>
-					<img src='../../Images/favicon.png' alt='Brand Logo'></img>
-				</Grid>
-			</Grid>
-		 
+		  
 		</Jumbotron>
         <Grid container>
           <Hidden smDown>

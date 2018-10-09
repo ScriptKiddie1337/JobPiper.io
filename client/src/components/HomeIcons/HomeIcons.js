@@ -1,5 +1,5 @@
-
 import React from "react";
+import { Grid } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@mdi/react'
 import { mdiSettings } from '@mdi/js'
@@ -9,7 +9,8 @@ import { mdiLogoutVariant } from '@mdi/js'
 class HomeIcons extends React.Component {
     render () {
     return (
-        <div>
+        <Grid container>
+          <Grid item xs={12}>
             <IconButton
                 size={3}
                 aria-haspopup="true"
@@ -22,6 +23,8 @@ class HomeIcons extends React.Component {
                   color='fdd835' />
                 <p>Profile</p>
               </IconButton>
+          </Grid>
+          <Grid item xs={12}>
               <IconButton
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
@@ -34,6 +37,8 @@ class HomeIcons extends React.Component {
                 />
                 <p>Settings</p>
               </IconButton>
+          </Grid>
+          <Grid item xs={12}>
               <IconButton
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
@@ -46,7 +51,8 @@ class HomeIcons extends React.Component {
                 />
                 <p>Log Out</p>
               </IconButton>
-              </div>
+          </Grid>
+        </Grid>
             )
     }
 }

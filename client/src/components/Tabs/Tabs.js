@@ -10,7 +10,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-
+import MemoryRouter from 'react-router/MemoryRouter';
+import NoSsr from '@material-ui/core/NoSsr';
 
 function TabContainer(props) {
   return (
@@ -46,34 +47,36 @@ class ScrollableTabsButtonAuto extends React.Component {
     const { value } = this.state;
 
     return (
-   
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="inherit"
-            scrollable
-            scrollButtons="auto" 
-          >
-            <Tab label="Home" />
-            <Tab label="Day Planner" />
-            <Tab label="Job Search" />
-            <Tab label="Company News" />
-            <Tab label="Meetups" />
-          </Tabs>
-        </AppBar>
-        {value === 0 && 
-        <TabContainer>
-          <HomeGrid />
-        </TabContainer>}
-        {value === 1 && <TabContainer><DayPlanner /></TabContainer>}
-        {value === 2 && <TabContainer><JobListing /></TabContainer>}
-        {value === 3 && <TabContainer><CompanyNews /></TabContainer>}
-        {value === 4 && <TabContainer><Meetups /></TabContainer>}
-      </div>
-     
+      <NoSsr>
+        <MemoryRouter initialEntries={['/home']} initialIndex={0}>
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Tabs
+                value={value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="inherit"
+                scrollable
+                scrollButtons="auto" 
+              >
+              <Tab label="Home" />
+              <Tab label="Day Planner" />
+              <Tab label="Job Search" />
+              <Tab label="Company News" />
+              <Tab label="Meetups" />
+              </Tabs>
+            </AppBar>
+            {value === 0 && 
+            <TabContainer>
+              <HomeGrid />
+            </TabContainer>}
+            {value === 1 && <TabContainer to="/dayplanner"><DayPlanner /></TabContainer>}
+            {value === 2 && <TabContainer to="/jobs"><JobListing /></TabContainer>}
+            {value === 3 && <TabContainer to="/companynews"><CompanyNews /></TabContainer>}
+            {value === 4 && <TabContainer to="/meetups"><Meetups /></TabContainer>}
+          </div>
+        </MemoryRouter>
+      </NoSsr>
     );
   }
 }

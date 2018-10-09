@@ -36,7 +36,7 @@ class DayPlanner extends Component {
     return (
       <div>
   		dayplanner
-	</div>
+	  </div>
     );
   }
 }
