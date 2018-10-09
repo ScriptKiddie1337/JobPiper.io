@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { firebase, auth, config } from '../firebase'
+import { firebase, auth } from '../firebase'
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
@@ -39,10 +39,10 @@ const withAuthentication = Component => {
             // Syntax below informs eslint that gapi was defined by the script loaded
             function initClient() {
               gapi.client.init({
-                apiKey: config.apiKey,
-                clientId: config.clientId,
-                discoveryDocs: config.discoveryDocs,
-                scope: config.scopes.join(' ')
+                apiKey: firebase.config.apiKey,
+                clientId: firebase.config.clientId,
+                discoveryDocs: firebase.config.discoveryDocs,
+                scope: firebase.config.scopes.join(' ')
               })
                 // Loading is finished, so start the app
                 .then(function () {
