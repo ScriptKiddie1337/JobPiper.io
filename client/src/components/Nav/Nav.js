@@ -15,6 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
@@ -27,12 +28,7 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
+ 
   search: {
     position: 'relative',
 	borderRadius: theme.shape.borderRadius,
@@ -165,9 +161,11 @@ class PrimarySearchAppBar extends React.Component {
 			  	    <Grid item xs={2} >
 					      <img src='../../Images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20}}></img>
 				      </Grid>
+              <Hidden smDown>
               <Grid item xs={9} >
             <Typography style={{margin: '20px 0px -10px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
               </Grid>
+              </Hidden>
               <Grid item xs={1}>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
