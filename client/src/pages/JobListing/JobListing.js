@@ -40,8 +40,6 @@ class JobListing extends Component {
     return (
 	<div style={{backgroundColor: 'red'}}>
   <JobSearch></JobSearch>
-  <JobListingList></JobListingList>
-  <JobListingDetails></JobListingDetails>
 	</div>
     );
   }

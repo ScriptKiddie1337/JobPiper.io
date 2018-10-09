@@ -5,6 +5,8 @@ import Input from '@material-ui/core/Input';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import './JobSearch.scss'
 
 const styles = theme => ({
   root: {
@@ -80,25 +82,24 @@ function SearchAppBar(props) {
             Search For Your Next Career
           </Typography>
         </Grid>
-       
-        <div className={classes.grow} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-          
-            </div>
-            <Grid item xs={12}>
-              <Input
-                placeholder="Search Jobs…"
-                disableUnderline
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="filled-full-width"
+            label="Label"
+            style={{ margin: 8 }}
+            placeholder="Placeholder"
+            helperText="Full width!"
+            fullWidth
+            margin="normal"
+            variant="filled"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
         
-          </div>
-      </Grid>     
+    
+      </Grid>{/* End Grid Container */}     
     </div>
   );
 }
