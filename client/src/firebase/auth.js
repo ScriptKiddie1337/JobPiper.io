@@ -34,3 +34,8 @@ export const signInPopUp = () => {
   });
 }
 
+export const refreshToken = () => {
+
+  auth.currentUser.refreshToken()
+}
+
