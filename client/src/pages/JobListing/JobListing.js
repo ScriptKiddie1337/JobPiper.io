@@ -4,25 +4,24 @@ import React, { Component } from "react";
 // import Grid from '@material-ui/core/Grid';
 //import LabelBottomNavigation from '../../components/Footer/Footer'
 import './JobListing.scss'
+import JobListingList from '../../components/JobSearch/JobListingList'
 //import { Table } from "@material-ui/core";
-import JobSearch from '../../components/JobSearch';
-import JobListingDetails from './JobListingDetails';
-import JobListingList from './JobListingList';
 
 class JobListing extends Component {
   state = {
     jobs: [],
-    title: "",
-    link: "",
-    image: "",
     note: [],
     contact: []
   };
 
   componentDidMount() {
-    // this.loadJobListing();
+    fetch('/api/jobs')
+      .then(response => response.json())
+      .then(data => this.setState({ jobs:data }, 
+        // () => console.log(this.state.jobs)
+        ));
   }
-;
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -39,7 +38,7 @@ class JobListing extends Component {
   render() {
     return (
 	<div style={{backgroundColor: 'red'}}>
-  <JobSearch></JobSearch>
+  <JobListingList jobs={this.state.jobs} />
 	</div>
     );
   }
