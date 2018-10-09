@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Jumbotron from "../../components/Jumbotron";
-import Grid from '@material-ui/core/Grid';
-import LabelBottomNavigation from '../../components/Footer/Footer';
-import { Typography } from "@material-ui/core";
+// import Jumbotron from "../../components/Jumbotron";
+// import Grid from '@material-ui/core/Grid';
+// import LabelBottomNavigation from '../../components/Footer/Footer';
+// import { Typography } from "@material-ui/core";
 
 
 class CompanyNews extends Component {

@@ -23,10 +23,12 @@
   resolved "https://registry.yarnpkg.com/@mdi/js/-/js-2.8.94.tgz#67b612f6ff5c92558b53106c223afc8efa9621fe"
   integrity sha512-5gJo40z/9CUrHHOSy5ExHXhOB3tikSZy+vVEFl3w6G+eAzursWu2dOgpzzew/URshcmxowbx1F30Dj0WIRcbmQ==
 
+
 "@mdi/react@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@mdi/react/-/react-1.0.1.tgz#abad5797862df94eac853b33b3d80c1fa2ea35d8"
   integrity sha512-R9Ajc4fI758+WOwtPOM4Mv+rgDgdtcBvsGm/9xEh820jk5NKbZGNNwYI15KOqR0tB3FkvW1f2uWEd1N5keZVUA==
+
 
 "@types/node@*":
   version "10.11.4"

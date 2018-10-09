@@ -43,7 +43,7 @@ const theme = createMuiTheme({
 			minHeight: '65vh',
 			border: '2px solid #FFD740',
 			borderRadius: '0px 0px 10px 10px',
-			marginRight: "500px"
+			margin: "0px 20px 0px 20px"
 		}
 		}
   },
