@@ -1,26 +1,82 @@
-import React from "react";
+import React from 'react';
 import { Grid } from '@material-ui/core';
-import SimpleCard from '../Cards';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Table from '../Table'
+//import { Typography } from '@material-ui/core';
 
-class HomeGrid extends React.Component {
-    render() {
+const styles = {
+    card: {
+    minHeight: 10,
+    },
+    bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+    },
+    title: {
+    fontSize: 14,
+    },
+    pos: {
+    marginBottom: 12,
+    },
+};
+
+function HomeGrid(props) {
+    const { classes } = props;
+ 
         return (
             <Grid container>
                 <Grid item xs={12}>
-                    <SimpleCard></SimpleCard>
+                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                        <CardContent>
+                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                        </CardContent>
+                        <CardActions>
+            
+                        </CardActions>
+                    </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <SimpleCard></SimpleCard>
+                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                        <CardContent>
+                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                        </CardContent>
+                        <CardActions>
+            
+                        </CardActions>
+                    </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <SimpleCard></SimpleCard>
+                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                        <CardContent>
+                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                        </CardContent>
+                        <CardActions>
+            
+                        </CardActions>
+                    </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <SimpleCard></SimpleCard>
+                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                        <CardContent>
+                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                        </CardContent>
+                        <CardActions>
+            
+                        </CardActions>
+                    </Card>
                 </Grid>
             </Grid>
         )
-    }
+    
 };
 
-export default HomeGrid;
+HomeGrid.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(HomeGrid);
