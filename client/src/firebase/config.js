@@ -33,5 +33,6 @@ export {
   db,
   auth,
   provider,
-  config
+  config,
+  firebase
 }
