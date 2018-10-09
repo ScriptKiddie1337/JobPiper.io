@@ -36,6 +36,6 @@ export const signInPopUp = () => {
 
 export const refreshToken = () => {
 
-  auth.currentUser.refreshToken()
+  auth.currentUser.getIdToken(true)
 }
 
