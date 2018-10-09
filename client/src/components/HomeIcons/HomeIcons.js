@@ -12,7 +12,6 @@ class HomeIcons extends React.Component {
         <Grid container>
           <Grid item xs={12}>
             <IconButton
-                size={3}
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
                 color="secondary"
