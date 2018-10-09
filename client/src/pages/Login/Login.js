@@ -15,10 +15,19 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    // this.loadJobListing();
+
+    setTimeout(this.signIn, 5000)
+  }
+
+  signIn = () => {
+
     signInPopUp()
   }
-  ;
+
+  componentWillUnmount() {
+
+    this.signIn = () => { }
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
