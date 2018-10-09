@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { firebase, auth } from '../firebase'
+import { firebase } from '../firebase'
 import { config } from '../firebase/config'
 
 const withAuthentication = Component => {
@@ -49,7 +49,7 @@ const withAuthentication = Component => {
                 .then(function () {
                   // Make sure the Google API Client is properly signed in
                   if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                    auth.currentUser.getToken()
+                    firebase.auth.currentUser.getToken()
                       .then(function (token) {
                         console.log("user token " + token)
                         return gapi.client.calendar.events.list({
