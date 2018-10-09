@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
-import Jumbotron from "../../components/Jumbotron";
+import Jumbotron from '../../components/Jumbotron';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
-import HomeIcons from '../../components/HomeIcons'
+import HomeIcons from '../../components/HomeIcons';
 import Hidden from '@material-ui/core/Hidden';
-// import Nav from "../../components/Nav";
-// import { Typography } from "@material-ui/core";
-// import { Table } from "@material-ui/core";
+
+// import { Typography } from '@material-ui/core';
+// import { Table } from '@material-ui/core';
 
 class Home extends Component {
   state = {
-    currentPage: "Home", 
+    currentPage: 'Home', 
     jobs: [],
-    title: "",
-    link: "",
-    image: "",
+    title: '',
+    link: '',
+    image: '',
     note: [],
     contact: []
   };
@@ -41,8 +41,14 @@ class Home extends Component {
     return (
 	<div>
   		<Jumbotron>
-        
-      </Jumbotron>
+		 
+		  	<Grid container>
+			  	<Grid item xs={3}>
+					<img src='../../Images/favicon.png' alt='Brand Logo'></img>
+				</Grid>
+			</Grid>
+		 
+		</Jumbotron>
         <Grid container>
           <Hidden smDown>
           <Grid item md={2}>
