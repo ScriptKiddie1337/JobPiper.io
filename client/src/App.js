@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import CompanyNews from "./pages/CompanyNews";
+import Meetups from "./pages/Meetups";
 import JobListing from "./pages/JobListing";
 import Detail from "./pages/Detail";
 import DayPlanner from "./pages/DayPlanner";
@@ -26,6 +28,8 @@ const App = () => (
 		    <Route path="/profile/:id" component={Profile} />
 		    <Route path="/dayplanner" component={DayPlanner} />
 		    <Route path="/dayplanner/:id" component={DayPlanner} />
+        <Route path="/companynews" component={CompanyNews} />
+        <Route path="/Meetups" component={Meetups} />
         <Route component={NoMatch} />
       </Switch>
     </MuiThemeProvider>
