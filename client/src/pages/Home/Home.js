@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import HomeIcons from '../../components/HomeIcons'
 import Hidden from '@material-ui/core/Hidden';
-import Nav from "../../components/Nav";
-import { Typography } from "@material-ui/core";
-//import { Table } from "@material-ui/core";
+// import Nav from "../../components/Nav";
+// import { Typography } from "@material-ui/core";
+// import { Table } from "@material-ui/core";
 
 class Home extends Component {
   state = {
@@ -41,11 +41,11 @@ class Home extends Component {
     return (
 	<div>
   		<Jumbotron>
-        <img src='%PUBLIC_URL%/images/favicon.png' alt='brand icon'></img>
+        
       </Jumbotron>
         <Grid container>
           <Hidden smDown>
-          <Grid item smDown={0} md={2}>
+          <Grid item md={2}>
             <HomeIcons />
               </Grid>
           </Hidden>

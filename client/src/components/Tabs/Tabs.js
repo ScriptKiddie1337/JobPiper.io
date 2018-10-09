@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HomeGrid from '../HomeGrid'
-import Home from '../../pages/Home'
 import DayPlanner from '../../pages/DayPlanner';
 import JobListing from '../../pages/JobListing';
 import CompanyNews from '../../pages/CompanyNews';
@@ -11,7 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
+
 
 function TabContainer(props) {
   return (
