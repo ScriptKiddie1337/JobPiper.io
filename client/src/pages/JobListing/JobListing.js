@@ -38,10 +38,15 @@ class JobListing extends Component {
 
   render() {
     return (
+<<<<<<< HEAD
 	<div style={{backgroundColor: 'red'}}>
   <JobSearch></JobSearch>
   <JobListingList></JobListingList>
   <JobListingDetails></JobListingDetails>
+=======
+	<div >
+      Jobs!
+>>>>>>> 1ab07ee495ef2db4b1e56062d321edb84ea077c7
 	</div>
     );
   }
