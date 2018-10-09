@@ -2,7 +2,6 @@ import React from "react";
 import { Grid } from '@material-ui/core';
 import SimpleCard from '../Cards';
 
-
 class HomeGrid extends React.Component {
     render() {
         return (
@@ -24,4 +23,4 @@ class HomeGrid extends React.Component {
     }
 };
 
-export default (HomeGrid);
+export default HomeGrid;

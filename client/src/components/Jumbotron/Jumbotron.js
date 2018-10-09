@@ -111,7 +111,7 @@ const styles = theme => ({
                 path={mdiAccountCircle}
                 size={1}
                 color='inherit' />
-              <p>Profile</p>
+              <p style={{fontSize: 13, marginLeft: 10}}>Profile</p>
             </IconButton>
           </MenuItem>
           <MenuItem>
@@ -124,7 +124,7 @@ const styles = theme => ({
                 size={1} 
                 color='inherit'
                 />
-                <p>Settings</p>
+                <p style={{fontSize: 13, marginLeft: 10}}>Settings</p>
               </IconButton>
           </MenuItem>
           <MenuItem>
@@ -137,7 +137,7 @@ const styles = theme => ({
                 size={1} 
                 color='inherit'
                 />
-                <p>Log Out</p>
+                <p style={{fontSize: 13, marginLeft: 10}}>Log Out</p>
               </IconButton>
           </MenuItem>
         </Menu>

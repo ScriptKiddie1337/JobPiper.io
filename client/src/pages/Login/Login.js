@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Nav from '../../components/Nav'
 
-import './Login.scss'
-
-
 class Login extends Component {
   state = {
     jobs: [],
@@ -35,7 +32,7 @@ class Login extends Component {
     return (
       <div>
         <Nav />
-       <img src="../../Images/doors.jpeg" alt='Doors' />
+        <img src="../../Images/doors.jpeg" alt='Doors' />
       </div>
     );
   }
