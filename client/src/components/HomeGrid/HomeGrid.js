@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Table from '../Table'
+import CustomPaginationActionsTable from '../Table'
 //import { Typography } from '@material-ui/core';
 
 const styles = {
@@ -33,7 +33,7 @@ function HomeGrid(props) {
                 <Grid item xs={12}>
                     <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
                         <CardContent>
-                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
@@ -43,7 +43,7 @@ function HomeGrid(props) {
                 <Grid item xs={6}>
                     <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
                         <CardContent>
-                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
@@ -53,7 +53,7 @@ function HomeGrid(props) {
                 <Grid item xs={6}>
                     <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
                         <CardContent>
-                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
@@ -63,7 +63,7 @@ function HomeGrid(props) {
                 <Grid item xs={12}>
                     <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
                         <CardContent>
-                            <Table style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></Table>
+                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             

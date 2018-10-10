@@ -151,7 +151,7 @@ return (
 
     <Grid container>
 			  	<Grid item xs={2} >
-					<img src='../../Images/favicon.png' alt='Brand Logo' style={{marginLeft: 10}}></img>
+					<img src='../../Images/favicon.png' alt='Brand Logo' style={{marginLeft: 10, borderRadius: '50px'}}></img>
 				</Grid>
         <Grid item xs={8} >
         <Typography style={{margin: '20px 0px -10px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>

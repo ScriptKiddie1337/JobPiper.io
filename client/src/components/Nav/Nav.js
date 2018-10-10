@@ -159,7 +159,7 @@ class PrimarySearchAppBar extends React.Component {
           <Toolbar>
             <Grid container style={{textAlign: 'center'}}>
 			  	    <Grid item xs={2} >
-					      <img src='../../Images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20}}></img>
+					      <a href='/home'><img src='../../Images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
 				      </Grid>
               <Hidden smDown>
               <Grid item xs={9} >
