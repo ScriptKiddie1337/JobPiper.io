@@ -5,13 +5,16 @@ import React, { Component } from "react";
 //import LabelBottomNavigation from '../../components/Footer/Footer'
 import './JobListing.scss'
 import JobListingList from '../../components/JobSearch/JobListingList'
+import { Input, Button } from "@material-ui/core";
+import API from '../../utils/API'
 //import { Table } from "@material-ui/core";
 
 class JobListing extends Component {
   state = {
     jobs: [],
     note: [],
-    contact: []
+    contact: [],
+    searchTerm: ''
   };
 
   componentDidMount() {
@@ -22,22 +25,30 @@ class JobListing extends Component {
         ));
   }
 
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
-    });
-  };
+    } //, () => console.log('new input: ', this.state.searchTerm)
+    )};
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
+    API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
+    .then(res => this.setState({ jobs: res.data } ) ) //this.setState({ jobs: res.data } )
+    .catch(err => console.log(err));
   };
 
   render() {
     return (
 	<div style={{backgroundColor: 'red'}}>
+  <Input 
+    name='searchTerm'
+    value={this.state.searchTerm}
+    onChange={this.handleInputChange}
+    placeholder='Search for locations or keywords.'
+  />
+  <Button onClick={this.handleFormSubmit} type='success'>Search</Button>
   <JobListingList jobs={this.state.jobs} />
 	</div>
     );
