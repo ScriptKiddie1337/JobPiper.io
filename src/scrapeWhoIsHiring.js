@@ -85,7 +85,7 @@ function scrapeWhoIsHiring(url, res) {
           })
       };
     })
-    .catch(err => console.log(`GET ${url} error: `, err));
+    .catch(err => console.log(`yCombinator GET ${url} error: `, err));
 }
 
 module.exports = scrapeWhoIsHiring;
