@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-// import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
-// import Jumbotron from "../../components/Jumbotron";
-// import Grid from '@material-ui/core/Grid';
-//import LabelBottomNavigation from '../../components/Footer/Footer'
-import './JobListing.scss'
+
 import JobListingList from '../../components/JobSearch/JobListingList'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
-//import { Table } from "@material-ui/core";
 
 class JobListing extends Component {
   state = {
@@ -41,14 +36,14 @@ class JobListing extends Component {
 
   render() {
     return (
-	<div style={{backgroundColor: 'red'}}>
+	<div style={{backgroundColor: '#546e7a'}}>
   <Input 
     name='searchTerm'
     value={this.state.searchTerm}
     onChange={this.handleInputChange}
-    placeholder='Search for locations or keywords.'
+    placeholder='Search keywords...'
   />
-  <Button onClick={this.handleFormSubmit} type='success'>Search</Button>
+  <Button onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835'}}>Search</Button>
   <JobListingList jobs={this.state.jobs} />
 	</div>
     );

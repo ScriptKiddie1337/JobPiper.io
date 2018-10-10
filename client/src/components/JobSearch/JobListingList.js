@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './JobListingList.scss'
 export default class JobListingList extends Component {
   render() {
     return (
