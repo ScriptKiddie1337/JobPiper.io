@@ -36,7 +36,7 @@ class LabelBottomNavigation extends React.Component {
     return (
       <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
         <BottomNavigationAction label="Profile" value="profile" icon={<AccountCircleIcon/>} />
-        <BottomNavigationAction label="Log off" value="log off" icon={<PowerSettingsNewIcon />} />
+        <BottomNavigationAction href='/' label="Log off" value="log off" icon={<PowerSettingsNewIcon />} />
         <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
       </BottomNavigation>
     );
