@@ -19,7 +19,7 @@ import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '100vw',
   },
   grow: {
     flexGrow: 1,
@@ -157,7 +157,7 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className='appBar'>
           <Toolbar>
-            <Grid container style={{textAlign: 'center'}}>
+            <Grid container>
 			  	    <Grid item xs={2} >
 					      <a href='/home'><img src='../../Images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
 				      </Grid>
