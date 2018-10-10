@@ -9,7 +9,8 @@ class JobListing extends Component {
     jobs: [],
     note: [],
     contact: [],
-    searchTerm: ''
+    searchTerm: '',
+    excludeTerm: ''
   };
 
   componentDidMount() {
@@ -44,7 +45,14 @@ class JobListing extends Component {
     placeholder='Search keywords...'
   />
   <Button onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835'}}>Search</Button>
-  <JobListingList jobs={this.state.jobs} />
+  <br />
+  <Input 
+    name='excludeTerm'
+    value={this.state.excludeTerm}
+    onChange={this.handleInputChange}
+    placeholder='Exclude keywords...'
+  />
+  <JobListingList jobs={this.state.jobs} exclude={this.state.excludeTerm} />
 	</div>
     );
   }
