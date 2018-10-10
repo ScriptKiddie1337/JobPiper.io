@@ -43,9 +43,10 @@ function scrapeDice(url, res) {
         let $title = $(item).find('[itemprop="title"]').html()
         let $body = $(item).find('[itemprop="description"]').html()
         let $locaiton = $(item).find('[itemprop="addressLocality"]').html()
-        let $logo = $(item).find('img').attr('src')
+        let $logo = $(item).find('img').attr('src') //! research sending images to mongodb
         let $listing = $(item).find('a').attr('href')
-
+        // ! put all info into object. send object to listing site, scrape more info
+        // ! and then send whole object to database
         console.log(index, $item)
 
       })
