@@ -44,7 +44,7 @@ function scrapeWhoIsHiring(url, res) {
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch),
-            body: $p,
+            body: $p.replace('&apos;', '\''),
             site: 'yCombinator'
           });
         }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './JobListingList.scss'
 export default class JobListingList extends Component {
+
+
   render() {
     return (
       // <div>
@@ -9,9 +11,9 @@ export default class JobListingList extends Component {
       // </div>
       <ul>
         {this.props.jobs.map((job) => 
-        <li>
+        <li key={job._id}>
           <h3>{job.title}</h3>
-          { job.keywords.join(' | ') }
+          <p>{ job.keywords.join(' | ') }</p>
           <p>{ job.body }</p>
         </li>
         )}
