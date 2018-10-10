@@ -44,6 +44,7 @@ function scrapeDice(url, res) {
         let $body = $(item).find('[itemprop="description"]').html()
         let $locaiton = $(item).find('[itemprop="addressLocality"]').html()
         let $logo = $(item).find('img').attr('src')
+        let $listing = $(item).find('a').attr('href')
 
         console.log(index, $item)
 
