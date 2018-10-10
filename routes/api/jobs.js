@@ -9,7 +9,7 @@ router
 
 // Search by keyword
 router
-  .route('/search/:term')
+  .route('/search')
   .get(jobsController.findByTerm);
 
 // Matches with "/api/jobs/:id"

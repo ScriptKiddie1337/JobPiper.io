@@ -11,7 +11,7 @@ export default class JobListingList extends Component {
         {this.props.jobs.map((job) => 
         <li>
           <h3>{job.title}</h3>
-        
+          { job.keywords.join(' | ') }
           <p>{ job.body }</p>
         </li>
         )}
