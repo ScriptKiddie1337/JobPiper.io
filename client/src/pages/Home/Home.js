@@ -3,7 +3,6 @@ import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from '../../components/Jumbotron';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
-import HomeIcons from '../../components/HomeIcons';
 import Hidden from '@material-ui/core/Hidden';
 // import { Typography } from '@material-ui/core';
 // import { Table } from '@material-ui/core';
@@ -44,7 +43,7 @@ render() {
         <Grid container>
           <Hidden smDown>
           <Grid item md={2} style={{display: 'flex', alignItems: 'flex-end'}}>
-            <HomeIcons />
+            
               </Grid>
           </Hidden>
             

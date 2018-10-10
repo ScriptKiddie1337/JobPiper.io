@@ -11,7 +11,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+import Tooltip from '@material-ui/core/Tooltip';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Typography from '@material-ui/core/Typography';
@@ -119,8 +119,8 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleClose}>My account</MenuItem>
+        <MenuItem onClick={this.handleClose}>Login</MenuItem>
+        <MenuItem onClick={this.handleClose}>Create Account</MenuItem>
       </Menu>
     );
 
@@ -132,12 +132,7 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       >
-        <MenuItem>
-          <IconButton color="inherit"> 
-              <MailIcon />  
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
+        
         <MenuItem>
           <IconButton color="inherit">
               <NotificationsIcon />
@@ -154,21 +149,25 @@ class PrimarySearchAppBar extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} style={{maxHeight: '15vh'}}>
         <AppBar position="static" className='appBar'>
           <Toolbar>
-            <Grid container style={{textAlign: 'center'}}>
+            <Grid container>
+			<Tooltip title='Start Searching'>
 			  	    <Grid item xs={2} >
 					      <a href='/home'><img src='../../Images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
+						  
 				      </Grid>
+					  </Tooltip>
               <Hidden smDown>
               <Grid item xs={9} >
-            <Typography style={{margin: '20px 0px -10px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
+            <Typography style={{margin: '20px 0px -30px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
               </Grid>
               </Hidden>
               <Grid item xs={1}>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
+			<Tooltip title='Login/Create Account'>
             <IconButton
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
@@ -181,6 +180,7 @@ class PrimarySearchAppBar extends React.Component {
                   color='fdd835'
                    />
               </IconButton>
+			  </Tooltip>
             </div>
             </Grid>
             </Grid>

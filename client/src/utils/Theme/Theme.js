@@ -26,14 +26,14 @@ const theme = createMuiTheme({
 				borderBottom: '10px solid #fdd835',
 			},
 		},
-    MuiTab: { // Name of the component ⚛️ / style sheet
+    	MuiTab: { // Name of the component ⚛️ / style sheet
 			root: {
 				backgroundColor: '#FFD740', 
 				margin: '0px 0px 0px 20px', 
 				borderRadius: '10px 10px 0px 0px',
 				
 			},
-      textColorInherit: { // Name of the rule
+      	textColorInherit: { // Name of the rule
 				color: 'black', // Some CSS
 			},
 		},
@@ -43,6 +43,7 @@ const theme = createMuiTheme({
 					minHeight: '75vh',
 					border: '2px solid #FFD740',
 					borderRadius: '0px 0px 10px 10px',
+					marginBottom: 100
 				}
 				},
   },
