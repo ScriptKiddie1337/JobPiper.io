@@ -37,15 +37,7 @@ const theme = createMuiTheme({
 				color: 'black', // Some CSS
 			},
 		},
-				MuiTypography: {
-					root:{
-					backgroundColor: 'white',
-					minHeight: '75vh',
-					border: '2px solid #FFD740',
-					borderRadius: '0px 0px 10px 10px',
-					marginBottom: 100
-				}
-				},
+				
   },
   });
 

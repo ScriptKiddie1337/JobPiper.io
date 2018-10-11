@@ -31,7 +31,7 @@ function HomeGrid(props) {
         return (
             <Grid container>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', border: 'none'}}>
                         <CardContent>
                             <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
                         </CardContent>
