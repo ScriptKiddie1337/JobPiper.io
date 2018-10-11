@@ -24,15 +24,15 @@ class JobListing extends Component {
       matchAllTokens: true,
       findAllMatches: true,
       includeScore: true,
-      threshold: 0.4,
+      threshold: 0.6,
       location: 0,
-      distance: 80,
+      distance: 100,
       maxPatternLength: 64,
       minMatchCharLength: 5,
       keys: [
-        "title",
-        "body",
-        "keywords"
+        {name:"title", weight: .6},
+        {name: "body", weight: .3},
+        {name: "keywords", weight: .8}
       ]
     };
     let fuse = new Fuse(list, options);
@@ -66,7 +66,7 @@ class JobListing extends Component {
 
   render() {
     let currentSearch = this.fuse(this.state.jobs)
-    console.log('Result Count: ',currentSearch.length)
+    // console.log('Result Count: ',currentSearch.length)
 
     return (
 	<div style={{backgroundColor: '#546e7a'}}>
@@ -76,27 +76,28 @@ class JobListing extends Component {
     onChange={this.handleInputChange}
     placeholder='Search keywords...'
   />
-  <Button onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835'}}>Search</Button>
-  <br />
-  <Input 
+  {/* <Button onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835'}}>Search</Button>
+  <br /> */}
+  {/* <Input 
     name='excludeTerm'
     value={this.state.excludeTerm}
     onChange={this.handleInputChange}
     placeholder='Exclude keywords...'
-  />
+  /> */}
  <ul>
     { currentSearch.map((job, i) => {
-      console.log(job.item.title, job.score)
-            return <JobListingList 
-              key={i} 
-              link={job.item.link}  
-              _id={job.item._id}
-              title={job.item.title}
-              keywords={job.item.keywords}
-              body={job.item.body}
-              />;
+      // console.log(job.item.title, job.score)
+      if (job.score < 0.4) {
+        return <JobListingList 
+          key={i} 
+          link={job.item.link}  
+          _id={job.item._id}
+          title={job.item.title}
+          keywords={job.item.keywords}
+          body={job.item.body}
+          />;
+      }
           })
-          
      }
  </ul>
 	</div>
