@@ -55,27 +55,18 @@ const withAuthentication = Component => {
                       })
                       .then(function (response) {
 
-                        this.calendarId = response.result.id
-
                         var event = {
                           'summary': 'Job Piper I/O 2018',
                           'location': '800 Howard St., San Francisco, CA 94103',
                           'description': 'A chance to hear more about Google\'s developer products.',
                           'start': {
-                            'dateTime': '2018-10-28T09:00:00-07:00',
+                            'dateTime': '2018-10-15T09:00:00-07:00',
                             'timeZone': 'America/Los_Angeles'
                           },
                           'end': {
-                            'dateTime': '2018-05-29T17:00:00-07:00',
+                            'dateTime': '2018-10-16T17:00:00-07:00',
                             'timeZone': 'America/Los_Angeles'
                           },
-                          'recurrence': [
-                            'RRULE:FREQ=DAILY;COUNT=2'
-                          ],
-                          'attendees': [
-                            { 'email': 'lpage@example.com' },
-                            { 'email': 'sbrin@example.com' }
-                          ],
                           'reminders': {
                             'useDefault': false,
                             'overrides': [
@@ -86,7 +77,7 @@ const withAuthentication = Component => {
                         }
 
                         return gapi.client.calendar.events.insert({
-                          'calendarId': this.calendarId,
+                          'calendarId': response.result.id,
                           'resource': event
                         })
                       })
