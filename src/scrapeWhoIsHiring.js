@@ -43,7 +43,7 @@ function scrapeWhoIsHiring(url, res) {
         if ($ch.includes('|') && $p) {
           createJob({
             title: keywords($ch)[0],
-            keywords: keywords($ch),
+            keywords: keywords($ch).slice(1),
             body: $p,
             site: 'yCombinator'
           });

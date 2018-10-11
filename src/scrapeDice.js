@@ -41,17 +41,69 @@ function scrapeDice(url, res) {
       $('.complete-serp-result-div').each((index, item) => {
         let $company = $(item).find('.compName').html()
         let $title = $(item).find('[itemprop="title"]').html()
-        let $body = $(item).find('[itemprop="description"]').html()
-        let $locaiton = $(item).find('[itemprop="addressLocality"]').html()
-        let $logo = $(item).find('img').attr('src') //! research sending images to mongodb
+        // ! let $body = $(item).find('[itemprop="description"]').html() replace with main job listing
+        let $location = $(item).find('[itemprop="addressLocality"]').html()
+        let $logo = $(item).find('img').attr('src')
         let $listing = $(item).find('a').attr('href')
-        // ! put all info into object. send object to listing site, scrape more info
-        // ! and then send whole object to database
-        console.log(index, $item)
+        let job = {
+          site: 'Dice.com',
+          title: $company,
+          link: `https://dice.com${$listing}`,
+          image: $logo,
+          keywords: [$title.trim(), $location]
+        };
+
+        // console.log(job.keywords)
+        jobDetails(job)
+
+        // console.log(index, $item)
 
       })
+
+      function jobDetails(job) {
+        axios.get(job.link)
+        .then(function (response) {
+          const $ = cheerio.load(response.data);
+          let $keywords = $('.job-info').find('[itemprop="skills"]').html()
+          let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','))
+          let $jobInfo = $('.job-info').find('.iconsiblings').html()
+          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'')
+          const fullJob = Object.assign({
+            body: body,
+            keywords: mergedKeywords
+          }, job)
+          createJob(fullJob)
+
+          
+        })
+        .catch(err => console.log(`dice.com/jobs/detail GET ${url} error: `, err));
+      }
+      function createJob(result) {
+        const query = {
+          title: result.title,
+          keywords: result.keywords,
+          body: result.body,
+          site: result.site
+        }
+        const record = Object.assign({date:Date.now()}, result)
+        // instead of using create, I use findOneAndUpdate
+        // but add the upsert option. If no record is found,
+        // the query will create a new record with the passed
+        // in parameters. This avoids duplicate data being scraped.
+        db.JobListing.findOneAndUpdate(query, record, {upsert:true})
+          .then(function (dbJob) {
+            // View the added result in the console
+            dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
+            return dbJob;
+          })
+          .catch(function (err) {
+            // If an error occurred, send it to the client
+            console.log('fn.createJob error: ', err);
+            throw new Error(err);
+          })
+      };
       })
-      .catch(err => console.log(`dice.comGET ${url} error: `, err));
+      .catch(err => console.log(`dice.com/jobs GET ${url} error: `, err));
 
 }
 
