@@ -43,7 +43,7 @@ render() {
   		<Jumbotron />
         <Grid container>
           <Hidden smDown>
-          <Grid item md={2} style={{display: 'flex', alignItems: 'flex-end'}}>
+          <Grid item md={2} style={{display: 'flex', alignItems: 'center'}}>
 				<HomeIcons />
               </Grid>
           </Hidden>
