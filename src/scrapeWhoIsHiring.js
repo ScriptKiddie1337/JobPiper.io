@@ -66,7 +66,8 @@ function scrapeWhoIsHiring(url) {
             title: keywords($ch)[0],
             keywords: keywords($ch).slice(1),
             body: $p,
-            site: 'yCombinator'
+            site: 'yCombinator',
+            link: url
           });
         }
       })
@@ -88,7 +89,7 @@ function scrapeWhoIsHiring(url) {
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now()}, query)
+        const record = Object.assign({date:Date.now(), link: result.link}, query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
