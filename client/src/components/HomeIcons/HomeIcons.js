@@ -12,21 +12,18 @@ class HomeIcons extends React.Component {
     return (
       <Grid container style={{ marginBottom: 100}}>
         <Grid item xs={12}>
-		<Button varient='fab'>
           <IconButton
 		  	variant='fab'
             aria-haspopup="true"
             color="secondary">
             <Icon
               path={mdiAccountCircle}
-              size={2}
+			  size={2}
               color='fdd835' />
             <p style={{marginLeft: 10}}>Profile</p>
           </IconButton>
-		  </Button>
         </Grid>
         <Grid item xs={12}>
-		<Button varient='fab'>
           <IconButton
             aria-haspopup="true"
             color="secondary">
@@ -36,21 +33,18 @@ class HomeIcons extends React.Component {
               color='#fdd835'/>
             <p style={{marginLeft: 10}}>Settings</p>
           </IconButton>
-		</Button>
         </Grid>
         <Grid item xs={12}>
-		<a href='/'>
-		<Button varient='fab'>
-          <IconButton
+		<a href='/' style={{textDecoration: 'none'}}>
+		  <IconButton			  
             aria-haspopup="true"
             color="secondary">
             <Icon 
               path={mdiLogoutVariant} 
-              size={2} 
+			  size={2} 
               color='#fdd835'/>
             <p style={{marginLeft: 10}}>Log Out</p>
           </IconButton>
-		  </Button>
 		  </a>
         </Grid>
       </Grid>
