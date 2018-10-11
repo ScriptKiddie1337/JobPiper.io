@@ -25,7 +25,7 @@ mongoose.connect(MONGODB_URI);
 
 const rootLoad = async (req, res) => {
 	// scrape updated listings
-	await scrapeWhoIsHiring('https://news.ycombinator.com/item?id=18113144', res)
+	await scrapeWhoIsHiring();
 
 	// GET route for root will scrape the most recent listings and then send the html
 	await app.get('/', function (req, res) {

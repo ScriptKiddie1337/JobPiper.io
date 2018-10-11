@@ -32,7 +32,7 @@ class Login extends Component {
     return (
       <div>
         <Nav />
-        <img src="../../Images/doors.jpeg" alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw'}}/>
+        <img src="../../images/doors.jpeg" alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw'}}/>
       </div>
     );
   }

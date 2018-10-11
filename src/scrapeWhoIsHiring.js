@@ -31,8 +31,29 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+getPostURL();
 
-function scrapeWhoIsHiring(url, res) {
+function getPostURL() {
+  const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
+  axios.get(postSearch)
+    .then(function (res) {
+      const $ = cheerio.load(res.data);
+      let hiringLinks = []
+      $('tbody').find('a.storylink').each((index, story) => {
+        let $story = $(story).text();
+        let $link = $(story).attr('href')
+        if ($story.includes("Ask HN: Who is hiring?")) {
+          hiringLinks.push({
+            title: $story,
+            link: `https://news.ycombinator.com/${$link}`
+          })
+        }
+      })
+      hiringLinks.forEach(el => scrapeWhoIsHiring(el.link))
+    })
+    .catch(err => console.log(`getPostURL() ${postSearch} error: `, err));
+}
+function scrapeWhoIsHiring(url) {
   console.log(url)
   axios.get(url)
     .then(function (response) {
@@ -43,9 +64,10 @@ function scrapeWhoIsHiring(url, res) {
         if ($ch.includes('|') && $p) {
           createJob({
             title: keywords($ch)[0],
-            keywords: keywords($ch),
+            keywords: keywords($ch).slice(1),
             body: $p,
-            site: 'yCombinator'
+            site: 'yCombinator',
+            link: url
           });
         }
       })
@@ -67,7 +89,7 @@ function scrapeWhoIsHiring(url, res) {
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now()}, query)
+        const record = Object.assign({date:Date.now(), link: result.link}, query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
@@ -85,7 +107,7 @@ function scrapeWhoIsHiring(url, res) {
           })
       };
     })
-    .catch(err => console.log(`GET ${url} error: `, err));
+    .catch(err => console.log(`yCombinator GET ${url} error: `, err));
 }
 
-module.exports = scrapeWhoIsHiring;
+module.exports = getPostURL;

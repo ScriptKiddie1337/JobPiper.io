@@ -11,6 +11,7 @@ class JobListing extends Component {
     contact: [],
     searchTerm: '',
     excludeTerm: ''
+    // ! add persistent search and exclude arrays
   };
 
   componentDidMount() {
