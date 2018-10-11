@@ -39,6 +39,7 @@ class DayPlanner extends Component {
 			</Grid>
 			<Grid>
 				<Paper style={{ border: '#fdd835 solid 2px'}}>
+        Calendar Goes Here!!!
 				</Paper>
 			</Grid>
 	  </div>

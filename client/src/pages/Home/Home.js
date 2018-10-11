@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Jumbotron from '../../components/Jumbotron';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +9,14 @@ import HomeIcons from '../../components/HomeIcons'
 import AppBar from '@material-ui/core/AppBar';
 // import { Typography } from '@material-ui/core';
 // import { Table } from '@material-ui/core';
+
+const homeStyles = theme => ({
+  root: {
+    position: 'relative',
+    overflow: 'auto',
+  },
+  
+});
 
 class Home extends Component {
   state = {
@@ -45,9 +54,10 @@ render() {
         <Grid container>
         	<Hidden smDown>
         		<Grid item md={2} style={{ display: 'flex', alignItems: 'center'}}>
-					<AppBar position='sticky'>
+          <div 
+            position='sticky'>
 						<HomeIcons  />
-					</AppBar>
+            </div>
             	</Grid>
           	</Hidden>
     			<Grid item xs={12} md={10}>
@@ -62,4 +72,4 @@ render() {
   }
 }
 
-export default Home;
+export default withStyles(homeStyles)(Home);
