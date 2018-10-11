@@ -31,8 +31,29 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+getPostURL();
 
-function scrapeWhoIsHiring(url, res) {
+function getPostURL() {
+  const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
+  axios.get(postSearch)
+    .then(function (res) {
+      const $ = cheerio.load(res.data);
+      let hiringLinks = []
+      $('tbody').find('a.storylink').each((index, story) => {
+        let $story = $(story).text();
+        let $link = $(story).attr('href')
+        if ($story.includes("Ask HN: Who is hiring?")) {
+          hiringLinks.push({
+            title: $story,
+            link: `https://news.ycombinator.com/${$link}`
+          })
+        }
+      })
+      hiringLinks.forEach(el => scrapeWhoIsHiring(el.link))
+    })
+    .catch(err => console.log(`getPostURL() ${postSearch} error: `, err));
+}
+function scrapeWhoIsHiring(url) {
   console.log(url)
   axios.get(url)
     .then(function (response) {
@@ -88,4 +109,4 @@ function scrapeWhoIsHiring(url, res) {
     .catch(err => console.log(`yCombinator GET ${url} error: `, err));
 }
 
-module.exports = scrapeWhoIsHiring;
+module.exports = getPostURL;
