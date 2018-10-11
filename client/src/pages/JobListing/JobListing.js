@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
 import JobListingList from '../../components/JobSearch/JobListingList'
+import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
 
@@ -61,6 +62,9 @@ class JobListing extends Component {
         </Grid>
         <Grid item xs={12} md={2}>
             <Button fullWidth onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
+        </Grid>
+        <Grid>
+          <AdvancedSearch />
         </Grid>  
       </Grid>          
     </div>  
