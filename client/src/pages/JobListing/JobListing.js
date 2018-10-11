@@ -24,10 +24,10 @@ class JobListing extends Component {
       matchAllTokens: true,
       findAllMatches: true,
       includeScore: true,
-      threshold: 0.5,
+      threshold: 0.4,
       location: 0,
-      distance: 50,
-      maxPatternLength: 32,
+      distance: 80,
+      maxPatternLength: 64,
       minMatchCharLength: 5,
       keys: [
         "title",
@@ -86,6 +86,7 @@ class JobListing extends Component {
   />
  <ul>
     { currentSearch.map((job, i) => {
+      console.log(job.item.title, job.score)
             return <JobListingList 
               key={i} 
               link={job.item.link}  
