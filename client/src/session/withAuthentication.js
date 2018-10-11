@@ -51,14 +51,7 @@ const withAuthentication = Component => {
                     auth.refreshToken()
                       .then(function (token) {
                         console.log("user token " + token)
-                        return gapi.client.calendar.events.list({
-                          calendarId: "primary",
-                          timeMin: new Date().toISOString(),
-                          showDeleted: false,
-                          singleEvents: true,
-                          maxResults: 10,
-                          orderBy: "startTime"
-                        })
+                        return gapi.client.calendar.calendars.insert("jobpiper")
                       })
                       .then(function (response) {
                         console.log(response);
