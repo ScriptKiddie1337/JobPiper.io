@@ -15,7 +15,7 @@ import NoSsr from '@material-ui/core/NoSsr';
 
 function TabContainer(props) {
   return (
-	  <div style={{ backgroundColor: 'white', minHeight: '75vh', marginBottom: '100px', border: '#fdd835 2px solid', borderRadius: '0px 10px 0px 10px'}}>
+	  <div style={{ backgroundColor: 'white', minHeight: '75vh', marginBottom: '100px', border: '#fdd835 2px solid', borderRadius: '0px 0px 10px 10px'}}>
     <Typography component="div" style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
