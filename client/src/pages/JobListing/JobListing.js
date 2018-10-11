@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import JobListingList from '../../components/JobSearch/JobListingList'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
+import Fuse from 'fuse.js'
 
 class JobListing extends Component {
   state = {
@@ -10,16 +11,42 @@ class JobListing extends Component {
     note: [],
     contact: [],
     searchTerm: '',
-    excludeTerm: ''
+    excludeTerm: '',
+    
     // ! add persistent search and exclude arrays
   };
 
+      
+  fuse(list) {
+    const options = {
+      shouldSort: true,
+      tokenize: true,
+      matchAllTokens: true,
+      findAllMatches: true,
+      includeScore: true,
+      threshold: 0.5,
+      location: 0,
+      distance: 50,
+      maxPatternLength: 32,
+      minMatchCharLength: 5,
+      keys: [
+        "title",
+        "body",
+        "keywords"
+      ]
+    };
+    let fuse = new Fuse(list, options);
+    let res = fuse.search(this.state.searchTerm);
+    return res;
+  }
+
   componentDidMount() {
     fetch('/api/jobs')
-      .then(response => response.json())
-      .then(data => this.setState({ jobs:data }, 
-        // () => console.log(this.state.jobs)
-        ));
+    .then(response => response.json())
+    .then(data => this.setState({ jobs:data }, 
+      // () => console.log(this.state.jobs)
+      ))
+    
   }
 
   handleInputChange = event => {
@@ -33,10 +60,14 @@ class JobListing extends Component {
     event.preventDefault();
     API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
     .then(res => this.setState({ jobs: res.data } ) ) //this.setState({ jobs: res.data } )
+    .then(x => console.log('fuse form submit: ',this.fuse(this.state.jobs)))
     .catch(err => console.log(err));
   };
 
   render() {
+    let currentSearch = this.fuse(this.state.jobs)
+    console.log('Result Count: ',currentSearch.length)
+
     return (
 	<div style={{backgroundColor: '#546e7a'}}>
   <Input 
@@ -53,7 +84,20 @@ class JobListing extends Component {
     onChange={this.handleInputChange}
     placeholder='Exclude keywords...'
   />
-  <JobListingList jobs={this.state.jobs} exclude={this.state.excludeTerm} />
+ <ul>
+    { currentSearch.map((job, i) => {
+            return <JobListingList 
+              key={i} 
+              link={job.item.link}  
+              _id={job.item._id}
+              title={job.item.title}
+              keywords={job.item.keywords}
+              body={job.item.body}
+              />;
+          })
+          
+     }
+ </ul>
 	</div>
     );
   }
