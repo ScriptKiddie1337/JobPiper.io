@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-// import Jumbotron from "../../components/Jumbotron";
-// import Grid from '@material-ui/core/Grid';
-// import LabelBottomNavigation from '../../components/Footer/Footer';
-// import { Typography } from "@material-ui/core";
-
-
+import { Grid } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 class CompanyNews extends Component {
   state = {
     jobs: [],
@@ -35,8 +31,16 @@ class CompanyNews extends Component {
   render() {
     return (
       <div>
-  		Company news
-	</div>
+			<Grid container>
+				<Grid>
+  					
+				</Grid>
+			</Grid>
+			<Grid>
+				<Paper style={{ border: '#fdd835 solid 2px'}}>
+				</Paper>
+			</Grid>
+	  </div>
     );
   }
 }
