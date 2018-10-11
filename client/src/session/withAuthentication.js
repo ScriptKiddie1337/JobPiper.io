@@ -51,10 +51,44 @@ const withAuthentication = Component => {
                     auth.refreshToken()
                       .then(function (token) {
                         console.log("user token " + token)
-                        return gapi.client.calendar.calendars.insert({ summary: "jobpiper" })
+                        return gapi.client.calendar.calendars.insert({ summary: "Job Piper" })
                       })
                       .then(function (response) {
-                        console.log(response);
+
+                        this.calendarId = response.result.id
+
+                        var event = {
+                          'summary': 'Job Piper I/O 2018',
+                          'location': '800 Howard St., San Francisco, CA 94103',
+                          'description': 'A chance to hear more about Google\'s developer products.',
+                          'start': {
+                            'dateTime': '2018-10-28T09:00:00-07:00',
+                            'timeZone': 'America/Los_Angeles'
+                          },
+                          'end': {
+                            'dateTime': '2018-05-29T17:00:00-07:00',
+                            'timeZone': 'America/Los_Angeles'
+                          },
+                          'recurrence': [
+                            'RRULE:FREQ=DAILY;COUNT=2'
+                          ],
+                          'attendees': [
+                            { 'email': 'lpage@example.com' },
+                            { 'email': 'sbrin@example.com' }
+                          ],
+                          'reminders': {
+                            'useDefault': false,
+                            'overrides': [
+                              { 'method': 'email', 'minutes': 24 * 60 },
+                              { 'method': 'popup', 'minutes': 10 }
+                            ]
+                          }
+                        }
+
+                        return gapi.client.calendar.events.insert({
+                          'calendarId': this.calendarId,
+                          'resource': event
+                        })
                       })
                   } else {
                     console.log("Signed out user")
