@@ -4,6 +4,7 @@ import Jumbotron from '../../components/Jumbotron';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
+import HomeIcons from '../../components/HomeIcons'
 // import { Typography } from '@material-ui/core';
 // import { Table } from '@material-ui/core';
 
@@ -43,15 +44,16 @@ render() {
         <Grid container>
           <Hidden smDown>
           <Grid item md={2} style={{display: 'flex', alignItems: 'flex-end'}}>
-            
+				<HomeIcons />
               </Grid>
           </Hidden>
-            
     			<Grid item xs={12} md={10}>
 			    	<ScrollableTabsButtonAuto /> 
     			</Grid>
   			</Grid>
-		<LabelBottomNavigation />
+		<Hidden smUp>
+			<LabelBottomNavigation />
+		</Hidden>
 	</div>
     );
   }
