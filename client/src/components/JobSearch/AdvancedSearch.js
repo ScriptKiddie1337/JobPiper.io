@@ -16,7 +16,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import PrintIcon from '@material-ui/icons/Print';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
-import './AdvancedSearch.scss'
 
 const styles = theme => ({
   root: {
