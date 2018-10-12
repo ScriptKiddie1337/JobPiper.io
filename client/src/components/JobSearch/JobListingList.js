@@ -11,12 +11,12 @@ export default class JobListingList extends Component {
     return (
       <li key={_id}>
           <div style={{backgroundColor: 'white'}}>
-          <a href={ link }><h3 style={{backgroundColor: '#fdd835', padding: '10px'}}>{title}</h3></a>
-            <p style={{backgroundColor: 'grey', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px'}}>{ keywords.join(' | ') }</p>
+          <a href={ link } style={{textDecoration: 'none'}}><h3 style={{color: 'white', border: '#fdd835 solid 1px', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px'}}>{title}</h3></a>
+            <p style={{border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px'}}>{ keywords.join(' | ') }</p>
             <div style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
             dangerouslySetInnerHTML={createMarkup()} />
           </div>  
         </li>
-    )
+    ) 
   }
 }

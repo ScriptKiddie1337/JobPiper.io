@@ -72,8 +72,8 @@ class JobListing extends Component {
     // console.log('Result Count: ',currentSearch.length)
     
     return (
-      <div style={{ backgroundColor: '#546e7a', padding: '20px', borderRadius: '5px' }}>
-        <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover' }}>
+      <div style={{ padding: '20px', borderRadius: '5px' }}>
+        <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           <Grid container spacing={24} alignItems='center'>
             <Grid item xs={12} >
               <form onSubmit = {this.handleFormSubmit}>
@@ -82,7 +82,7 @@ class JobListing extends Component {
                   value={this.state.searchTerm}
                   onChange={this.handleInputChange}
                   placeholder='Search keywords...'
-                  style={{ width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+                  style={{ width: '100%', opacity: .8, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
                 />
               </form>
             </Grid>
