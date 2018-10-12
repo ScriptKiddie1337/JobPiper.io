@@ -31,7 +31,6 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-scrapeDice('https://www.dice.com/jobs/q-front_end-startPage-1-jobs')
 
 function scrapeDice(url, res) {
   console.log(url)
@@ -67,7 +66,12 @@ function scrapeDice(url, res) {
           let $keywords = $('.job-info').find('[itemprop="skills"]').html()
           let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','))
           let $jobInfo = $('.job-info').find('.iconsiblings').html()
-          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'')
+          let body = $('#jobdescSec')
+            // .find('p')
+            .html()
+            // .replace(/\n/g,'')
+            // .replace(/\t/g,'')
+            // console.log("************************************",body)
           const fullJob = Object.assign({
             body: body,
             keywords: mergedKeywords
