@@ -47,7 +47,7 @@ function scrapeDice(url, res) {
           site: 'Dice.com',
           title: $company,
           link: `https://dice.com${$listing}`,
-          image: $logo,
+          image: ($logo ? `https:${$logo}` : '/images/yc_logo.svg' ),
           keywords: [$title.trim(), $location]
         };
         jobDetails(job)
