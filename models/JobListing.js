@@ -19,8 +19,7 @@ const JobSchema = new Schema({
   },
   // `link` is required and of type String
   link: {
-    type: String,
-    required: [true, 'A URL must be supplied and should link directly to the job announcement']
+    type: String
   },
   // body will contain any announcement info we're able to scrape
   body: {

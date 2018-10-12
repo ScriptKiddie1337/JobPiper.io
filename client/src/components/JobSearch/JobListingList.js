@@ -4,19 +4,19 @@ import './JobListingList.scss'
 export default class JobListingList extends Component {
 
   render() {
+    const { _id, title, link, keywords, body } = this.props
+      function createMarkup() {
+        return {__html: body };
+      }
     return (
-      <ul>
-        {this.props.jobs.map((job) =>
-        job.keywords.join(' | ').toLowerCase().includes(this.props.exclude) && this.props.exclude !== ''
-        ? null 
-        : <li key={job._id}>
-          <h3>{job.title}</h3>
-          <p>{ job.keywords.join(' | ') }</p>
-          <p>{ job.body }</p>
+      <li key={_id}>
+          <div style={{backgroundColor: 'white'}}>
+          <a href={ link }><h3 style={{backgroundColor: '#fdd835', padding: '10px'}}>{title}</h3></a>
+            <p style={{backgroundColor: 'grey', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px'}}>{ keywords.join(' | ') }</p>
+            <div style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
+            dangerouslySetInnerHTML={createMarkup()} />
+          </div>  
         </li>
-         
-        )}
-      </ul>
     )
   }
 }
