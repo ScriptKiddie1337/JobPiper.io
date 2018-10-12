@@ -31,8 +31,6 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-getPostURL();
-
 function getPostURL() {
   const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
   axios.get(postSearch)

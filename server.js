@@ -26,7 +26,7 @@ mongoose.connect(MONGODB_URI);
 const rootLoad = async (req, res) => {
 	// scrape updated listings
 	await scrapeWhoIsHiring();
-
+	await scrapeDice('https://www.dice.com/jobs/q-front_end-startPage-1-jobs');
 	// GET route for root will scrape the most recent listings and then send the html
 	await app.get('/', function (req, res) {
 		res.sendFile('index.html')
