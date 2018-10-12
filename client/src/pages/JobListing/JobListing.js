@@ -13,7 +13,6 @@ class JobListing extends Component {
     contact: [],
     searchTerm: '',
     excludeTerm: '',
-
     // ! add persistent search and exclude arrays
   };
 
@@ -21,19 +20,23 @@ class JobListing extends Component {
   fuse(list) {
     const options = {
       shouldSort: true,
-      tokenize: true,
-      matchAllTokens: true,
+      // tokenize: true,
+      // matchAllTokens: true,
       findAllMatches: true,
       includeScore: true,
+      // threshold, location and distance are ignored if tokenize is set to true
       threshold: 0.6,
       location: 0,
       distance: 100,
       maxPatternLength: 64,
       minMatchCharLength: 5,
       keys: [
-        { name: "title", weight: .6 },
+        { name: "title", weight: .8 },
         { name: "body", weight: .3 },
-        { name: "keywords", weight: .8 }
+        { name: "keywords", weight: .6 },
+        { name: "item.title", weight: .8 },
+        { name: "item.body", weight: .3 },
+        { name: "item.keywords", weight: .6 }
       ]
     };
     let fuse = new Fuse(list, options);
@@ -63,8 +66,8 @@ class JobListing extends Component {
     event.preventDefault();
     API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
       .then(res => this.fuse(res.data))
-      .then(x => this.setState({ jobs: x }))
-      .catch(err => console.log(err));
+      .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
+      .catch(err => {throw new Error(err)});
   };
 
   render() {
@@ -86,7 +89,7 @@ class JobListing extends Component {
                 />
               </form>
             </Grid>
-            {/* <Grid fullWidth item xs={12} md={5}>
+            <Grid fullwidth="true" item xs={12} md={5}>
             <Input 
               name='excludeTerm'
               value={this.state.excludeTerm}
@@ -94,25 +97,29 @@ class JobListing extends Component {
               placeholder='Exclude keywords...'
               style={{width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             />
-        </Grid>
+    </Grid>
         <Grid item xs={12} md={2}>
-            <Button fullWidth onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
-        </Grid>   */}
+            <Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
+        </Grid>
           </Grid>
         </div>
         <br />
-        <ul>
+        <ul style={{listStyleType: 'none'}}>
+          {console.log(this.state.jobs)}
           {this.state.jobs.map((job, i) => {
             // console.log(job.item.title, job.score)
-            if (job.score < 0.4) {
-              return <JobListingList
-                key={i}
-                link={job.item.link}
-                _id={job.item._id}
-                title={job.item.title}
-                keywords={job.item.keywords}
-                body={job.item.body}
-              />;
+            if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+              if (job.score < 0.4) {
+                return <JobListingList
+                  key={i}
+                  link={job.item.link}
+                  _id={job.item._id}
+                  title={job.item.title}
+                  keywords={job.item.keywords}
+                  body={job.item.body}
+                  image={job.item.image}
+                />;
+              }
             }
           })
           }

@@ -31,8 +31,6 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-getPostURL();
-
 function getPostURL() {
   const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
   axios.get(postSearch)
@@ -62,12 +60,14 @@ function scrapeWhoIsHiring(url) {
         $ch = $(ch).html()
         $p = $(ch).children('p').html()
         if ($ch.includes('|') && $p) {
+          let $id = $(ch).closest('tr.athing.comtr').attr('id')
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch).slice(1),
             body: $p,
             site: 'yCombinator',
-            link: url
+            link: `https://news.ycombinator.com/item?id=${$id}`,
+            image: '/images/yc_logo.svg'
           });
         }
       })
@@ -89,15 +89,14 @@ function scrapeWhoIsHiring(url) {
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now(), link: result.link}, query)
+        const record = Object.assign({date:Date.now(), link: result.link, image: result.image}, query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
         // in parameters. This avoids duplicate data being scraped.
         db.JobListing.findOneAndUpdate(query, record, {upsert:true})
           .then(function (dbJob) {
-            // View the added result in the console
-            dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
+            // dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
             return dbJob;
           })
           .catch(function (err) {
@@ -107,7 +106,7 @@ function scrapeWhoIsHiring(url) {
           })
       };
     })
-    .catch(err => console.log(`yCombinator GET ${url} error: `, err));
+    .catch(err => {throw new Error(err)});
 }
 
 module.exports = getPostURL;
