@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
 import HomeIcons from '../../components/HomeIcons'
-import AppBar from '@material-ui/core/AppBar';
+// import AppBar from '@material-ui/core/AppBar';
 // import { Typography } from '@material-ui/core';
 // import { Table } from '@material-ui/core';
 

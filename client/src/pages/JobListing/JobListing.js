@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
 import JobListingList from '../../components/JobSearch/JobListingList'
-import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
+//import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
 import Fuse from 'fuse.js'
@@ -95,7 +95,7 @@ class JobListing extends Component {
               value={this.state.excludeTerm}
               onChange={this.handleInputChange}
               placeholder='Exclude keywords...'
-              style={{width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
+              style={{ opacity: .8, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             />
     </Grid>
         <Grid item xs={12} md={2}>
