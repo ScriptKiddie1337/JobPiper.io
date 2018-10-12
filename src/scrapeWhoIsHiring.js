@@ -62,12 +62,14 @@ function scrapeWhoIsHiring(url) {
         $ch = $(ch).html()
         $p = $(ch).children('p').html()
         if ($ch.includes('|') && $p) {
+          let $id = $(ch).closest('tr.athing.comtr').attr('id')
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch).slice(1),
             body: $p,
             site: 'yCombinator',
-            link: url
+            link: `https://news.ycombinator.com/item?id=${$id}`,
+            image: '/images/yc_logo.svg'
           });
         }
       })
