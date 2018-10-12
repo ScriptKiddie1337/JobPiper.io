@@ -150,7 +150,7 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root} style={{maxHeight: '15vh'}}>
-        <AppBar position="static" className='appBar'>
+        <AppBar position="static" className='appBar' style={{borderBottom: '10px solid #fdd835',}}>
           <Toolbar>
             <Grid container>
 			<Tooltip title='Start Searching'>

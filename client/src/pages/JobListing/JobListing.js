@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
 import JobListingList from '../../components/JobSearch/JobListingList'
-import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
+//import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
 import Fuse from 'fuse.js'
@@ -75,8 +75,8 @@ class JobListing extends Component {
     // console.log('Result Count: ',currentSearch.length)
     
     return (
-      <div style={{ backgroundColor: '#546e7a', padding: '20px', borderRadius: '5px' }}>
-        <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover' }}>
+      <div style={{ padding: '20px', borderRadius: '5px' }}>
+        <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           <Grid container spacing={24} alignItems='center'>
             <Grid item xs={12} >
               <form onSubmit = {this.handleFormSubmit}>
@@ -85,7 +85,7 @@ class JobListing extends Component {
                   value={this.state.searchTerm}
                   onChange={this.handleInputChange}
                   placeholder='Search keywords...'
-                  style={{ width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+                  style={{ width: '100%', opacity: .8, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
                 />
               </form>
             </Grid>
@@ -95,7 +95,7 @@ class JobListing extends Component {
               value={this.state.excludeTerm}
               onChange={this.handleInputChange}
               placeholder='Exclude keywords...'
-              style={{width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
+              style={{ opacity: .8, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             />
     </Grid>
         <Grid item xs={12} md={2}>
@@ -104,8 +104,7 @@ class JobListing extends Component {
           </Grid>
         </div>
         <br />
-        <ul>
-          {console.log(this.state.jobs)}
+        <ul style={{listStyleType: 'none'}}>
           {this.state.jobs.map((job, i) => {
             // console.log(job.item.title, job.score)
             if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {

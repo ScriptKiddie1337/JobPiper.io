@@ -29,9 +29,9 @@ function HomeGrid(props) {
     const { classes } = props;
  
         return (
-            <Grid container>
+            <Grid container spacing={24}>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
                             <CustomPaginationActionsTable ></CustomPaginationActionsTable>
                         </CardContent>
@@ -41,7 +41,7 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
                             <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
@@ -51,7 +51,7 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
                             <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
@@ -61,7 +61,7 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
                             <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './JobListingList.scss'
+import Paper from '@material-ui/core/Paper';
 
 export default class JobListingList extends Component {
 
@@ -10,17 +10,19 @@ export default class JobListingList extends Component {
         return {__html: val };
       }
     return (
-      <li key={_id}>
-        <div style={{backgroundColor: 'white'}}>
-          <a href={ link } target="_blank">
-          <img style={{ maxHeight:"50px" }} src={ image } alt={ image } />
-          <h3 style={{backgroundColor: '#fdd835', padding: '10px'}} >{String(title)}</h3></a>
-            <p style={{backgroundColor: 'grey', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px'}}
+      <Paper style={{backgroundColor: '#FAFAFA', margin: '10px', border: 'solid 2px #819ca9', borderRadius: '5px'}}>
+      <li key={_id} style={{margin: '10px'}}>
+        <div >
+          <a href={ link } target="_blank" style={{textDecoration: 'none'}}>
+          <img style={{ maxHeight:"50px" }} src={ image } alt={ title } />
+          <h3 style={{border: '#fdd835 solid 1px', color: 'white', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px'}} >{String(title)}</h3></a>
+            <p style={{border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px'}}
             dangerouslySetInnerHTML={ createMarkup(keywordsString) } />
             <div style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
             dangerouslySetInnerHTML={createMarkup(body)} />
         </div>  
       </li>
+      </Paper>
     )
   }
 }

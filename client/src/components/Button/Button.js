@@ -1,13 +1,34 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
-// Destructuring the type, className, children and onClick props, applying them to the button element
-const Button = ({ type = "default", className, children, onClick }) => (
-  <button
-    onClick={onClick}
-    className={["btn btn-lg", `btn-${type}`, className].join(" ")}
-  >
-    {children}
-  </button>
-);
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
-export default Button;
+function OutlinedButtons(props) {
+  const { classes } = props;
+  return (
+    <div>
+      
+      <Button variant="outlined" color="primary" className={classes.button}>
+        Create Event
+      </Button>
+	  <Button variant="outlined" color="primary" className={classes.button}>
+        Delete Event
+      </Button>
+    </div>
+  );
+}
+
+OutlinedButtons.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(OutlinedButtons);
