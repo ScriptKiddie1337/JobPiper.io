@@ -15,7 +15,7 @@ export default class JobListingList extends Component {
         <div >
           <a href={ link } target="_blank" style={{textDecoration: 'none'}}>
           <img style={{ maxHeight:"50px" }} src={ image } alt={ title } />
-          <h3 style={{border: '#fdd835 solid 1px', color: 'white', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px'}} >{String(title)}</h3></a>
+          <h3 style={{border: '#fdd835 solid 1px', color: 'white', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px'}} dangerouslySetInnerHTML={createMarkup(title)} /></a>
             <p style={{border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px'}}
             dangerouslySetInnerHTML={ createMarkup(keywordsString) } />
             <div style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
