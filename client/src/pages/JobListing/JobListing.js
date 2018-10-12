@@ -105,7 +105,6 @@ class JobListing extends Component {
         </div>
         <br />
         <ul style={{listStyleType: 'none'}}>
-          {console.log(this.state.jobs)}
           {this.state.jobs.map((job, i) => {
             // console.log(job.item.title, job.score)
             if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
