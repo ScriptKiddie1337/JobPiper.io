@@ -12,7 +12,7 @@ class JobListing extends Component {
     contact: [],
     searchTerm: '',
     excludeTerm: '',
-    
+    fuseJobs:[]
     // ! add persistent search and exclude arrays
   };
 
@@ -43,8 +43,8 @@ class JobListing extends Component {
   componentDidMount() {
     fetch('/api/jobs')
     .then(response => response.json())
-    .then(data => this.setState({ jobs:data }, 
-      // () => console.log(this.state.jobs)
+    .then(data => this.setState({ jobs:data}, 
+      // () => this.setState({fuseJobs: this.state.jobs})
       ))
     
   }
@@ -58,14 +58,11 @@ class JobListing extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-    .then(res => this.setState({ jobs: res.data } ) ) //this.setState({ jobs: res.data } )
-    .then(x => console.log('fuse form submit: ',this.fuse(this.state.jobs)))
-    .catch(err => console.log(err));
+    this.setState({fuseJobs: this.fuse(this.state.jobs)})
   };
 
   render() {
-    let currentSearch = this.fuse(this.state.jobs)
+    let currentSearch = this.state.fuseJobs
     // console.log('Result Count: ',currentSearch.length)
 
     return (
@@ -89,16 +86,18 @@ class JobListing extends Component {
               placeholder='Exclude keywords...'
               style={{width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             />
-        </Grid>
+    </Grid>*/}
         <Grid item xs={12} md={2}>
             <Button fullWidth onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
-        </Grid>   */}
+        </Grid>
       </Grid>          
     </div>  
       <br />
       <ul>
     { currentSearch.map((job, i) => {
-      // console.log(job.item.title, job.score)
+      // Shows the scoring for each job in a search
+      // lower numbers are closer matches according to the algorithm
+      // console.log(job.item.title, job.score) 
       if (job.score < 0.4) {
         return <JobListingList 
           key={i} 
