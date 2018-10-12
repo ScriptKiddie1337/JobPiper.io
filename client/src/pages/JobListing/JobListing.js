@@ -89,7 +89,7 @@ class JobListing extends Component {
                 />
               </form>
             </Grid>
-            {/* <Grid fullWidth item xs={12} md={5}>
+            <Grid fullwidth="true" item xs={12} md={5}>
             <Input 
               name='excludeTerm'
               value={this.state.excludeTerm}
@@ -97,9 +97,9 @@ class JobListing extends Component {
               placeholder='Exclude keywords...'
               style={{width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             />
-    </Grid>*/}
+    </Grid>
         <Grid item xs={12} md={2}>
-            <Button fullWidth onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
+            <Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         </Grid>
           </Grid>
         </div>
@@ -108,16 +108,18 @@ class JobListing extends Component {
           {console.log(this.state.jobs)}
           {this.state.jobs.map((job, i) => {
             // console.log(job.item.title, job.score)
-            if (job.score < 0.4) {
-              return <JobListingList
-                key={i}
-                link={job.item.link}
-                _id={job.item._id}
-                title={job.item.title}
-                keywords={job.item.keywords}
-                body={job.item.body}
-                image={job.item.image}
-              />;
+            if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+              if (job.score < 0.4) {
+                return <JobListingList
+                  key={i}
+                  link={job.item.link}
+                  _id={job.item._id}
+                  title={job.item.title}
+                  keywords={job.item.keywords}
+                  body={job.item.body}
+                  image={job.item.image}
+                />;
+              }
             }
           })
           }
