@@ -10,8 +10,7 @@ class MyCalendar extends Component {
 
     initGoogleCalendar().then(result => {
 
-      console.log("Init google calendar result: " + result)
-      this.setState({ googleCalendarId: result.id })
+      this.setState({ googleCalendarId: result })
     })
   }
 
