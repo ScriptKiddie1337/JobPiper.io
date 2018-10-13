@@ -38,16 +38,16 @@ export const initGoogleCalendar = new Promise((resolve, reject) => {
                                         summary: "Job Piper"
                                     })
                                 } else {
-                                    resolve(ourCalendar.id)
+                                    return resolve(ourCalendar.id)
                                 }
                             })
                             .then(function (response) {
 
-                                resolve(response.result.id)
+                                return resolve(response.result.id)
                             })
                     } else {
-                        reject("Signed out user")
                         auth.signOut(); // Something went wrong, sign out
+                        return reject("Signed out user, as google api client returned not signed in")
                     }
                 })
         }
