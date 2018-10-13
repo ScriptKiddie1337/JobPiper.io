@@ -104,7 +104,7 @@ class JobListing extends Component {
           </Grid>
         </div>
         <br />
-        <ul style={{listStyleType: 'none'}}>
+        <ul style={{listStyleType: 'none', padding: '5px'}}>
           {this.state.jobs.map((job, i) => {
             // console.log(job.item.title, job.score)
             if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
