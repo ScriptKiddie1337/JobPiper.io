@@ -30,7 +30,7 @@ export const initGoogleCalendar = () => {
                                 return gapi.client.calendar.calendarList.list({ maxResults: 250 })
                             })
                             .then(function (response) {
-
+                                console.log("calendar list response: " + response)
                                 const ourCalendar = response.items.find(item => item.summary === "Job Piper")
 
                                 if (ourCalendar === undefined) {
@@ -43,7 +43,7 @@ export const initGoogleCalendar = () => {
                             })
                             .then(function (response) {
 
-                                return response.result.id
+                                return Promise(response.result.id)
                             })
                     } else {
                         console.log("Signed out user")
