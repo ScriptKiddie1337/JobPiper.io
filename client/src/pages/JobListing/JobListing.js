@@ -19,6 +19,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+//import LocationSelector from '../../components/LocationSelector'
 
 const actionsStyles = theme => ({
 	root: {
@@ -138,14 +139,14 @@ handleChangeRowsPerPage = event => {
   fuse(list) {
     const options = {
       shouldSort: true,
-      // tokenize: true,
-      // matchAllTokens: true,
+      tokenize: true,
+      matchAllTokens: true,
       findAllMatches: true,
       includeScore: true,
       // threshold, location and distance are ignored if tokenize is set to true
-      threshold: 0.6,
-      location: 0,
-      distance: 100,
+      // threshold: 0.6,
+      // location: 0,
+      // distance: 100,
       maxPatternLength: 64,
       minMatchCharLength: 5,
       keys: [
