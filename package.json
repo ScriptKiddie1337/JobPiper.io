@@ -21,12 +21,6 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
-    "@material-ui/lab": "^3.0.0-alpha.19",
-    "@mdi/js": "^2.8.94",
-    "@mdi/react": "^1.0.1",
->>>>>>> origin/develop
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
