@@ -5,7 +5,7 @@ import { firebase, auth } from '../firebase'
 // Init google calendar to get the ID the calendar containing our events
 // This ID is used to display an iframe of their google calendar with only our events
 // If the user does not already have our calendar, we will make one for them
-export const initGoogleCalendar = () => {
+export const initGoogleCalendar = new Promise((resolve, reject) => {
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -31,22 +31,22 @@ export const initGoogleCalendar = () => {
                             })
                             .then(function (response) {
                                 console.log("calendar list response: " + JSON.stringify(response))
-                                const ourCalendar = response.items.find(item => item.summary === "Job Piper")
+                                const ourCalendar = response.result.items.find(item => item.summary === "Job Piper")
 
                                 if (ourCalendar === undefined) {
                                     return gapi.client.calendar.calendars.insert({
                                         summary: "Job Piper"
                                     })
                                 } else {
-                                    return Promise(ourCalendar.id)
+                                    resolve(ourCalendar.id)
                                 }
                             })
                             .then(function (response) {
 
-                                return Promise(response.result.id)
+                                resolve(response.result.id)
                             })
                     } else {
-                        console.log("Signed out user")
+                        reject("Signed out user")
                         auth.signOut(); // Something went wrong, sign out
                     }
                 })
@@ -55,7 +55,7 @@ export const initGoogleCalendar = () => {
     }
     // Add to the document
     document.getElementsByTagName('head')[0].appendChild(script);
-}
+})
 
 // Adds an event to the user's job calendar
 // Will check that the user's job calendar still exists, and create one if needed
