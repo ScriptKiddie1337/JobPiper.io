@@ -209,7 +209,7 @@ class LocationSelector extends React.Component {
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}
-            placeholder="Search a country (start with a)"
+            placeholder="Search a country"
           />
           <div className={classes.divider} />
           <Select
