@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 export default class JobListingList extends Component {
 
   render() {
+	
     const { _id, image, title, link, keywords, body } = this.props
     const keywordsString = keywords.join(' | ')
       function createMarkup(val) {
