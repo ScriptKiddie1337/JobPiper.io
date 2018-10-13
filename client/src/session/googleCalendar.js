@@ -27,7 +27,7 @@ export const initGoogleCalendar = () => {
                     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
                         auth.refreshToken()
                             .then(function (token) {
-                                return gapi.client.calendar.calendarList().list({ maxResults: 250 })
+                                return gapi.client.calendar.calendarList.list({ maxResults: 250 })
                             })
                             .then(function (response) {
 
