@@ -30,7 +30,7 @@ export const initGoogleCalendar = () => {
                                 return gapi.client.calendar.calendarList.list({ maxResults: 250 })
                             })
                             .then(function (response) {
-                                console.log("calendar list response: " + response)
+                                console.log("calendar list response: " + JSON.stringify(response))
                                 const ourCalendar = response.items.find(item => item.summary === "Job Piper")
 
                                 if (ourCalendar === undefined) {
@@ -38,7 +38,7 @@ export const initGoogleCalendar = () => {
                                         summary: "Job Piper"
                                     })
                                 } else {
-                                    return ourCalendar.id
+                                    return Promise(ourCalendar.id)
                                 }
                             })
                             .then(function (response) {
