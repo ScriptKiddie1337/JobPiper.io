@@ -9,6 +9,13 @@ export default {
   getJob: function(id) {
     return axios.get("/api/jobs/" + id);
   },
+  getJobTerm: function(term) {
+    return axios.get("/api/jobs/search", {
+      params: {
+        term: term
+      }
+    });
+  },
   // Deletes the job with the given id
   deleteJob: function(id) {
     return axios.delete("/api/jobs/" + id);

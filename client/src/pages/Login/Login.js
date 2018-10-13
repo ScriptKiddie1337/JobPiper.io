@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
-// import API from "../../utils/API";
-// import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../../components/Grid";
-// import { List, ListItem } from "../../components/List";
-// import { Input, TextArea, FormBtn } from "../../components/Form";
-import './Login.scss'
+import Nav from '../../components/Nav'
 
 class Login extends Component {
   state = {
@@ -37,7 +30,10 @@ class Login extends Component {
 
   render() {
     return (
-      <h1>Login</h1>
+      <div>
+        <Nav />
+        <img src="../../images/doors.jpeg" alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw'}}/>
+      </div>
     );
   }
 }
