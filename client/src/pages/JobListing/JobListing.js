@@ -5,6 +5,8 @@ import JobListingList from '../../components/JobSearch/JobListingList'
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API'
 import Fuse from 'fuse.js'
+import LocationSelector from '../../components/LocationSelector'
+
 
 class JobListing extends Component {
   state = {
@@ -13,21 +15,22 @@ class JobListing extends Component {
     contact: [],
     searchTerm: '',
     excludeTerm: '',
+    country: '', 
+    region: ''
     // ! add persistent search and exclude arrays
   };
-
 
   fuse(list) {
     const options = {
       shouldSort: true,
-      // tokenize: true,
-      // matchAllTokens: true,
+      tokenize: true,
+      matchAllTokens: true,
       findAllMatches: true,
       includeScore: true,
       // threshold, location and distance are ignored if tokenize is set to true
-      threshold: 0.6,
-      location: 0,
-      distance: 100,
+      // threshold: 0.6,
+      // location: 0,
+      // distance: 100,
       maxPatternLength: 64,
       minMatchCharLength: 5,
       keys: [
@@ -71,11 +74,16 @@ class JobListing extends Component {
   };
 
   render() {
+    const { country, region } = this.state;
     // let currentSearch = this.fuse(this.state.jobs)
     // console.log('Result Count: ',currentSearch.length)
     
     return (
       <div style={{ padding: '20px', borderRadius: '5px' }}>
+      <LocationSelector 
+      country={ country }
+      region={ region }
+      />
         <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           <Grid container spacing={24} alignItems='center'>
             <Grid item xs={12} >
@@ -120,6 +128,7 @@ class JobListing extends Component {
                 />;
               }
             }
+            return null;
           })
           }
         </ul>
