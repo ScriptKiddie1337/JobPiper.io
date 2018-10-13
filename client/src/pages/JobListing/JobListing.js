@@ -80,10 +80,7 @@ class JobListing extends Component {
     
     return (
       <div style={{ padding: '20px', borderRadius: '5px' }}>
-      <LocationSelector 
-      country={ country }
-      region={ region }
-      />
+      <LocationSelector />
         <div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           <Grid container spacing={24} alignItems='center'>
             <Grid item xs={12} >
