@@ -26,7 +26,7 @@ class MyCalendar extends Component {
 height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
 amp;src=${this.state.googleCalendarId}&
 amp;color=%238C500B&amp;ctz=America%2FLos_Angeles`}
-              style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> : null
+              style={{ border: 0 }} width="800" height="600" frameborder="0" scrolling="no"></iframe> : null
         }
       </div>
     );
