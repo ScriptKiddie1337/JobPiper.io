@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import { signInPopUp } from "../../firebase/auth";
 
-import './Login.scss'
 import Nav from '../../components/Nav'
 
 class Login extends Component {
