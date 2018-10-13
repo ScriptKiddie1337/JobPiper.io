@@ -32,7 +32,7 @@ const withAuthentication = Component => {
             : this.setState({ authUser: null })
         })
       } else {
-        this.setState({ authUser: true })
+        this.setState({ authUser: { authenticated: true } })
       }
     }
     render() {

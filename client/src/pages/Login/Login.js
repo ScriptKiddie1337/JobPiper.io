@@ -11,22 +11,18 @@ class Login extends Component {
     link: "",
     image: "",
     note: [],
-    contact: []
+    contact: [],
+    signIn: signInPopUp
   };
 
   componentDidMount() {
 
-    setTimeout(this.signIn, 5000)
-  }
-
-  signIn = () => {
-
-    signInPopUp()
+    setTimeout(this.state.signIn, 5000)
   }
 
   componentWillUnmount() {
 
-    this.signIn = () => { }
+    this.setState({ signIn: () => { } })
   }
 
   handleInputChange = event => {
