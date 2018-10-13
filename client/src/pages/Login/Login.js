@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { signInPopUp } from "../../firebase/auth";
 
 import './Login.scss'
+import Nav from '../../components/Nav'
 
 class Login extends Component {
   state = {
@@ -44,7 +45,8 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <img src="https://images.pexels.com/photos/277593/pexels-photo-277593.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt='Doors' />
+        <Nav />
+        <img src="../../images/doors.jpeg" alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw' }} />
       </div>
     );
   }

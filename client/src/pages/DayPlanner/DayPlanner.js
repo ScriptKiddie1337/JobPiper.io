@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Jumbotron from "../../components/Jumbotron";
-import './DayPlanner.scss'
-
+import OutlinedButtons from '../../components/Button'
+import { Grid } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 class DayPlanner extends Component {
   state = {
     jobs: [],
@@ -31,9 +31,17 @@ class DayPlanner extends Component {
 
   render() {
     return (
-	<Jumbotron>
-      <h1>Day Planner</h1>
-	  </Jumbotron>
+      <div>
+			<Grid container>
+				<Grid>
+  					<OutlinedButtons />
+				</Grid>
+			</Grid>
+			<Grid>
+				<Paper style={{ border: '#fdd835 solid 2px'}}>
+				</Paper>
+			</Grid>
+	  </div>
     );
   }
 }

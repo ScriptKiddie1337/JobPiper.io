@@ -4,20 +4,25 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 //import Icon from '@material-ui/core/Icon';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 
 const styles = {
   root: {
     width: '100vw',
-    backgroundColor: '#FFD740'
+    backgroundColor: '#fdd835',
+	position: "fixed",
+    left: 0,
+    bottom: 0,
+    textAlign: "center",
   },
 };
 
 class LabelBottomNavigation extends React.Component {
   state = {
-    value: 'recents',
+    value: 'profile',
   };
 
   handleChange = (event, value) => {
@@ -30,9 +35,9 @@ class LabelBottomNavigation extends React.Component {
 
     return (
       <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Profile" value="profile" icon={<AccountCircleIcon/>} />
+        <BottomNavigationAction href='/' label="Log off" value="log off" icon={<PowerSettingsNewIcon />} />
+        <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
       </BottomNavigation>
     );
   }

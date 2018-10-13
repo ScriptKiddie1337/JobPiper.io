@@ -1,19 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
-import Jumbotron from "../../components/Jumbotron";
+import Jumbotron from '../../components/Jumbotron';
 import Grid from '@material-ui/core/Grid';
-import LabelBottomNavigation from '../../components/Footer/Footer'
-
-//import { Table } from "@material-ui/core";
+import LabelBottomNavigation from '../../components/Footer/Footer';
+import Hidden from '@material-ui/core/Hidden';
+import HomeIcons from '../../components/HomeIcons'
+// import { Typography } from '@material-ui/core';
+// import { Table } from '@material-ui/core';
 
 class Home extends Component {
   state = {
+    currentPage: 'Home', 
     jobs: [],
-    title: "",
-    link: "",
-    image: "",
+    title: '',
+    link: '',
+    image: '',
     note: [],
-    contact: []
+    contact: [],
   };
 
   componentDidMount() {
@@ -32,19 +35,25 @@ class Home extends Component {
     event.preventDefault();
     
   };
-
-  render() {
+render() {
+// render function
+  
     return (
 	<div>
-  <Jumbotron />
-   <Grid container>
-   <Grid item xs={12} md={3}>
-   </Grid>
-    <Grid item xs={12} md={9}>
-			    <ScrollableTabsButtonAuto />
-    </Grid>
-  </Grid>
-		      <LabelBottomNavigation />
+  		<Jumbotron />
+        <Grid container>
+          <Hidden smDown>
+          <Grid item md={2} style={{display: 'flex', alignItems: 'center'}}>
+				<HomeIcons />
+              </Grid>
+          </Hidden>
+    			<Grid item xs={12} md={10}>
+			    	<ScrollableTabsButtonAuto /> 
+    			</Grid>
+  			</Grid>
+		<Hidden smUp>
+			<LabelBottomNavigation />
+		</Hidden>
 	</div>
     );
   }
