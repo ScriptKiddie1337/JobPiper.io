@@ -37,13 +37,13 @@ export const initGoogleCalendar = new Promise((resolve, reject) => {
                                     return gapi.client.calendar.calendars.insert({
                                         summary: "Job Piper"
                                     })
-                                } else {
-                                    return resolve(ourCalendar.id)
-                                }
-                            })
-                            .then(function (response) {
+                                        .then(function (response) {
 
-                                return resolve(response.result.id)
+                                            resolve(response.result.id)
+                                        })
+                                } else {
+                                    resolve(ourCalendar.id)
+                                }
                             })
                     } else {
                         auth.signOut(); // Something went wrong, sign out
