@@ -21,11 +21,7 @@ const theme = createMuiTheme({
 		},
 	},
 	overrides: {
-		MuiAppBar: {
-			root: {
-				borderBottom: '10px solid #fdd835',
-			},
-		},
+		
     	MuiTab: { // Name of the component ⚛️ / style sheet
 			root: {
 				backgroundColor: '#FFD740', 

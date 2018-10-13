@@ -38,6 +38,7 @@ class CompanyNews extends Component {
 			</Grid>
 			<Grid>
 				<Paper style={{ border: '#fdd835 solid 2px'}}>
+        Company News Goes Here!!!
 				</Paper>
 			</Grid>
 	  </div>

@@ -38,6 +38,7 @@ class Meetups extends Component {
 			</Grid>
 			<Grid>
 				<Paper style={{ border: '#fdd835 solid 2px'}}>
+        MeetUps go here!!!
 				</Paper>
 			</Grid>
 	  </div>

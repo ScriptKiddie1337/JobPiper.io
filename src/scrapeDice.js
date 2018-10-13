@@ -31,56 +31,42 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-function getPostURL() {
-  const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
-  axios.get(postSearch)
-    .then(function (res) {
-      const $ = cheerio.load(res.data);
-      let hiringLinks = []
-      $('tbody').find('a.storylink').each((index, story) => {
-        let $story = $(story).text();
-        let $link = $(story).attr('href')
-        if ($story.includes("Ask HN: Who is hiring?")) {
-          hiringLinks.push({
-            title: $story,
-            link: `https://news.ycombinator.com/${$link}`
-          })
-        }
-      })
-      hiringLinks.forEach(el => scrapeWhoIsHiring(el.link))
-    })
-    .catch(err => console.log(`getPostURL() ${postSearch} error: `, err));
-}
-function scrapeWhoIsHiring(url) {
+function scrapeDice(url, res) {
   console.log(url)
   axios.get(url)
     .then(function (response) {
       const $ = cheerio.load(response.data);
-      $('span.commtext').each((index, ch) => {
-        $ch = $(ch).html()
-        $p = $(ch).children('p').html()
-        if ($ch.includes('|') && $p) {
-          let $id = $(ch).closest('tr.athing.comtr').attr('id')
-          createJob({
-            title: keywords($ch)[0],
-            keywords: keywords($ch).slice(1),
-            body: $p,
-            site: 'yCombinator',
-            link: `https://news.ycombinator.com/item?id=${$id}`,
-            image: '/images/yc_logo.svg'
-          });
-        }
+      $('.complete-serp-result-div').each((index, item) => {
+        let $company = $(item).find('.compName').html()
+        let $title = $(item).find('[itemprop="title"]').html()
+        // ! let $body = $(item).find('[itemprop="description"]').html() replace with main job listing
+        let $location = $(item).find('[itemprop="addressLocality"]').html()
+        let $logo = $(item).find('img').attr('src')
+        let $listing = $(item).find('a').attr('href')
+        let job = {
+          site: 'Dice.com',
+          title: $company,
+          link: `https://dice.com${$listing}`,
+          image: ($logo ? `https:${$logo}` : '/images/yc_logo.svg' ),
+          keywords: [$title.trim(), $location]
+        };
+        jobDetails(job)
       })
-      // res.send('Scrape Complete');
 
-      function keywords(el) {
-        return ((el) ?
-          el.substring(0, el.indexOf('<p>'))
-          .trim()
-          .replace(/ *\([^)]*\) */g, "")
-          .replace(/ *\<[^)]*\> */g, "")
-          .replace(/\-/g, ' ') :
-          null).split('|').map(word => word.trim());
+      function jobDetails(job) {
+        axios.get(job.link)
+        .then(function (response) {
+          const $ = cheerio.load(response.data);
+          let $keywords = $('.job-info').find('[itemprop="skills"]').html()
+          let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','))
+          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'')
+          const fullJob = Object.assign({
+            body: body,
+            keywords: mergedKeywords
+          }, job)
+          createJob(fullJob)
+        })
+        .catch(err => console.log(`dice.com/jobs/detail GET ${url} error: `, err));
       }
       function createJob(result) {
         const query = {
@@ -89,14 +75,15 @@ function scrapeWhoIsHiring(url) {
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now(), link: result.link, image: result.image}, query)
+        const record = Object.assign({date:Date.now()}, result)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
         // in parameters. This avoids duplicate data being scraped.
         db.JobListing.findOneAndUpdate(query, record, {upsert:true})
           .then(function (dbJob) {
-            // dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
+            // View the added result in the console
+            dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
             return dbJob;
           })
           .catch(function (err) {
@@ -105,8 +92,8 @@ function scrapeWhoIsHiring(url) {
             throw new Error(err);
           })
       };
-    })
-    .catch(err => {throw new Error(err)});
+      })
+      .catch(err => console.log(`dice.com/jobs GET ${url} error: `, err));
 }
 
-module.exports = getPostURL;
+module.exports = scrapeDice;

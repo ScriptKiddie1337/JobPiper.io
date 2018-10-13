@@ -32,7 +32,6 @@ export const initGoogleCalendar = () => {
                                     return gapi.client.calendar.calendarList.list({ maxResults: 250 })
                                 })
                                 .then(function (response) {
-                                    console.log("calendar list response: " + JSON.stringify(response))
                                     const ourCalendar = response.result.items.find(item => item.summary === "Job Piper")
 
                                     if (ourCalendar === undefined) {

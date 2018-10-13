@@ -21,10 +21,17 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@material-ui/lab": "^3.0.0-alpha.19",
+    "@mdi/js": "^2.8.94",
+    "@mdi/react": "^1.0.1",
+>>>>>>> origin/develop
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.3",
+    "fuse.js": "^3.2.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.0",
     "mongoose-unique-validator": "^2.0.2",

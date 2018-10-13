@@ -4,7 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { firebase, auth } from '../firebase'
-import { initGoogleCalendar } from './googleCalendar';
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
@@ -31,15 +30,6 @@ const withAuthentication = Component => {
           authUser
             ? this.setState({ authUser })
             : this.setState({ authUser: null })
-
-          if (authUser) {
-
-            initGoogleCalendar().then(result => {
-
-              console.log("Init google calendar result: " + result)
-              this.setState({ googleCalendarId: result.id })
-            })
-          }
         })
       } else {
         this.setState({ authUser: true })
