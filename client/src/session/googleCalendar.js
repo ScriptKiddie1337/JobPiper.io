@@ -69,11 +69,11 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
             'summary': title,
             'description': description,
             'start': {
-                'dateTime': startTime,
+                'dateTime': new Date(startTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
             'end': {
-                'dateTime': endTime,
+                'dateTime': new Date(endTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
         }
