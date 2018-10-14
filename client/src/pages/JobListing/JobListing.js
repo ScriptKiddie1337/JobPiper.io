@@ -224,7 +224,7 @@ handleChangeRowsPerPage = event => {
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         			</Grid>
-          		</Grid>
+          		</Grid>	
         	</div>
         	<br />		
         		<div className={classes.tableWrapper}>
