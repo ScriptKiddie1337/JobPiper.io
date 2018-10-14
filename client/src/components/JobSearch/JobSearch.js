@@ -6,7 +6,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import './JobSearch.scss'
+
 
 const styles = theme => ({
   root: {

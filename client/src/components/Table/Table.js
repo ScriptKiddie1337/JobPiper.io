@@ -20,6 +20,7 @@ root: {
     color: theme.palette.text.secondary,
     marginLeft: theme.spacing.unit * 2.5,
 },
+
 });
 
 class TablePaginationActions extends React.Component {

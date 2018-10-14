@@ -21,6 +21,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "@material-ui/lab": "^3.0.0-alpha.19",
     "@mdi/js": "^2.8.94",
     "@mdi/react": "^1.0.1",
     "axios": "^0.18.0",
@@ -28,11 +29,13 @@
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^5.6.1",
     "express": "^4.16.3",
+    "fuse.js": "^3.2.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.0",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "node-sass": "^4.9.3",
+    "react-country-region-selector": "^1.4.1",
     "sass-loader": "^7.1.0",
     "validator": "^10.8.0"
   }
