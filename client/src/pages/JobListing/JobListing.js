@@ -11,9 +11,9 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
+import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -226,18 +226,30 @@ handleChangeRowsPerPage = event => {
         			</Grid>
           		</Grid>
         	</div>
-        	<br />
-			<Paper className={classes.root}>
+        	<br />		
         		<div className={classes.tableWrapper}>
-        			<Table className={classes.table}>
+					<Table className={classes.table}>
+						<TableHead>
+							<TableRow>
+               					<TablePagination
+               					colSpan={3}
+               					count={rows.length}
+               					rowsPerPage={rowsPerPage}
+               					page={page}
+               					onChangePage={this.handleChangePage}
+               					onChangeRowsPerPage={this.handleChangeRowsPerPage}
+               					ActionsComponent={TablePaginationActionsWrapped}
+               					/>
+            				</TableRow>
+						</TableHead>
            				<TableBody>
-        					<ul style={{listStyleType: 'none', padding: '5px'}}>
+        					
           					{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
             				// console.log(job.item.title, job.score)
             					if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
               						if (job.score < 0.4) {
                 								return (
-										<TableRow key={job._id}>
+										<TableRow key={job._id} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
 											<TableCell component="th" scope="row">
 												<JobListingList
                 									 key={i}
@@ -255,7 +267,7 @@ handleChangeRowsPerPage = event => {
 									}	
 									return null
 									})}
-        					</ul>
+        				
 							{emptyRows > 0 && (
                 				<TableRow style={{ height: 48 * emptyRows }}>
                 					<TableCell colSpan={6} />
@@ -277,8 +289,6 @@ handleChangeRowsPerPage = event => {
             			</TableFooter>
         			</Table>
         		</div>
-   			</Paper>
-
       	</div>
     );
   }

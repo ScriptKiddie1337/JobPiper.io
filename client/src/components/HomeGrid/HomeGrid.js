@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CustomPaginationActionsTable from '../Table'
+import JobListing from '../../pages/JobListing'
 //import { Typography } from '@material-ui/core';
 
 const styles = {
@@ -33,7 +34,7 @@ function HomeGrid(props) {
                 <Grid item xs={12}>
                     <Card className={classes.card} >
                         <CardContent>
-                            <CustomPaginationActionsTable ></CustomPaginationActionsTable>
+                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
