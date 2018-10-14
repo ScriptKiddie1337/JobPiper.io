@@ -70,9 +70,11 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
             'description': description,
             'start': {
                 'dateTime': startTime,
+                'timeZone': 'America/Los_Angeles'
             },
             'end': {
                 'dateTime': endTime,
+                'timeZone': 'America/Los_Angeles'
             },
         }
 
