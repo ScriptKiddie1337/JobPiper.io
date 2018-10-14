@@ -61,33 +61,52 @@ export const initGoogleCalendar = () => {
 
 // Adds an event to the user's job calendar
 // Will check that the user's job calendar still exists, and create one if needed
-export const addEventToGoogleCalendar = (title, description, startTime, endTime, calendarId) => {
+export const addEventToGoogleCalendar = (title, description, startTime, endTime) => {
 
-    // Make sure the Google API Client is properly signed in
-    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-        auth.refreshToken()
-            .then(function (token) {
-                return gapi.client.calendar.calendars.insert({ summary: "Job Piper" })
-            })
-            .then(function (response) {
+    const createCalendarEvent = calendarId => {
 
-                var event = {
-                    'summary': title,
-                    'description': description,
-                    'start': {
-                        'dateTime': startTime.dateTime,
-                        'timeZone': startTime.timeZone
-                    },
-                    'end': {
-                        'dateTime': endTime.dateTime,
-                        'timeZone': endTime.timeZone
-                    },
-                }
+        var event = {
+            'summary': title,
+            'description': description,
+            'start': {
+                'dateTime': startTime,
+            },
+            'end': {
+                'dateTime': endTime,
+            },
+        }
 
-                return gapi.client.calendar.events.insert({
-                    'calendarId': calendarId,
-                    'resource': event
-                })
-            })
+        return gapi.client.calendar.events.insert({
+            'calendarId': calendarId,
+            'resource': event
+        })
     }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return gapi.client.calendar.calendarList.list({ maxResults: 250 })
+                })
+                .then(function (response) {
+                    const ourCalendar = response.result.items.find(item => item.summary === "Job Piper")
+
+                    if (ourCalendar === undefined) {
+                        return gapi.client.calendar.calendars.insert({
+                            summary: "Job Piper"
+                        })
+                            .then(function (response) {
+
+                                createCalendarEvent(response.result.id)
+                            })
+                    } else {
+                        createCalendarEvent(ourCalendar.id)
+                    }
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            return reject("Signed out user, as google api client returned not signed in")
+        }
+    })
 }

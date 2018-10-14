@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import OutlinedButtons from '../../components/Button'
+// import OutlinedButtons from '../../components/Button'
+import CreateCalendarEventDialog from '../../components/CreateCalendarEventDialog'
 import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 
@@ -36,7 +37,8 @@ class DayPlanner extends Component {
       <div>
         <Grid container>
           <Grid>
-            <OutlinedButtons />
+            {/* <OutlinedButtons /> */}
+            <CreateCalendarEventDialog />
           </Grid>
         </Grid>
         <Grid>
