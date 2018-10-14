@@ -153,10 +153,7 @@ class PrimarySearchAppBar extends React.Component {
         <AppBar position="static" className='appBar' style={{borderBottom: '10px solid #fdd835',}}>
           <Toolbar>
             <Grid container>
-<<<<<<< HEAD
-=======
 			<Tooltip title='Start Searching'>
->>>>>>> 05163af04e6575edb3324c5a6debb20570abe672
 			  	    <Grid item xs={2} >
 					      <a href='/home'><img src='../../images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
 						  
