@@ -78,10 +78,10 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
             },
         }
 
-        return gapi.client.calendar.events.insert({
+        gapi.client.calendar.events.insert({
             'calendarId': calendarId,
             'resource': event
-        })
+        }).then(response => console.log(response))
     }
 
     return new Promise((resolve, reject) => {
