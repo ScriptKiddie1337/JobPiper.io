@@ -11,7 +11,7 @@ export default class JobListingList extends Component {
         return {__html: val };
       }
     return (
-      <Paper style={{backgroundColor: '#FAFAFA', margin: '10px 0px 0px 0px', border: 'solid 2px #819ca9', borderRadius: '5px'}}>
+      <Paper style={{backgroundColor: '#FAFAFA', margin: '10px', border: 'solid 2px #819ca9', borderRadius: '5px'}}>
       <div key={_id} style={{margin: '10px'}}>
         <Grid container>
 			<Grid item xs={12} style={{ border: '#fdd835 solid 1px', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px'}}>

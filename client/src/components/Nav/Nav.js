@@ -19,7 +19,7 @@ import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '100vw',
   },
   grow: {
     flexGrow: 1,
