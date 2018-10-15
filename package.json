@@ -35,7 +35,6 @@
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "node-sass": "^4.9.3",
-    "react-country-region-selector": "^1.4.1",
     "sass-loader": "^7.1.0",
     "validator": "^10.8.0"
   }

@@ -19,6 +19,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import LocationSelector from "../../components/LocationSelector/LocationSelector";
 //import LocationSelector from '../../components/LocationSelector'
 
 const actionsStyles = theme => ({
@@ -199,7 +200,8 @@ handleChangeRowsPerPage = event => {
     
     return (
     	<div style={{ padding: '20px', borderRadius: '5px' }}>
-        	<div style={{ padding: '20px', backgroundImage: "url('../../Images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
+      <LocationSelector />
+        	<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           		<Grid container spacing={24} alignItems='center'>
             		<Grid item xs={12} >
               			<form onSubmit = {this.handleFormSubmit}>
@@ -230,7 +232,7 @@ handleChangeRowsPerPage = event => {
 			<Paper className={classes.root}>
         		<div className={classes.tableWrapper}>
         			<Table className={classes.table}>
-           				<TableBody>
+                <TableBody>
         					<ul style={{listStyleType: 'none', padding: '5px'}}>
           					{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
             				// console.log(job.item.title, job.score)
@@ -240,14 +242,14 @@ handleChangeRowsPerPage = event => {
 										<TableRow key={job._id}>
 											<TableCell component="th" scope="row">
 												<JobListingList
-                									 key={i}
-                									 link={job.item.link}
-                									 _id={job.item._id}
-                									 title={job.item.title}
-                									 keywords={job.item.keywords}
-                									 body={job.item.body}
-													 image={job.item.image}
-													 />
+                          key={i}
+                          link={job.item.link}
+                          _id={job.item._id}
+                          title={job.item.title}
+                          keywords={job.item.keywords}
+                          body={job.item.body}
+                          image={job.item.image}
+                          />
 											</TableCell>
 										</TableRow>
 												)
