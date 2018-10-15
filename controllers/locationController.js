@@ -9,16 +9,14 @@ module.exports = {
   },
   getCities: function(req, res) {
     db.Cities
-      .find(req.query)
-      .sort({ name: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    .find({state_id: req.params.id})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
   },
   getStates: function(req, res) {
     db.States
-      .find(req.query)
-      .sort({ name: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    .find({country_id: req.params.id})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
   }
 };

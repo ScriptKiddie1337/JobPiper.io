@@ -6,10 +6,10 @@ router
   .route("/country")
   .get(locationController.getCountries);
   router
-  .route("/city")
+  .route("/city/:id")
   .get(locationController.getCities);
   router
-  .route("/state")
+  .route("/state/:id")
   .get(locationController.getStates);
 
 module.exports = router;

@@ -122,9 +122,13 @@ class JobListing extends Component {
     note: [],
     contact: [],
     searchTerm: '',
-	excludeTerm: '',
-	page: 0,
-    rowsPerPage: 5,
+		excludeTerm: '',
+		page: 0,
+		rowsPerPage: 5,
+		// location selector id's
+		country: '231',
+		state:'',
+		city:''
     // ! add persistent search and exclude arrays
   };
 
@@ -157,7 +161,8 @@ handleChangeRowsPerPage = event => {
         { name: "item.title", weight: .8 },
         { name: "item.body", weight: .3 },
         { name: "item.keywords", weight: .6 }
-      ]
+			],
+
     };
     let fuse = new Fuse(list, options);
     let res = fuse.search(this.state.searchTerm);
@@ -173,6 +178,12 @@ handleChangeRowsPerPage = event => {
       ))
 
   }
+
+	getStates = () => {
+		// console.log(this.state.country)
+		API.getStates(this.state.country)
+			.then(res => console.log(res.data));
+	}
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -200,7 +211,7 @@ handleChangeRowsPerPage = event => {
     
     return (
     	<div style={{ padding: '20px', borderRadius: '5px' }}>
-      <LocationSelector />
+      <LocationSelector suggest={ this.getStates() } />
         	<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
           		<Grid container spacing={24} alignItems='center'>
             		<Grid item xs={12} >
