@@ -1,4 +1,5 @@
 import { auth, provider } from './config'
+import api from '../utils/API'
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
@@ -31,6 +32,12 @@ export const signInPopUp = () => {
     localStorage.setItem("GoogleAccessToken", result.credential.accessToken)
     // The signed-in user info.
     localStorage.setItem("GoogleUserInfo", JSON.stringify(result.user))
+
+    api.createUser({
+      google_id: result.user.uid,
+      user_name: result.user.displayName,
+      email: result.user.email
+    })
   });
 }
 
