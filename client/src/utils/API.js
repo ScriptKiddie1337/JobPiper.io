@@ -26,6 +26,6 @@ export default {
   },
 
   createUser: user => {
-    return axios.post("api/user", user)
+    return axios.post("/api/user", user)
   }
 };
