@@ -19,7 +19,7 @@ import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '100vw',
   },
   grow: {
     flexGrow: 1,
@@ -155,7 +155,7 @@ class PrimarySearchAppBar extends React.Component {
             <Grid container>
 			<Tooltip title='Start Searching'>
 			  	    <Grid item xs={2} >
-					      <a href='/home'><img src='../../images/favicon.png' alt='Brand Logo' style={{ maxWidth: 75, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
+					      <a href='/home'><img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ maxWidth: 100, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
 						  
 				      </Grid>
 					  </Tooltip>

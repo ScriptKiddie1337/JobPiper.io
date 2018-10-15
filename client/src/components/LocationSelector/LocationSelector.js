@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types, react/jsx-handler-names */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -13,7 +12,8 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import locales from '../../utils/locales'
+import locales from '../../utils/locales';
+import Grid from '@material-ui/core/Grid';
 
 const suggestions = locales.map(suggestion => ({
   value: suggestion.name,
@@ -23,7 +23,7 @@ const suggestions = locales.map(suggestion => ({
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 250,
+    
   },
   input: {
     display: 'flex',
@@ -70,7 +70,7 @@ const styles = theme => ({
 function NoOptionsMessage(props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.noOptionsMessage}
       {...props.innerProps}
     >
@@ -106,7 +106,7 @@ function Option(props) {
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
-      component="div"
+      component='div'
       style={{
         fontWeight: props.isSelected ? 500 : 400,
       }}
@@ -120,7 +120,7 @@ function Option(props) {
 function Placeholder(props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.placeholder}
       {...props.innerProps}
     >
@@ -200,8 +200,11 @@ class LocationSelector extends React.Component {
     };
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} >
+      <Grid container spacing={24}>
         <NoSsr>
+          <Grid item xs={12} md={6}>
+          <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
           <Select
             classes={classes}
             styles={selectStyles}
@@ -209,14 +212,17 @@ class LocationSelector extends React.Component {
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}
-            placeholder="Search a country"
+            placeholder='Search a country'
           />
+          </div>
+          </Grid>
           <div className={classes.divider} />
+          <Grid item xs={12} md={6}>
+          <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
           <Select
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
-              label: 'Label',
               InputLabelProps: {
                 shrink: true,
               },
@@ -225,10 +231,13 @@ class LocationSelector extends React.Component {
             components={components}
             value={this.state.multi}
             onChange={this.handleChange('multi')}
-            placeholder="Select multiple countries"
+            placeholder='Select multiple countries'
             isMulti
           />
+          </div>
+          </Grid>
         </NoSsr>
+        </Grid>
       </div>
     );
   }
