@@ -19,8 +19,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import LocationSelector from "../../components/LocationSelector/LocationSelector";
-//import LocationSelector from '../../components/LocationSelector'
+import LocationSelector from '../../components/LocationSelector'
 
 const actionsStyles = theme => ({
 	root: {
@@ -200,29 +199,31 @@ render() {
     
     return (
     	<div style={{ padding: '20px', borderRadius: '5px' }}>
-		<LocationSelector />
         	<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
     			<Grid container spacing={24} alignItems='center'>
-            		<Grid item xs={12} >
+            		<Grid item xs={12} md={6}>
         				<form onSubmit = {this.handleFormSubmit}>
                 			<Input
                 			name='searchTerm'
                 			value={this.state.searchTerm}
                 			onChange={this.handleInputChange}
                 			placeholder='Search keywords...'
-                			style={{ width: '100%', opacity: .8, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+                			style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
                 			/>
         				</form>
             		</Grid>
-            		<Grid fullwidth="true" item xs={12} md={5}>
+            		<Grid fullwidth="true" item xs={12} md={6}>
             			<Input 
             			name='excludeTerm'
             			value={this.state.excludeTerm}
             			onChange={this.handleInputChange}
             			placeholder='Exclude keywords...'
-            			style={{ opacity: .8, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
+            			style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
             			/>
     				</Grid>
+					<Grid item xs={12}>
+					<LocationSelector />
+					</Grid>
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         			</Grid>
