@@ -11,7 +11,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 const styles = {
   root: {
-    width: '100vw',
+    width: '100%',
     backgroundColor: '#fdd835',
 	position: "fixed",
     left: 0,

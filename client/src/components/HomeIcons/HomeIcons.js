@@ -1,8 +1,6 @@
 import React from "react";
-// import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@mdi/react'
 import { mdiSettings } from '@mdi/js'
@@ -33,9 +31,9 @@ function HomeIcons(props) {
             color="secondary">
             <Icon
               path={mdiAccountCircle}
-			  size={2}
+			  size={1}
               color='fdd835' />
-            <p style={{marginLeft: 10}}>Profile</p>
+            <p style={{marginLeft: 10, fontSize: '10px'}}>Profile</p>
           </IconButton>
         </ListItem>
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
@@ -45,9 +43,9 @@ function HomeIcons(props) {
             color="secondary">
             <Icon 
               path={mdiSettings} 
-              size={2} 
+              size={1} 
               color='#fdd835'/>
-            <p style={{marginLeft: 10}}>Settings</p>
+            <p style={{marginLeft: 10, fontSize: '10px'}}>Settings</p>
           </IconButton>
           </ListItem>
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
@@ -58,9 +56,9 @@ function HomeIcons(props) {
             color="secondary">
             <Icon 
               path={mdiLogoutVariant} 
-			  size={2} 
+			  size={1} 
               color='#fdd835'/>
-            <p style={{marginLeft: 10}}>Log Out</p>
+            <p style={{marginLeft: 10, fontSize: '10px'}}>Log Out</p>
           </IconButton>
 		  </a>
       </ListItem>
