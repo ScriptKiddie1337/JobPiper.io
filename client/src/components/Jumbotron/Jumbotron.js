@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -105,8 +105,8 @@ const styles = theme => ({
         >
           <MenuItem onClick={this.handleProfileMenuOpen}>
             <IconButton
-              aria-haspopup="true"
-              color="inherit">
+              aria-haspopup='true'
+              color='inherit'>
               <Icon
                 path={mdiAccountCircle}
                 size={1}
@@ -116,8 +116,8 @@ const styles = theme => ({
           </MenuItem>
           <MenuItem>
           <IconButton
-                aria-haspopup="true"
-                color="inherit"
+                aria-haspopup='true'
+                color='inherit'
                 >
               <Icon 
                 path={mdiSettings} 
@@ -129,8 +129,8 @@ const styles = theme => ({
           </MenuItem>
           <MenuItem>
           <IconButton
-                aria-haspopup="true"
-                color="inherit"
+                aria-haspopup='true'
+                color='inherit'
                 >
               <Icon 
                 path={mdiLogoutVariant} 
@@ -145,8 +145,8 @@ const styles = theme => ({
 
 return (
   <div
-    style={{ minHeight: 50, clear: "both", paddingTop: 30, backgroundColor: 'white', textAlign: "center"}}
-    className="jumbotron"
+    style={{ minHeight: 50, clear: 'both', paddingTop: 30, textAlign: 'center'}}
+    className='jumbotron'
   >
     <Grid container>		  	
         <Grid item xs={12}>
@@ -155,7 +155,7 @@ return (
         <Hidden mdUp>
           <Grid>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+              <IconButton aria-haspopup='true' onClick={this.handleMobileMenuOpen} color='inherit'>
                 <MoreIcon />
               </IconButton>
             </div>

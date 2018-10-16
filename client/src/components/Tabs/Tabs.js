@@ -15,8 +15,8 @@ import NoSsr from '@material-ui/core/NoSsr';
 
 function TabContainer(props) {
   return (
-	  <div style={{ backgroundColor: 'white', minHeight: '75vh', marginBottom: '100px', border: '#fdd835 2px solid', borderRadius: '0px 0px 10px 10px'}}>
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+	  <div style={{ backgroundColor: 'white', minHeight: '75vh', marginBottom: '20px', }}>
+    <Typography component='div' style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
 	</div>
@@ -52,30 +52,30 @@ class ScrollableTabsButtonAuto extends React.Component {
       <NoSsr>
         <MemoryRouter initialEntries={['/home']} initialIndex={0}>
           <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position='static'>
               <Tabs
                 value={value}
                 onChange={this.handleChange}
-                indicatorColor="primary"
-                textColor="inherit"
+                indicatorColor='secondary'
+                textColor='inherit'
                 scrollable
-                scrollButtons="auto" 
+                scrollButtons='auto' 
               >
-              <Tab label="Home" />
-              <Tab label="Day Planner" />
-              <Tab label="Job Search" />
-              <Tab label="Company News" />
-              <Tab label="Meetups" />
+              <Tab label='Home' />
+              <Tab label='Day Planner' />
+              <Tab label='Job Search' />
+              <Tab label='Company News' />
+              <Tab label='Meetups' />
               </Tabs>
             </AppBar>
             {value === 0 && 
             <TabContainer>
               <HomeGrid />
             </TabContainer>}
-            {value === 1 && <TabContainer to="/dayplanner"><DayPlanner /></TabContainer>}
-            {value === 2 && <TabContainer to="/jobs"><JobListing /></TabContainer>}
-            {value === 3 && <TabContainer to="/companynews"><CompanyNews /></TabContainer>}
-            {value === 4 && <TabContainer to="/meetups"><Meetups /></TabContainer>}
+            {value === 1 && <TabContainer to='/dayplanner'><DayPlanner /></TabContainer>}
+            {value === 2 && <TabContainer to='/jobs'><JobListing /></TabContainer>}
+            {value === 3 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>}
+            {value === 4 && <TabContainer to='/meetups'><Meetups /></TabContainer>}
           </div>
         </MemoryRouter>
       </NoSsr>

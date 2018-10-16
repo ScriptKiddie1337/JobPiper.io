@@ -52,7 +52,7 @@ render() {
 	<div>
         <Grid container>
         	<Hidden smDown>
-        		<Grid item md={2}>
+        		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px'}}>
 					<Grid item xs={12}>
 						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px', marginLeft: 10, borderRadius: '50px'}}></img>
 					</Grid>

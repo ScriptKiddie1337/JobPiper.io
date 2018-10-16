@@ -17,17 +17,15 @@ const theme = createMuiTheme({
 	  contrastThreshold: 3,
 	  tonalOffset: 0.2,
 		background: {
-			default: "#546e7a"
+			default: "#E1E2E1"
 		},
 	},
 	overrides: {
 		
     	MuiTab: { // Name of the component ⚛️ / style sheet
 			root: {
-				backgroundColor: '#FFD740', 
-				margin: '0px 0px 0px 20px', 
-				borderRadius: '10px 10px 0px 0px',
-				
+				backgroundColor: '#546e7a', 
+				margin: '0px 0px 0px 1.5px', 
 			},
       	textColorInherit: { // Name of the rule
 				color: 'black', // Some CSS
