@@ -25,7 +25,6 @@ const theme = createMuiTheme({
     	MuiTab: { // Name of the component ⚛️ / style sheet
 			root: {
 				backgroundColor: '#546e7a', 
-				 
 			},
       	textColorInherit: { // Name of the rule
 				color: 'black', // Some CSS

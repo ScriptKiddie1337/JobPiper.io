@@ -15,7 +15,7 @@ import NoSsr from '@material-ui/core/NoSsr';
 
 function TabContainer(props) {
   return (
-	  <div style={{ backgroundColor: 'white', marginBottom: '50px', }}>
+	  <div style={{ backgroundColor: 'white', marginBottom: '50px', minHeight: '100vh'}}>
     <Typography component='div' style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
@@ -32,6 +32,9 @@ const styles = theme => ({
   flexGrow: 1,
 	width: '100%',
   },
+  bigIndicator: {
+	  height: 5,
+  }
   
 });
 
@@ -54,9 +57,10 @@ class ScrollableTabsButtonAuto extends React.Component {
           <div className={classes.root}>
             <AppBar position='static'>
               <Tabs
+			  	classes={{indicator: classes.bigIndicator}}
                 value={value}
                 onChange={this.handleChange}
-                indicatorColor='secondary'
+				indicatorColor='secondary'
                 textColor='inherit'
                 scrollable
                 scrollButtons='auto' 
