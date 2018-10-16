@@ -17,7 +17,7 @@ class Login extends Component {
 
   componentDidMount() {
 
-    this.setState({ loginTimeout: setTimeout(signInPopUp, 5000) })
+    this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
   }
 
   signIn = () => {

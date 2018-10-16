@@ -23,7 +23,7 @@ const withAuthentication = Component => {
 
     componentDidMount() {
 
-      if (process.env.REACT_APP_LOCAL_AUTHENTICATION !== "true") {
+      //if (process.env.REACT_APP_LOCAL_AUTHENTICATION !== "true") {
 
         firebase.auth.onAuthStateChanged(authUser => {
 
@@ -31,9 +31,9 @@ const withAuthentication = Component => {
             ? this.setState({ authUser })
             : this.setState({ authUser: null })
         })
-      } else {
-        this.setState({ authUser: { authenticated: true } })
-      }
+      // } else {
+      //   this.setState({ authUser: { authenticated: true } })
+      // }
     }
     render() {
       return (
