@@ -126,8 +126,11 @@ state = {
 		rowsPerPage: 5,
 		// location selector id's
 		country: '231',
-		state:'',
-		city:''
+		statesFilter:'',
+		states:[],
+		cityFilter:'',
+		city:[]
+
     // ! add persistent search and exclude arrays
 };
 
@@ -173,15 +176,17 @@ componentDidMount() {
     .then(data => this.fuse(data))
     .then(x => this.setState({ jobs: x },
         // () => console.log(this.state.jobs)
-    ))
+		));
+		fetch('/api/loc/state/' + this.state.country)
+    .then(response => response.json())
+    .then(data => this.setState({ states:data.map(x => (
+			{value: x.name,
+			label: x.name}
+			)) },
+        // () => console.log(this.state.states)
+		))
 
 }
-
-	getStates = () => {
-		// console.log(this.state.country)
-		API.getStates(this.state.country)
-			.then(res => console.log(res.data));
-	}
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -209,7 +214,6 @@ render() {
     
     return (
     	<div style={{ padding: '20px', borderRadius: '5px' }}>
-      <LocationSelector suggest={ this.getStates() } />
         	<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
     			<Grid container spacing={24} alignItems='center'>
             		<Grid item xs={12} md={6}>
@@ -233,8 +237,12 @@ render() {
             			/>
     				</Grid>
 					<Grid item xs={12}>
-					<LocationSelector />
 					</Grid>
+							<Grid item xs={12} >
+								<LocationSelector states={ this.state.country } placeholder='Select Country' />
+								<LocationSelector states={ this.state.state } placeholder='Select State/Region' />
+								<LocationSelector states={ this.state.city } placeholder='Select City' />
+							</Grid>
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         			</Grid>

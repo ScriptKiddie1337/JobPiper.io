@@ -12,13 +12,7 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import locales from '../../utils/locales';
 import Grid from '@material-ui/core/Grid';
-
-const suggestions = locales.map(suggestion => ({
-  value: suggestion.name,
-  label: suggestion.name,
-}));
 
 const styles = theme => ({
   root: {
@@ -178,6 +172,7 @@ class LocationSelector extends React.Component {
   state = {
     single: null,
     multi: null,
+    suggestions:[]
   };
 
   handleChange = name => value => {
@@ -185,8 +180,13 @@ class LocationSelector extends React.Component {
       [name]: value,
     });
   };
+  componentDidMount() {
+//  this.setState({suggestions: this.props.states.map(state => state.name)})
 
-  render() {
+}
+
+render() {
+  console.log('Suggestions: ', this.props.states)
     const { classes, theme } = this.props;
 
     const selectStyles = {
@@ -208,11 +208,11 @@ class LocationSelector extends React.Component {
           <Select
             classes={classes}
             styles={selectStyles}
-            options={suggestions}
+            options={this.props.states}
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}
-            placeholder='Search a country'
+            placeholder={ this.props.placeholder }
           />
           </div>
           </Grid>
@@ -227,11 +227,11 @@ class LocationSelector extends React.Component {
                 shrink: true,
               },
             }}
-            options={suggestions}
+            options={this.props.states}
             components={components}
             value={this.state.multi}
             onChange={this.handleChange('multi')}
-            placeholder='Select multiple countries'
+            placeholder={ this.props.placeholder }
             isMulti
           />
           </div>
