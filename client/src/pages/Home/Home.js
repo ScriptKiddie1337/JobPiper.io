@@ -50,20 +50,26 @@ render() {
   
     return (
 	<div>
-  		<Jumbotron />
         <Grid container>
         	<Hidden smDown>
-        		<Grid item md={2} style={{ display: 'flex', alignItems: 'center'}}>
-          <div 
-            position='sticky'>
+        		<Grid item md={2}>
+					<Grid item xs={12}>
+						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px', marginLeft: 10, borderRadius: '50px'}}></img>
+					</Grid>
+        			<Grid position='sticky' style={{ display: 'flex', alignItems: 'center'}}>
 						<HomeIcons  />
-            </div>
+            		</Grid>
             	</Grid>
           	</Hidden>
-    			<Grid item xs={12} md={10}>
-			    	<ScrollableTabsButtonAuto /> 
+			<Grid item md={10}>
+			  	<Grid item xs={12}>
+  					<Jumbotron />
+				</Grid>
+    			<Grid item xs={12}>
+			   		<ScrollableTabsButtonAuto /> 
     			</Grid>
   			</Grid>
+		</Grid>
 		<Hidden smUp>
 			<LabelBottomNavigation />
 		</Hidden>
