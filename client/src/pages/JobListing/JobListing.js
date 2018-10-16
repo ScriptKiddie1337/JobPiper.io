@@ -125,11 +125,12 @@ state = {
 		page: 0,
 		rowsPerPage: 5,
 		// location selector id's
-		country: '231',
-		statesFilter:'',
-		states:[],
-		cityFilter:'',
-		city:[]
+		selectedCountryID: 231,
+		countries:[],
+		selectedRegionID:0,
+		regions:[],
+		selectedCityID:0,
+		cities:[]
 
     // ! add persistent search and exclude arrays
 };
@@ -156,14 +157,7 @@ fuse(list) {
     // distance: 100,
     maxPatternLength: 64,
     minMatchCharLength: 5,
-    keys: [
-        { name: "title", weight: .8 },
-        { name: "body", weight: .3 },
-        { name: "keywords", weight: .6 },
-        { name: "item.title", weight: .8 },
-        { name: "item.body", weight: .3 },
-        { name: "item.keywords", weight: .6 }
-    ]
+    keys: [ "keywords" ]
     };
     let fuse = new Fuse(list, options);
     let res = fuse.search(this.state.searchTerm);
@@ -177,29 +171,37 @@ componentDidMount() {
     .then(x => this.setState({ jobs: x },
         // () => console.log(this.state.jobs)
 		));
-		fetch('/api/loc/state/' + this.state.country)
+		fetch('/api/loc/state/' + this.state.selectedCountryID)
     .then(response => response.json())
-    .then(data => this.setState({ states:data.map(x => (
-			{value: x.name,
-			label: x.name}
-			)) },
+    .then(data => this.setState({ regions:data.map(x => ({value: x.name,label: x.name, id: x.id})) },
         // () => console.log(this.state.states)
-		))
-
-}
+		));
+	}
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
-    [name]: value
-    } //, () => console.log('new input: ', this.state.searchTerm)
-    )
-};
+      [name]: value
+    });
+	};
+	
+handleRegionChange = async (event) => {
+	await this.setState({
+    selectedRegionID: event.id
+		} //, () => console.log('new input: ', this.state.searchTerm)
+		)
+	await fetch('/api/loc/city/' + this.state.selectedRegionID)
+    .then(response => response.json())
+    .then(data => this.setState({ cities:data.map(x => ({value: x.name,label: x.name, id: x.id})) },
+        () => console.log('cities: ',data)
+		));
+}
 
 handleFormSubmit = event => {
     event.preventDefault();
     API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-    .then(res => this.fuse(res.data))
+		.then(res => this.fuse(res.data))
+		//! .then() // ! push title and body into keywords!!!!!!!
     .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
     .catch(err => {throw new Error(err)});
 };
@@ -239,9 +241,17 @@ render() {
 					<Grid item xs={12}>
 					</Grid>
 							<Grid item xs={12} >
-								<LocationSelector states={ this.state.country } placeholder='Select Country' />
-								<LocationSelector states={ this.state.state } placeholder='Select State/Region' />
-								<LocationSelector states={ this.state.city } placeholder='Select City' />
+								{/* <LocationSelector 
+								options={ this.state.countries } 
+								placeholder='Select Country' /> */}
+								<LocationSelector 
+								options={ this.state.regions } 
+								placeholder='Select State/Region' 
+								onChange={ this.handleRegionChange }
+								/>
+								<LocationSelector 
+								options={ this.state.cities } 
+								placeholder='Select City' />
 							</Grid>
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
