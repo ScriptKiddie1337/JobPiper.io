@@ -53,10 +53,10 @@ render() {
         <Grid container>
         	<Hidden smDown>
         		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px'}}>
-					<Grid item xs={12}>
-						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px', marginLeft: 10, borderRadius: '50px'}}></img>
+					<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center'}}>
+						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					</Grid>
-        			<Grid position='sticky' style={{ display: 'flex', alignItems: 'center'}}>
+        			<Grid position='sticky' style={{ alignItems: 'center'}}>
 						<HomeIcons  />
             		</Grid>
             	</Grid>
