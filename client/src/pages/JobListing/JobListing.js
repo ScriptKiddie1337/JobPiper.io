@@ -253,7 +253,7 @@ render() {
             						if (job.score < 0.4) {
                 								return (
 										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
-											<TableCell component="th" scope="row">
+											<TableCell component="th" scope="row" style={{padding: '0px'}}>
 												<JobListingList
                         							link={job.item.link}
                         							_id={job.item._id}
