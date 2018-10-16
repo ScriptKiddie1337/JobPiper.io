@@ -252,10 +252,9 @@ render() {
             					if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
             						if (job.score < 0.4) {
                 								return (
-										<TableRow key={job._id} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
+										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
 											<TableCell component="th" scope="row">
 												<JobListingList
-                        							key={i}
                         							link={job.item.link}
                         							_id={job.item._id}
                         							title={job.item.title}
@@ -280,6 +279,7 @@ render() {
 						<TableFooter>
             				<TableRow>
         						<TablePagination
+							
         						colSpan={3}
         						count={rows.length}
         						rowsPerPage={rowsPerPage}
