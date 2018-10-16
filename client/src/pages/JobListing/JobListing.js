@@ -157,7 +157,7 @@ fuse(list) {
     // distance: 100,
     maxPatternLength: 64,
     minMatchCharLength: 5,
-    keys: [ "keywords" ]
+    keys: [ "search", "item.search" ]
     };
     let fuse = new Fuse(list, options);
     let res = fuse.search(this.state.searchTerm);
@@ -198,11 +198,14 @@ handleRegionChange = async (event) => {
 }
 
 handleFormSubmit = event => {
-    event.preventDefault();
-    API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-		.then(res => this.fuse(res.data))
-		//! .then() // ! push title and body into keywords!!!!!!!
-    .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
+		event.preventDefault();
+		fetch('/api/jobs')
+    .then(response => response.json())
+    .then(data => this.fuse(data))
+    .then(x => this.setState({ jobs: x }))
+    // API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
+		// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
+    // .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
     .catch(err => {throw new Error(err)});
 };
 
@@ -278,8 +281,7 @@ render() {
         					
           					{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
             				// console.log(job.item.title, job.score)
-            					if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
-            						if (job.score < 0.4) {
+            					if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                 								return (
 										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
 											<TableCell component="th" scope="row">
@@ -294,7 +296,6 @@ render() {
 											</TableCell>
 										</TableRow>
 												)
-										}
 									}	
 									return null
 									})}

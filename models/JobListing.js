@@ -25,6 +25,9 @@ const JobSchema = new Schema({
   body: {
     type: String
   },
+  search: [{
+    type: String
+  }],
   keywords: [{
     type: String
   }],

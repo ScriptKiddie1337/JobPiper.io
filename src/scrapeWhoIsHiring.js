@@ -64,6 +64,7 @@ function scrapeWhoIsHiring(url) {
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch).slice(1),
+            search:[],
             body: $p,
             site: 'yCombinator',
             link: `https://news.ycombinator.com/item?id=${$id}`,
@@ -72,24 +73,30 @@ function scrapeWhoIsHiring(url) {
         }
       })
       // res.send('Scrape Complete');
-
+      
       function keywords(el) {
         return ((el) ?
-          el.substring(0, el.indexOf('<p>'))
-          .trim()
-          .replace(/ *\([^)]*\) */g, "")
-          .replace(/ *\<[^)]*\> */g, "")
-          .replace(/\-/g, ' ') :
-          null).split('|').map(word => word.trim());
+        el.substring(0, el.indexOf('<p>'))
+        .trim()
+        .replace(/ *\([^)]*\) */g, "")
+        .replace(/ *\<[^)]*\> */g, "")
+        .replace(/\-/g, ' ') :
+        null).split('|').map(word => word.trim());
       }
       function createJob(result) {
+        let search = result.keywords;
         const query = {
           title: result.title,
           keywords: result.keywords,
           body: result.body,
-          site: result.site
+          site: result.site,
         }
-        const record = Object.assign({date:Date.now(), link: result.link, image: result.image}, query)
+        const record = Object.assign({
+          date:Date.now(),  
+          search: search.concat(result.body,result.title),
+          link: result.link, 
+          image: result.image}, 
+          query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
