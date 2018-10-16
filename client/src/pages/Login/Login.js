@@ -17,7 +17,6 @@ class Login extends Component {
 
   componentDidMount() {
 
-    // TODO add loading indicator
     this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
   }
 
