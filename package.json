@@ -21,6 +21,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "@material-ui/lab": "^3.0.0-alpha.19",
     "@mdi/js": "^2.8.94",
     "@mdi/react": "^1.0.1",
     "axios": "^0.18.0",
@@ -28,6 +29,7 @@
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^5.6.1",
     "express": "^4.16.3",
+    "fuse.js": "^3.2.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.0",
     "mongoose-unique-validator": "^2.0.2",

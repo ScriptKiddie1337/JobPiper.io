@@ -31,8 +31,27 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-
-function scrapeWhoIsHiring(url, res) {
+function getPostURL() {
+  const postSearch = 'https://news.ycombinator.com/submitted?id=whoishiring';
+  axios.get(postSearch)
+    .then(function (res) {
+      const $ = cheerio.load(res.data);
+      let hiringLinks = []
+      $('tbody').find('a.storylink').each((index, story) => {
+        let $story = $(story).text();
+        let $link = $(story).attr('href')
+        if ($story.includes("Ask HN: Who is hiring?")) {
+          hiringLinks.push({
+            title: $story,
+            link: `https://news.ycombinator.com/${$link}`
+          })
+        }
+      })
+      hiringLinks.forEach(el => scrapeWhoIsHiring(el.link))
+    })
+    .catch(err => console.log(`getPostURL() ${postSearch} error: `, err));
+}
+function scrapeWhoIsHiring(url) {
   console.log(url)
   axios.get(url)
     .then(function (response) {
@@ -41,11 +60,14 @@ function scrapeWhoIsHiring(url, res) {
         $ch = $(ch).html()
         $p = $(ch).children('p').html()
         if ($ch.includes('|') && $p) {
+          let $id = $(ch).closest('tr.athing.comtr').attr('id')
           createJob({
             title: keywords($ch)[0],
             keywords: keywords($ch).slice(1),
             body: $p,
-            site: 'yCombinator'
+            site: 'yCombinator',
+            link: `https://news.ycombinator.com/item?id=${$id}`,
+            image: '/images/yc_logo.svg'
           });
         }
       })
@@ -67,15 +89,14 @@ function scrapeWhoIsHiring(url, res) {
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now()}, query)
+        const record = Object.assign({date:Date.now(), link: result.link, image: result.image}, query)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed
         // in parameters. This avoids duplicate data being scraped.
         db.JobListing.findOneAndUpdate(query, record, {upsert:true})
           .then(function (dbJob) {
-            // View the added result in the console
-            dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
+            // dbJob ? console.log(`Listing already in database: ${dbJob}`) : null;
             return dbJob;
           })
           .catch(function (err) {
@@ -85,7 +106,7 @@ function scrapeWhoIsHiring(url, res) {
           })
       };
     })
-    .catch(err => console.log(`yCombinator GET ${url} error: `, err));
+    .catch(err => {throw new Error(err)});
 }
 
-module.exports = scrapeWhoIsHiring;
+module.exports = getPostURL;

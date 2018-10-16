@@ -6,6 +6,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CustomPaginationActionsTable from '../Table'
+import SearchBar from '../SearchBar'
+//import JobListing from '../../pages/JobListing'
 //import { Typography } from '@material-ui/core';
 
 const styles = {
@@ -29,11 +31,11 @@ function HomeGrid(props) {
     const { classes } = props;
  
         return (
-            <Grid container>
+            <Grid container spacing={24}>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
-                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
+                           <SearchBar />
                         </CardContent>
                         <CardActions>
             
@@ -41,9 +43,9 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
-                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
+                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
@@ -51,9 +53,9 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
-                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
+                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             
@@ -61,9 +63,9 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{margin: '20px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 250, maxHeight: 250, border: 'none'}}>
+                    <Card className={classes.card} >
                         <CardContent>
-                            <CustomPaginationActionsTable style={{ fontSize: 60, backgroundColor: 'transparent', border: 'none'}}></CustomPaginationActionsTable>
+                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
                         </CardContent>
                         <CardActions>
             

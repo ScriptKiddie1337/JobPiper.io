@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
-
+import OutlinedButtons from '../../components/Button'
+import { Grid } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 class DayPlanner extends Component {
   state = {
     jobs: [],
@@ -31,7 +32,16 @@ class DayPlanner extends Component {
   render() {
     return (
       <div>
-  		dayplanner
+			<Grid container>
+				<Grid>
+  					<OutlinedButtons />
+				</Grid>
+			</Grid>
+			<Grid>
+				<Paper style={{ border: '#fdd835 solid 2px'}}>
+        Calendar Goes Here!!!
+				</Paper>
+			</Grid>
 	  </div>
     );
   }

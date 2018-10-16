@@ -145,16 +145,16 @@ const styles = theme => ({
 
 return (
   <div
-    style={{ minHeight: 150, clear: "both", paddingTop: 30, textAlign: "center"}}
+    style={{ minHeight: 50, clear: "both", paddingTop: 30, textAlign: "center"}}
     className="jumbotron"
   >
 
     <Grid container>
 			  	<Grid item xs={2} >
-					<img src='../../images/favicon.png' alt='Brand Logo' style={{marginLeft: 10, borderRadius: '50px'}}></img>
+					<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', width: '200px', marginLeft: 10, borderRadius: '50px'}}></img>
 				</Grid>
         <Grid item xs={8} >
-        <Typography style={{margin: '20px 0px -10px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
+        <Typography style={{margin: '20px 0px -10px 0px', fontSize: 40, color: 'white', backgroundColor: 'transparent', border: 'none'}}>Jobs</Typography>
 				</Grid>
         <Hidden mdUp>
           <Grid>

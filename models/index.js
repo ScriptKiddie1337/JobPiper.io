@@ -3,5 +3,8 @@ module.exports = {
   Calendar: require("./Calendar"),
   Contacts: require("./Contacts"),
   JobListing: require("./JobListing"),
-  Users: require("./Users")
+  Users: require("./Users"),
+  Cities: require("./Cities"),
+  Countries: require("./Countries"),
+  States: require("./States")
 };

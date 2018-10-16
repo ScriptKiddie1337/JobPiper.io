@@ -31,7 +31,6 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-
 function scrapeDice(url, res) {
   console.log(url)
   axios.get(url)
@@ -48,15 +47,10 @@ function scrapeDice(url, res) {
           site: 'Dice.com',
           title: $company,
           link: `https://dice.com${$listing}`,
-          image: $logo,
+          image: ($logo ? `https:${$logo}` : '/images/dice_logo.svg' ),
           keywords: [$title.trim(), $location]
         };
-
-        // console.log(job.keywords)
         jobDetails(job)
-
-        // console.log(index, $item)
-
       })
 
       function jobDetails(job) {
@@ -65,20 +59,12 @@ function scrapeDice(url, res) {
           const $ = cheerio.load(response.data);
           let $keywords = $('.job-info').find('[itemprop="skills"]').html()
           let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','))
-          let $jobInfo = $('.job-info').find('.iconsiblings').html()
-          let body = $('#jobdescSec')
-            // .find('p')
-            .html()
-            // .replace(/\n/g,'')
-            // .replace(/\t/g,'')
-            // console.log("************************************",body)
+          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'')
           const fullJob = Object.assign({
             body: body,
             keywords: mergedKeywords
           }, job)
           createJob(fullJob)
-
-          
         })
         .catch(err => console.log(`dice.com/jobs/detail GET ${url} error: `, err));
       }
@@ -108,7 +94,6 @@ function scrapeDice(url, res) {
       };
       })
       .catch(err => console.log(`dice.com/jobs GET ${url} error: `, err));
-
 }
 
 module.exports = scrapeDice;
