@@ -21,12 +21,14 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 
+
 const actionsStyles = theme => ({
 	root: {
 		flexShrink: 0,
 		color: theme.palette.text.secondary,
 		marginLeft: theme.spacing.unit * 2.5,
 	},
+	
 	
 	});
 	
@@ -253,6 +255,7 @@ render() {
             						if (job.score < 0.4) {
                 								return (
 										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
+
 											<TableCell component="th" scope="row" style={{padding: '0px'}}>
 												<JobListingList
                         							link={job.item.link}
@@ -261,7 +264,7 @@ render() {
                         							keywords={job.item.keywords}
                         							body={job.item.body}
                         							image={job.item.image}
-                        							/>
+                        							/>	
 											</TableCell>
 										</TableRow>
 												)
