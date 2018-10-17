@@ -26,6 +26,7 @@ function HomeIcons(props) {
       <List>
         <ListItem>
           <IconButton
+		  	href='/profile'
 		  	variant='fab'
             aria-haspopup="true"
             color="secondary">
@@ -39,6 +40,7 @@ function HomeIcons(props) {
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
         <ListItem>
           <IconButton
+		  	href='/usersetting'
             aria-haspopup="true"
             color="secondary">
             <Icon 
@@ -50,8 +52,8 @@ function HomeIcons(props) {
           </ListItem>
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
         <ListItem>
-		<a href='/' style={{textDecoration: 'none'}}>
-		  <IconButton			  
+		  <IconButton	
+		  	href='/'		  
             aria-haspopup="true"
             color="secondary">
             <Icon 
@@ -60,7 +62,6 @@ function HomeIcons(props) {
               color='#fdd835'/>
             <p style={{marginLeft: 10, fontSize: '10px'}}>Log Out</p>
           </IconButton>
-		  </a>
       </ListItem>
       </List>
       </div>

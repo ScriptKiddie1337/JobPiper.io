@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import JobListingList from '../../components/JobSearch/JobListingList'
 //import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
 import { Input, Button } from "@material-ui/core";
-import API from '../../utils/API'
+//import API from '../../utils/API'
 import Fuse from 'fuse.js';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
