@@ -44,7 +44,7 @@ class JobListingList extends Component {
             <p style={{border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px'}}
             dangerouslySetInnerHTML={ createMarkup(keywordsString) } />
 			</Grid>
-			<ExpansionPanel>
+			<ExpansionPanel style={{minWidth: '100%'}}>
         		<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
 					<Typography>Read more ...</Typography>
         		</ExpansionPanelSummary>
