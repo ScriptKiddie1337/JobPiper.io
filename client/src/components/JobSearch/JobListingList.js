@@ -46,7 +46,7 @@ class JobListingList extends Component {
 			</Grid>
 			<ExpansionPanel style={{minWidth: '100%'}}>
         		<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-					<Typography>Read more ...</Typography>
+					<Typography>Description</Typography>
         		</ExpansionPanelSummary>
         	<ExpansionPanelDetails>
             <Grid item xs={12} style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
