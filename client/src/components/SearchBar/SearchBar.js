@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+//import { BrowserRouter as Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import { Input, Button } from "@material-ui/core";
 import API from '../../utils/API';
@@ -99,7 +99,7 @@ return (
             			/>
     				</Grid>
         			<Grid item xs={12} md={2}>
-            			<Button fullwidth="true" onClick={this.handleFormSubmit} onChange={<Link to='/jobs'/>} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
+            			<Button fullwidth="true" onClick={this.handleFormSubmit}  type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         			</Grid>
           		</Grid>
         	</div>

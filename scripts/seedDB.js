@@ -12,7 +12,7 @@ const start = async () => {
       await exec(seedCollection(a), (err, stdout, stderr) => {
         // check for errors or if it was succesfuly
       })
-    }, 500);
+    }, 1000);
   })
 }
 

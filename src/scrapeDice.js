@@ -48,7 +48,8 @@ function scrapeDice(url, res) {
           title: $company,
           link: `https://dice.com${$listing}`,
           image: ($logo ? `https:${$logo}` : '/images/dice_logo.svg' ),
-          keywords: [$title.trim(), $location]
+          keywords: [$title.trim(), $location],
+          search:[]
         };
         jobDetails(job)
       })
@@ -58,24 +59,29 @@ function scrapeDice(url, res) {
         .then(function (response) {
           const $ = cheerio.load(response.data);
           let $keywords = $('.job-info').find('[itemprop="skills"]').html()
-          let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','))
-          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'')
+          let mergedKeywords = job.keywords.concat($keywords.replace(/\n/g,'').replace(/\t/g,'').split(','));
+          let body = $('#jobdescSec').html().replace(/\n/g,'').replace(/\t/g,'');
           const fullJob = Object.assign({
             body: body,
-            keywords: mergedKeywords
+            keywords: mergedKeywords,
+            search: []
           }, job)
           createJob(fullJob)
         })
         .catch(err => console.log(`dice.com/jobs/detail GET ${url} error: `, err));
       }
       function createJob(result) {
+        let search = result.keywords;
         const query = {
           title: result.title,
           keywords: result.keywords,
           body: result.body,
           site: result.site
         }
-        const record = Object.assign({date:Date.now()}, result)
+        const record = Object.assign({
+          search: search.concat(result.body, result.title),
+          date:Date.now()}, 
+          result)
         // instead of using create, I use findOneAndUpdate
         // but add the upsert option. If no record is found,
         // the query will create a new record with the passed

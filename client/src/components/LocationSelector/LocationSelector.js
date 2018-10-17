@@ -5,20 +5,13 @@ import classNames from 'classnames';
 import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import locales from '../../utils/locales';
 import Grid from '@material-ui/core/Grid';
-
-const suggestions = locales.map(suggestion => ({
-  value: suggestion.name,
-  label: suggestion.name,
-}));
 
 const styles = theme => ({
   root: {
@@ -174,74 +167,30 @@ const components = {
   ValueContainer,
 };
 
-class LocationSelector extends React.Component {
-  state = {
-    single: null,
-    multi: null,
-  };
-
-  handleChange = name => value => {
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  render() {
-    const { classes, theme } = this.props;
-
-    const selectStyles = {
-      input: base => ({
-        ...base,
-        color: theme.palette.text.primary,
-        '& input': {
-          font: 'inherit',
-        },
-      }),
-    };
-
-    return (
-      <div className={classes.root} >
-      <Grid container spacing={24}>
-        <NoSsr>
-          <Grid item xs={12} md={6}>
-          <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
-          <Select
-            classes={classes}
-            styles={selectStyles}
-            options={suggestions}
-            components={components}
-            value={this.state.single}
-            onChange={this.handleChange('single')}
-            placeholder='Search a country'
-          />
-          </div>
-          </Grid>
-          <div className={classes.divider} />
-          <Grid item xs={12} md={6}>
-          <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
-          <Select
-            classes={classes}
-            styles={selectStyles}
-            textFieldProps={{
-              InputLabelProps: {
-                shrink: true,
-              },
-            }}
-            options={suggestions}
-            components={components}
-            value={this.state.multi}
-            onChange={this.handleChange('multi')}
-            placeholder='Select multiple countries'
-            isMulti
-          />
-          </div>
-          </Grid>
-        </NoSsr>
+const LocationSelector = ({ options, placeholder, selectedItems, onChange, classes }) => (
+    <div className={classes.root} >
+    <Grid container spacing={24}>
+        <div className={classes.divider} />
+        <Grid item xs={12} md={6}>
+        <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
+        <Select
+          classes={classes}
+          textFieldProps={{
+            InputLabelProps: {
+              shrink: true,
+            },
+          }}
+          options={options}
+          components={components}
+          // value={selectedItems}
+          onChange={onChange}
+          placeholder={ placeholder }
+        />
+        </div>
         </Grid>
-      </div>
-    );
-  }
-}
+      </Grid>
+    </div>
+  );
 
 LocationSelector.propTypes = {
   classes: PropTypes.object.isRequired,

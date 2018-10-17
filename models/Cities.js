@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 // Using the Schema constructor, create a new CitiesSchema object
 // This is similar to a Sequelize model
 const CitiesSchema = new Schema({
-    id: Number,
+    id: String,
     name: String,
-    state_id: Number
+    state_id: String
 })
 
 module.exports = mongoose.model('Cities', CitiesSchema);
