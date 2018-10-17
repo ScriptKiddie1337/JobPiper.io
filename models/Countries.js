@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // Using the Schema constructor, create a new CountriesSchema object
 // This is similar to a Sequelize model
-const CountriesSchema = new Schema({
-    id: Number,
+const CountrySchema = new Schema({
+    id: String,
     sortname: String,
     name: String,
-    phoneCode: Number
+    phoneCode: String
 })
 
-module.exports = mongoose.model('Countries', CountriesSchema);
+module.exports = mongoose.model('Countries', CountrySchema);

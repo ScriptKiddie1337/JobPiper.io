@@ -123,9 +123,17 @@ state = {
     note: [],
     contact: [],
     searchTerm: '',
-	excludeTerm: '',
-	page: 0,
-    rowsPerPage: 5,
+		excludeTerm: '',
+		page: 0,
+		rowsPerPage: 5,
+		// location selector id's
+		selectedCountryID: 231,
+		countries:[],
+		selectedRegionID:0,
+		regions:[],
+		selectedCityID:0,
+		cities:[]
+
     // ! add persistent search and exclude arrays
 };
 
@@ -151,14 +159,7 @@ fuse(list) {
     // distance: 100,
     maxPatternLength: 64,
     minMatchCharLength: 5,
-    keys: [
-        { name: "title", weight: .8 },
-        { name: "body", weight: .3 },
-        { name: "keywords", weight: .6 },
-        { name: "item.title", weight: .8 },
-        { name: "item.body", weight: .3 },
-        { name: "item.keywords", weight: .6 }
-    ]
+    keys: [ "search", "item.search" ]
     };
     let fuse = new Fuse(list, options);
     let res = fuse.search(this.state.searchTerm);
@@ -171,23 +172,42 @@ componentDidMount() {
     .then(data => this.fuse(data))
     .then(x => this.setState({ jobs: x },
         // () => console.log(this.state.jobs)
-    ))
+		));
+		fetch('/api/loc/state/' + this.state.selectedCountryID)
+    .then(response => response.json())
+    .then(data => this.setState({ regions:data.map(x => ({value: x.name,label: x.name, id: x.id})) },
+        // () => console.log(this.state.states)
+		));
+	}
 
-}
-
-handleInputChange = event => {
+  handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
-    [name]: value
-    } //, () => console.log('new input: ', this.state.searchTerm)
-    )
-};
+      [name]: value
+    });
+	};
+	
+handleRegionChange = async (event) => {
+	await this.setState({
+    selectedRegionID: event.id
+		} //, () => console.log('new input: ', this.state.searchTerm)
+		)
+	await fetch('/api/loc/city/' + this.state.selectedRegionID)
+    .then(response => response.json())
+    .then(data => this.setState({ cities:data.map(x => ({value: x.name,label: x.name, id: x.id})) },
+        () => console.log('cities: ',data)
+		));
+}
 
 handleFormSubmit = event => {
-    event.preventDefault();
-    API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-    .then(res => this.fuse(res.data))
-    .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
+		event.preventDefault();
+		fetch('/api/jobs')
+    .then(response => response.json())
+    .then(data => this.fuse(data))
+    .then(x => this.setState({ jobs: x }))
+    // API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
+		// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
+    // .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
     .catch(err => {throw new Error(err)});
 };
 
@@ -224,8 +244,20 @@ render() {
             			/>
     				</Grid>
 					<Grid item xs={12}>
-					<LocationSelector />
 					</Grid>
+							<Grid item xs={12} >
+								{/* <LocationSelector 
+								options={ this.state.countries } 
+								placeholder='Select Country' /> */}
+								<LocationSelector 
+								options={ this.state.regions } 
+								placeholder='Select State/Region' 
+								onChange={ this.handleRegionChange }
+								/>
+								<LocationSelector 
+								options={ this.state.cities } 
+								placeholder='Select City' />
+							</Grid>
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
         			</Grid>
@@ -251,8 +283,7 @@ render() {
         					
           					{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
             				// console.log(job.item.title, job.score)
-            					if (!job.item.keywords.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
-            						if (job.score < 0.4) {
+            					if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                 								return (
 										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
 
@@ -268,7 +299,6 @@ render() {
 											</TableCell>
 										</TableRow>
 												)
-										}
 									}	
 									return null
 									})}

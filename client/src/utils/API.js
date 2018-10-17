@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+  // get states by country ID
+  getStates: function(id) {
+    return axios.get('api/loc/state/' + id);
+  },
   // Gets all jobs
   getJobListings: function() {
     return axios.get("/api/jobs");
