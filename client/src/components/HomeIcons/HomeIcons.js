@@ -27,7 +27,6 @@ function HomeIcons(props) {
         <ListItem>
           <IconButton
 		  	href='/profile'
-		  	variant='fab'
             aria-haspopup="true"
             color="secondary">
             <Icon

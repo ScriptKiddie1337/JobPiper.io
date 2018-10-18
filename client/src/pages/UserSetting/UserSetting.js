@@ -4,7 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
 import HomeIcons from '../../components/HomeIcons';
-
+import Paper from '@material-ui/core/Paper'
+import SwitchLabels from '../../components/Switches'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const homeStyles = theme => ({
 	root: {
@@ -50,11 +52,17 @@ class UserSetting extends Component {
             		</Grid>
             	</Grid>
           	</Hidden>
-			<Grid item md={10}>
-    			<Grid item xs={12}>
-				 <div style={{ minHeight: '100vh' }}>
+			<Grid item md={10} style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+				 <div>
+				 	<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
+						<FormControlLabel
+          					control={
+			  					<SwitchLabels />
+          					}
+          					label="Notifications"
+        				/>
+					</Paper>
 				 </div>
-    			</Grid>
   			</Grid>
 		</Grid>
 		<Hidden smUp>
