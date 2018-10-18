@@ -25,7 +25,7 @@ const App = () => (
 		    <Route path='/home' component={Home} />
         	<Route path='/jobs' component={JobListing} />
         	<Route path='/jobs/:id' component={Detail} />
-			<Route path='/usersetting' compnonent={UserSetting} />
+			<Route path='/usersetting' component={UserSetting} />
 		    <Route path='/profile' component={Profile} />
 		    <Route path='/profile/:id' component={Profile} />
 		    <Route path='/dayplanner' component={DayPlanner} />
