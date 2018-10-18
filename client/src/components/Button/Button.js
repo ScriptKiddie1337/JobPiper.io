@@ -16,12 +16,9 @@ function OutlinedButtons(props) {
   const { classes } = props;
   return (
     <div>
-      
-      <Button variant="outlined" color="primary" className={classes.button}>
+
+      <Button variant="outlined" color="secondary" className={classes.button}>
         Create Event
-      </Button>
-	  <Button variant="outlined" color="primary" className={classes.button}>
-        Delete Event
       </Button>
     </div>
   );

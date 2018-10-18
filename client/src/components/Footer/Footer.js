@@ -11,7 +11,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 const styles = {
   root: {
-    width: '100vw',
+    width: '100%',
     backgroundColor: '#fdd835',
 	position: "fixed",
     left: 0,
@@ -35,9 +35,9 @@ class LabelBottomNavigation extends React.Component {
 
     return (
       <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction label="Profile" value="profile" icon={<AccountCircleIcon/>} />
+        <BottomNavigationAction href= '/profile' label="Profile" value="profile" icon={<AccountCircleIcon/>} />
         <BottomNavigationAction href='/' label="Log off" value="log off" icon={<PowerSettingsNewIcon />} />
-        <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
+        <BottomNavigationAction href='/usersetting' label="UserSetting" value="usersetting" icon={<SettingsIcon />} />
       </BottomNavigation>
     );
   }

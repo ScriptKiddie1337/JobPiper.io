@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+
+import { signInPopUp } from "../../firebase/auth";
+
 import Nav from '../../components/Nav'
 
 class Login extends Component {
@@ -8,13 +11,28 @@ class Login extends Component {
     link: "",
     image: "",
     note: [],
-    contact: []
+    contact: [],
+    loginTimeout: null
   };
 
   componentDidMount() {
-    // this.loadJobListing();
+
+    this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
   }
-;
+
+  signIn = () => {
+
+    signInPopUp()
+    this.setState({ loginTimeout: null })
+  }
+
+  componentWillUnmount() {
+
+    if (this.state.loginTimeout) {
+
+      clearTimeout(this.state.loginTimeout)
+    }
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -25,14 +43,14 @@ class Login extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
+
   };
 
   render() {
     return (
       <div>
         <Nav />
-        <img src="../../images/doors.jpeg" alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw'}}/>
+        <div alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw' }} />
       </div>
     );
   }

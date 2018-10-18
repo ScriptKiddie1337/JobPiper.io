@@ -3,12 +3,6 @@ import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CustomPaginationActionsTable from '../Table'
-import SearchBar from '../SearchBar'
-//import JobListing from '../../pages/JobListing'
-//import { Typography } from '@material-ui/core';
 
 const styles = {
     card: {
@@ -33,48 +27,27 @@ function HomeGrid(props) {
         return (
             <Grid container spacing={24}>
                 <Grid item xs={12}>
-                    <Card className={classes.card} >
-                        <CardContent>
-                           <SearchBar />
-                        </CardContent>
-                        <CardActions>
-            
-                        </CardActions>
+                    <Card className={classes.card} style={{textAlign: 'center'}}>
+						<p>Inspirational quotes go here</p>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.card} >
-                        <CardContent>
-                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
-                        </CardContent>
-                        <CardActions>
-            
-                        </CardActions>
+                <Grid item xs={12} md={6}>
+                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                            <p>Calendar goes here</p>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.card} >
-                        <CardContent>
-                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
-                        </CardContent>
-                        <CardActions>
-            
-                        </CardActions>
+                <Grid item xs={12} md={6}>
+                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                            <p>A Meetup goes here</p>
                     </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card className={classes.card} >
-                        <CardContent>
-                            <CustomPaginationActionsTable></CustomPaginationActionsTable>
-                        </CardContent>
-                        <CardActions>
-            
-                        </CardActions>
+                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                            <p>Tech News or instructional material goes here</p>
                     </Card>
                 </Grid>
             </Grid>
-        )
-    
+        )  
 };
 
 HomeGrid.propTypes = {

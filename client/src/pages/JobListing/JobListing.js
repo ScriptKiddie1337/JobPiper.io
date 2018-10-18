@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import JobListingList from '../../components/JobSearch/JobListingList'
 //import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
 import { Input, Button } from "@material-ui/core";
-import API from '../../utils/API'
+//import API from '../../utils/API'
 import Fuse from 'fuse.js';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -21,12 +21,14 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 
+
 const actionsStyles = theme => ({
 	root: {
 		flexShrink: 0,
 		color: theme.palette.text.secondary,
 		marginLeft: theme.spacing.unit * 2.5,
 	},
+	
 	
 	});
 	
@@ -284,7 +286,8 @@ render() {
             					if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                 								return (
 										<TableRow key={i} style={{listStyleType: 'none', padding: '5px', margin: '0px'}}>
-											<TableCell component="th" scope="row">
+
+											<TableCell component="th" scope="row" style={{padding: '0px'}}>
 												<JobListingList
                         							link={job.item.link}
                         							_id={job.item._id}
@@ -292,7 +295,7 @@ render() {
                         							keywords={job.item.keywords}
                         							body={job.item.body}
                         							image={job.item.image}
-                        							/>
+                        							/>	
 											</TableCell>
 										</TableRow>
 												)
