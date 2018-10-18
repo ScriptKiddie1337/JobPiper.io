@@ -3,10 +3,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
-import HomeIcons from '../../components/HomeIcons';
+import SettingsIcon from '../../components/Icons/SettingsIcon'
+import AccountIcon from '../../components/Icons/AccountIcon'
+import LogOutIcon from '../../components/Icons/LogOutIcon'
+import HomeIcon from '../../components/Icons/HomeIcon'
 import Paper from '@material-ui/core/Paper'
 import SwitchLabels from '../../components/Switches'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Divider from '@material-ui/core/Divider'
 
 const homeStyles = theme => ({
 	root: {
@@ -20,11 +24,6 @@ class UserSetting extends Component {
   state = {
 
   };
-
-  componentDidMount() {
-    // this.loadJobListing();
-  }
-;
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -48,7 +47,13 @@ class UserSetting extends Component {
 						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					</Grid>
         			<Grid position='sticky' style={{ alignItems: 'center' }}>
-						<HomeIcons  />
+								<HomeIcon />
+                  <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
+                <SettingsIcon />
+                  <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
+                <AccountIcon />
+                  <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
+                <LogOutIcon />
             		</Grid>
             	</Grid>
           	</Hidden>

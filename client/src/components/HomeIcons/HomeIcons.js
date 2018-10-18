@@ -23,21 +23,20 @@ function HomeIcons(props) {
     const { classes } = props;
     return (
       <div className={classes.root}>
-      <List>
-        <ListItem>
+    
           <IconButton
-		  	href='/profile'
+		  	    href='/profile'
             aria-haspopup="true"
             color="secondary">
             <Icon
               path={mdiAccountCircle}
-			  size={1}
+			        size={1}
               color='fdd835' />
             <p style={{marginLeft: 10, fontSize: '10px'}}>Profile</p>
           </IconButton>
-        </ListItem>
+        
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
-        <ListItem>
+     
           <IconButton
 		  	href='/usersetting'
             aria-haspopup="true"
@@ -48,9 +47,9 @@ function HomeIcons(props) {
               color='#fdd835'/>
             <p style={{marginLeft: 10, fontSize: '10px'}}>Settings</p>
           </IconButton>
-          </ListItem>
+      
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
-        <ListItem>
+      
 		  <IconButton	
 		  	href='/'		  
             aria-haspopup="true"
@@ -61,8 +60,7 @@ function HomeIcons(props) {
               color='#fdd835'/>
             <p style={{marginLeft: 10, fontSize: '10px'}}>Log Out</p>
           </IconButton>
-      </ListItem>
-      </List>
+      
       </div>
     )
   
