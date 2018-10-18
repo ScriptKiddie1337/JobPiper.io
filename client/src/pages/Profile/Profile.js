@@ -30,9 +30,10 @@ class Profile extends Component {
 
   render() {
     return (
-		<Jumbotron>
-      <h1>Profile page</h1>
-	  </Jumbotron>
+		<div>
+			<Jumbotron />
+      			<h1>Profile page</h1>
+	  	</div>
     );
   }
 }

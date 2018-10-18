@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-export default class JobListingList extends Component {
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { withStyles } from '@material-ui/core/styles';
+//import PropTypes from 'prop-types';
+
+const styles = theme => ({
+	root: {
+		flexShrink: 0,
+		color: theme.palette.text.secondary,
+		marginLeft: theme.spacing.unit * 2.5,
+	},
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		fontWeight: theme.typography.fontWeightRegular,
+	  },
+	});
+
+class JobListingList extends Component {
 
   render() {
 	
@@ -24,11 +44,20 @@ export default class JobListingList extends Component {
             <p style={{border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px'}}
             dangerouslySetInnerHTML={ createMarkup(keywordsString) } />
 			</Grid>
+			<ExpansionPanel style={{minWidth: '100%'}}>
+        		<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+					<Typography>Description</Typography>
+        		</ExpansionPanelSummary>
+        	<ExpansionPanelDetails>
             <Grid item xs={12} style={{paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px'}} 
             dangerouslySetInnerHTML={createMarkup(body)} />
+			</ExpansionPanelDetails>
+     		</ExpansionPanel>
         </Grid>  
       </div>
       </Paper>
     )
   }
 }
+
+export default withStyles(styles)(JobListingList)

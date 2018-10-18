@@ -153,12 +153,17 @@ class PrimarySearchAppBar extends React.Component {
         <AppBar position="static" className='appBar' style={{borderBottom: '10px solid #fdd835',}}>
           <Toolbar>
             <Grid container>
+			<Hidden smDown>
 			<Tooltip title='Start Searching'>
 			  	    <Grid item xs={2} >
-					      <a href='/home'><img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ maxWidth: 100, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img></a>
-						  
+					  <Grid item xs={12}>
+					  <a href='/home'>
+					      <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ maxHeight: 100, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img>
+						  </a>
+						  </Grid>
 				      </Grid>
 					  </Tooltip>
+					  </Hidden>
               <Hidden smDown>
               <Grid item xs={9} >
             <Typography style={{margin: '20px 0px -30px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
