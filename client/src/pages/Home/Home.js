@@ -50,9 +50,9 @@ render() {
         	<Hidden smDown>
         		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
 					<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
+						<img src='../../images/site_logo_1.svg' alt='JobPiper Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					</Grid>
-        			<Grid position='sticky' style={{ alignItems: 'center' }}>
+        			<Grid style={{ justifyContent: 'center', width: '100%' }}>
 						<HomeIcons  />
             		</Grid>
             	</Grid>
