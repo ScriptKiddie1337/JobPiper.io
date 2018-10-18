@@ -2,25 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Icon from '@mdi/react'
+import { mdiAccountCircle } from '@mdi/js'
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
-//import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+import Tooltip from '@material-ui/core/Tooltip';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-// import './Nav.scss'
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '100vw',
   },
   grow: {
     flexGrow: 1,
@@ -29,18 +28,13 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
+ 
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+	borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.25),
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
@@ -125,8 +119,8 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleClose}>My account</MenuItem>
+        <MenuItem onClick={this.handleClose}>Login</MenuItem>
+        <MenuItem onClick={this.handleClose}>Create Account</MenuItem>
       </Menu>
     );
 
@@ -138,12 +132,7 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       >
-        <MenuItem>
-          <IconButton color="inherit"> 
-              <MailIcon />  
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
+        
         <MenuItem>
           <IconButton color="inherit">
               <NotificationsIcon />
@@ -160,45 +149,46 @@ class PrimarySearchAppBar extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
+      <div className={classes.root} style={{maxHeight: '15vh'}}>
+        <AppBar position="static" className='appBar' style={{borderBottom: '10px solid #fdd835',}}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="title" color="inherit" noWrap>
-              Jobs
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <Input
-                placeholder="Search…"
-                disableUnderline
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
+            <Grid container>
+			<Hidden smDown>
+			<Tooltip title='Start Searching'>
+			  	    <Grid item xs={2} >
+					  <Grid item xs={12}>
+					  <a href='/home'>
+					      <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ maxHeight: 100, margin: 20, borderRadius: '50px', border: 'solid 1px #546e7a'}}></img>
+						  </a>
+						  </Grid>
+				      </Grid>
+					  </Tooltip>
+					  </Hidden>
+              <Hidden smDown>
+              <Grid item xs={9} >
+            <Typography style={{margin: '20px 0px -30px 0px', fontSize: 60, color: 'white', backgroundColor: 'transparent', minHeight: 40, border: 'none'}}>Jobs</Typography>
+              </Grid>
+              </Hidden>
+              <Grid item xs={1}>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                  <MailIcon />
-              </IconButton>
-              <IconButton color="inherit">
-                  <NotificationsIcon />
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : null}
+			<Tooltip title='Login/Create Account'>
+            <IconButton
                 aria-haspopup="true"
                 onClick={this.handleProfileMenuOpen}
-                color="inherit"
+                color="secondary"
               >
-                <AccountCircle />
+                <Icon
+                  style={{margin: 20}}
+                  path={mdiAccountCircle}
+                  size={2.5}
+                  color='fdd835'
+                   />
               </IconButton>
+			  </Tooltip>
             </div>
+            </Grid>
+            </Grid>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MoreIcon />

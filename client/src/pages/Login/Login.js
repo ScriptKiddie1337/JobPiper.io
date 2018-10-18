@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
-// import API from "../../utils/API";
-// import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../../components/Grid";
-// import { List, ListItem } from "../../components/List";
-// import { Input, TextArea, FormBtn } from "../../components/Form";
-import './Login.scss'
+
+import { signInPopUp } from "../../firebase/auth";
+
+import Nav from '../../components/Nav'
 
 class Login extends Component {
   state = {
@@ -15,13 +11,28 @@ class Login extends Component {
     link: "",
     image: "",
     note: [],
-    contact: []
+    contact: [],
+    loginTimeout: null
   };
 
   componentDidMount() {
-    // this.loadJobListing();
+
+    this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
   }
-;
+
+  signIn = () => {
+
+    signInPopUp()
+    this.setState({ loginTimeout: null })
+  }
+
+  componentWillUnmount() {
+
+    if (this.state.loginTimeout) {
+
+      clearTimeout(this.state.loginTimeout)
+    }
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -32,12 +43,15 @@ class Login extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
+
   };
 
   render() {
     return (
-      <h1>Login</h1>
+      <div>
+        <Nav />
+        <div alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw' }} />
+      </div>
     );
   }
 }

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import './DayPlanner.scss'
+// import OutlinedButtons from '../../components/Button'
+import CreateCalendarEventDialog from '../../components/CreateCalendarEventDialog'
+import { Grid } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
+import MyCalendar from '../../components/Calendar'
 class DayPlanner extends Component {
   state = {
     jobs: [],
@@ -14,7 +18,7 @@ class DayPlanner extends Component {
   componentDidMount() {
     // this.loadDayPlanner();
   }
-;
+  ;
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -25,12 +29,24 @@ class DayPlanner extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    
+
   };
 
   render() {
     return (
-      <h1>Day Planner</h1>
+      <div>
+        <Grid container>
+          <Grid>
+            {/* <OutlinedButtons /> */}
+            <CreateCalendarEventDialog />
+          </Grid>
+        </Grid>
+        <Grid>
+          <Paper style={{ border: '#fdd835 solid 2px' }}>
+            <MyCalendar />
+          </Paper>
+        </Grid>
+      </div>
     );
   }
 }
