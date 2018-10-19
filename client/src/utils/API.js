@@ -13,11 +13,13 @@ export default {
   getJob: function (id) {
     return axios.get("/api/jobs/" + id);
   },
-  getJobTerm: function (term) {
-    return axios.get("/api/jobs/search", {
-      params: {
-        term: term
-      }
+  scrape: function(term, city, region) {
+    return axios.get(`/api/jobs/scrape/${term}/${city}/${region}`)
+    .then(response => { 
+      console.log(response)
+    })
+    .catch(error => {
+        console.log(error.response)
     });
   },
   // Deletes the job with the given id
