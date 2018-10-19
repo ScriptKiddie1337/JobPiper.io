@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
-const scrapeWhoIsHiring = require('./src/scrapeWhoIsHiring');
-const diceAsync = require('./src/diceAsync.js')
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,18 +22,9 @@ MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/joblisting_db";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
-const rootLoad = async (req, res) => {
-	// scrape updated listings
-	await scrapeWhoIsHiring();
-	await diceAsync('front end', 'Jacksonville', 'florida');
-	// GET route for root will scrape the most recent listings and then send the html
-	await app.get('/', function (req, res) {
+app.get('/', function (req, res) {
 		res.sendFile('index.html')
 	})
-
-}
-// ! This is temporary and should be automated elsewhere
-rootLoad();
 
 // Start the API server
 app.listen(PORT, function () {

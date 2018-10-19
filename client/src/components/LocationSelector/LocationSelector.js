@@ -182,7 +182,7 @@ const LocationSelector = ({ options, placeholder, selectedItems, onChange, class
           }}
           options={options}
           components={components}
-          // value={selectedItems}
+          value={selectedItems}
           onChange={onChange}
           placeholder={ placeholder }
         />
