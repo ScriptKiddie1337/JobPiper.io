@@ -16,6 +16,7 @@ const styles = theme => ({
     margin: '0 auto',
     maxWidth: 200,
     position: 'fixed',
+    
   },
 });
 
@@ -27,8 +28,7 @@ function HomeIcons(props) {
       <List>
         <ListItem>
           <IconButton
-		  	href='/profile'
-		  	variant='fab'
+		  	    href='/profile'
             aria-haspopup="true"
             color="secondary">
             <Icon

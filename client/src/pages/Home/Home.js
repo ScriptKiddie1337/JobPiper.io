@@ -52,7 +52,7 @@ render() {
 					<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
 						<img src='../../images/site_logo_1.svg' alt='JobPiper Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					</Grid>
-        			<Grid style={{ justifyContent: 'center', width: '100%' }}>
+        			<Grid style={{ justifyContent: 'center', }}>
 						<HomeIcons  />
             		</Grid>
             	</Grid>
