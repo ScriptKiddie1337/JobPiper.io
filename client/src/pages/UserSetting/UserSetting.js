@@ -54,6 +54,7 @@ class UserSetting extends Component {
 			<Grid item md={10} style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 				<div>
 					<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
+						
 						<FormControlLabel
           					control={
 			  					<SwitchLabels />

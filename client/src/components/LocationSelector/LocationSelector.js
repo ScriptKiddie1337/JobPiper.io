@@ -11,7 +11,6 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
