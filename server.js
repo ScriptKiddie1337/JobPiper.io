@@ -5,14 +5,14 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const scrapeWhoIsHiring = require('./src/scrapeWhoIsHiring');
-const scrapeDice = require('./src/scrapeDice')
+const diceAsync = require('./src/diceAsync.js')
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+	app.use(express.static("client/build"));
 }
 // Add routes, both API and view
 app.use(routes);
@@ -26,8 +26,8 @@ mongoose.connect(MONGODB_URI);
 
 const rootLoad = async (req, res) => {
 	// scrape updated listings
-	await scrapeDice('https://www.dice.com/jobs/q-front_end-startPage-1-jobs');
 	await scrapeWhoIsHiring();
+	await diceAsync('front end', 'Jacksonville', 'florida');
 	// GET route for root will scrape the most recent listings and then send the html
 	await app.get('/', function (req, res) {
 		res.sendFile('index.html')
@@ -35,10 +35,9 @@ const rootLoad = async (req, res) => {
 
 }
 // ! This is temporary and should be automated elsewhere
-// scrape ycombinator and then send index.html
 rootLoad();
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+app.listen(PORT, function () {
+	console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
