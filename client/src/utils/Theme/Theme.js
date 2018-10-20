@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+
 	palette: {
 	  primary: {
 		light: '#819ca9',
@@ -20,6 +21,11 @@ const theme = createMuiTheme({
 			default: "#546e7a"
 		},
 	},
+
+	typography: {
+    useNextVariants: true,
+	},
+	
 	overrides: {
 		
     	MuiTab: { // Name of the component ⚛️ / style sheet
