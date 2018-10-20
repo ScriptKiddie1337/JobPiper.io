@@ -30,21 +30,14 @@ module.exports = {
                 }
             })
     },
-    getJobs: new Promise((resolve, reject) => {
-        console.log(req.params)
+    getJobs: (req, res) => {
         db.Users
             .findOne({
                 google_id: req.params.googleId
             })
             .then(user => {
-                console.log("got user")
-                if (req.dbJobs) {
-                    user.jobs.push(dbJobs)
-                    resolve(user.jobs)
-                } else {
-                    resolve(user.jobs)
-                }
+                res.json(user.jobs)
             })
-            .catch(err => reject())
-    })
+            .catch(err => res.status(404).json(err))
+    }
 };

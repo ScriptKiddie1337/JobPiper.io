@@ -21,6 +21,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
+import { auth } from '../../firebase'
+import { concat } from "rxjs";
 
 
 const actionsStyles = theme => ({
@@ -132,10 +134,10 @@ class JobListing extends Component {
 		countries: [],
 		selectedRegionID: 0,
 		regions: [],
-		region:'',
+		region: '',
 		selectedCityID: 0,
 		cities: [],
-		city:''
+		city: ''
 
 		// ! add persistent search and exclude arrays
 	};
@@ -170,12 +172,18 @@ class JobListing extends Component {
 	}
 
 	componentDidMount() {
-		fetch('/api/jobs')
-			.then(response => response.json())
-			.then(data => this.fuse(data))
-			.then(x => this.setState({ jobs: x },
-				// () => console.log(this.state.jobs)
-			));
+		API.getUserJobs(auth.getUserId())
+			.then(userSavedJobs => {
+				fetch('/api/jobs')
+					.then(response => response.json())
+					.then(data => this.fuse(data))
+					.then(x => {
+						const jobs = userSavedJobs.data.concat(x)
+						this.setState({ jobs: jobs })
+					}
+					)
+			});
+
 		fetch('/api/loc/state/' + this.state.selectedCountryID)
 			.then(response => response.json())
 			.then(data => this.setState({ regions: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
@@ -214,9 +222,9 @@ class JobListing extends Component {
 		// console.log(this.state)
 		event.preventDefault();
 		API.scrape(this.state.searchTerm, this.state.city, this.state.region)
-		.catch(error => {
-			console.log(error.response)
-		});
+			.catch(error => {
+				console.log(error.response)
+			});
 		fetch('/api/jobs')
 			.then(response => response.json())
 			.then(data => this.fuse(data))
@@ -272,8 +280,8 @@ class JobListing extends Component {
 							/>
 							<LocationSelector
 								options={this.state.cities}
-								placeholder='Select City' 
-								onChange={ this.handleCityChange }
+								placeholder='Select City'
+								onChange={this.handleCityChange}
 							/>
 						</Grid>
 						<Grid item xs={12} md={2}>
@@ -300,24 +308,44 @@ class JobListing extends Component {
 						<TableBody>
 
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
-								// console.log(job.item.title, job.score)
-								if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+								// saved jobs are excluded from search terms
+								if (job.item) {
+									if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+										return (
+											<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+
+												<TableCell component="th" scope="row" style={{ padding: '0px' }}>
+													<JobListingList
+														link={job.item.link}
+														_id={job.item._id}
+														title={job.item.title}
+														keywords={job.item.keywords}
+														body={job.item.body}
+														image={job.item.image}
+													/>
+												</TableCell>
+											</TableRow>
+										)
+									}
+								} else {
 									return (
 										<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
 
 											<TableCell component="th" scope="row" style={{ padding: '0px' }}>
 												<JobListingList
-													link={job.item.link}
-													_id={job.item._id}
-													title={job.item.title}
-													keywords={job.item.keywords}
-													body={job.item.body}
-													image={job.item.image}
+													link={job.link}
+													_id={job._id}
+													title={job.title}
+													keywords={job.keywords}
+													body={job.body}
+													image={job.image}
+													saved={true}
 												/>
 											</TableCell>
 										</TableRow>
 									)
 								}
+
 								return null
 							})}
 

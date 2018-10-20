@@ -7,7 +7,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
-import SavedIcon from '@material-ui/icons/Stars'
+import SavedIcon from '@material-ui/icons/StarRate'
 import SaveIcon from '@material-ui/icons/Stars'
 import { auth } from '../../firebase'
 import api from '../../utils/API'
@@ -35,10 +35,6 @@ class JobListingList extends Component {
 
 	state = {
 		saved: this.props.saved
-	}
-
-	componentDidMount() {
-		console.log(this.state.saved)
 	}
 
 	render() {
@@ -73,8 +69,8 @@ class JobListingList extends Component {
 						</ExpansionPanel>
 						{
 							this.state.saved
-								? <SavedIcon sytle={{ background: "gold" }} />
-								: <SaveIcon onClick={this.handleJobClick} />
+								? <SavedIcon color="secondary" />
+								: <SaveIcon onClick={this.handleJobClick} color="primary" />
 						}
 					</Grid>
 				</div>

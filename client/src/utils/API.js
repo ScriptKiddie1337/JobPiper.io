@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   // get states by country ID
-  getStates: function(id) {
+  getStates: function (id) {
     return axios.get('api/loc/state/' + id);
   },
   // Gets all jobs
@@ -13,14 +13,14 @@ export default {
   getJob: function (id) {
     return axios.get("/api/jobs/" + id);
   },
-  scrape: function(term, city, region) {
+  scrape: function (term, city, region) {
     return axios.get(`/api/jobs/scrape/${term}/${city}/${region}`)
-    .then(response => { 
-      console.log(response)
-    })
-    .catch(error => {
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
         console.log(error.response)
-    });
+      });
   },
   // Deletes the job with the given id
   deleteJob: function (id) {
@@ -32,8 +32,8 @@ export default {
   },
 
   // Saves a job for the current user
-  userSaveJob: function (jobId, googleId) {
-    return axios.post("api/user/jobs", { jobId: jobId, googleId: googleId })
+  userSaveJob: function (jobData, googleId) {
+    return axios.post("api/user/jobs", { jobData, googleId })
   },
 
   getUserJobs: googleId => {
