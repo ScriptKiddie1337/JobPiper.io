@@ -15,4 +15,8 @@ router
     .route('/jobs/saved/:googleId')
     .get(userController.getJobs)
 
+router
+    .route('/jobs/saved/:googleId/:jobId')
+    .delete(userController.deleteJob)
+
 module.exports = router;

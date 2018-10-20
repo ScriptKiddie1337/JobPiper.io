@@ -36,6 +36,11 @@ export default {
     return axios.post("api/user/jobs", { jobData, googleId })
   },
 
+  // Unsaves a job for the current user
+  userUnsaveJob: function (jobId, googleId) {
+    return axios.delete(`api/user/jobs/saved/${googleId}/${jobId}`)
+  },
+
   getUserJobs: googleId => {
     return axios.get(`api/user/jobs/saved/${googleId}`)
   },

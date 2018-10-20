@@ -27,10 +27,15 @@ const styles = theme => ({
 
 class JobListingList extends Component {
 
-	handleJobClick = () => {
+	handleJobSave = () => {
 
 		api.userSaveJob(this.props, auth.getUserId())
 		this.setState({ saved: true })
+	}
+
+	handleJobUnsave = () => {
+		api.userUnsaveJob(this.props._id, auth.getUserId())
+		this.setState({ saved: false })
 	}
 
 	state = {
@@ -69,8 +74,8 @@ class JobListingList extends Component {
 						</ExpansionPanel>
 						{
 							this.state.saved
-								? <SavedIcon color="secondary" />
-								: <SaveIcon onClick={this.handleJobClick} color="primary" />
+								? <SavedIcon onClick={this.handleJobUnsave} color="secondary" />
+								: <SaveIcon onClick={this.handleJobSave} color="primary" />
 						}
 					</Grid>
 				</div>
