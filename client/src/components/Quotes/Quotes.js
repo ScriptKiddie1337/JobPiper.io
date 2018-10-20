@@ -11,7 +11,7 @@ class Quotes extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://quotesondesign.com/wp-json/posts?")
+    fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand")
       .then(res => res.json())
       .then(
         (result) => {
@@ -41,14 +41,16 @@ class Quotes extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>
+        <div>
            {items.map(item => (
-            <li key={item.ID}>
-              {item.title} 
-              {item.content}
-            </li>
+            <div key={item.ID}>
+              <p dangerouslySetInnerHTML={{__html:item.content}} />
+              <p>
+              {item.title}
+              </p> 
+            </div>
           ))}
-        </ul>
+        </div>
       );
     }
   }
