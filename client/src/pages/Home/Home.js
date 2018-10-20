@@ -4,7 +4,10 @@ import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
-import HomeIcons from '../../components/HomeIcons'
+import SettingsIcon from '../../components/Icons/SettingsIcon'
+import AccountIcon from '../../components/Icons/AccountIcon'
+import LogOutIcon from '../../components/Icons/LogOutIcon'
+import Divider from '@material-ui/core/Divider'
 
 const homeStyles = theme => ({
   root: {
@@ -17,18 +20,7 @@ const homeStyles = theme => ({
 class Home extends Component {
   state = {
     currentPage: 'Home', 
-    jobs: [],
-    title: '',
-    link: '',
-    image: '',
-    note: [],
-    contact: [],
   };
-
-  componentDidMount() {
-    // this.loadJobListing();
-  }
-;
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -43,30 +35,33 @@ class Home extends Component {
   };
 render() {
 // render function
-  
     return (
-	<div>
+	    <div>
         <Grid container>
         	<Hidden smDown>
         		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
-					<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-						<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
-					</Grid>
+					    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+						    <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
+					    </Grid>
         			<Grid position='sticky' style={{ alignItems: 'center' }}>
-						<HomeIcons  />
-            		</Grid>
+                <SettingsIcon />
+                  <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
+                <AccountIcon />
+                  <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
+                <LogOutIcon />
             	</Grid>
-          	</Hidden>
-			<Grid item md={10}>
-    			<Grid item xs={12}>
-			   		<ScrollableTabsButtonAuto /> 
-    			</Grid>
-  			</Grid>
-		</Grid>
-		<Hidden smUp>
-			<LabelBottomNavigation />
-		</Hidden>
-	</div>
+            </Grid>
+          </Hidden>
+			    <Grid item md={10}>
+    			  <Grid item xs={12}>
+			        <ScrollableTabsButtonAuto /> 
+    			  </Grid>
+  			  </Grid>
+		    </Grid>
+		    <Hidden smUp>
+			    <LabelBottomNavigation />
+		    </Hidden>
+	    </div>
     );
   }
 }
