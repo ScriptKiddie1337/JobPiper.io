@@ -9,48 +9,42 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     saveJob: function (req, res) {
+        const job = req.body.jobData
+        const googleId = req.body.googleId
         db.Users
             .findOne({
-                google_id: req.body.googleId,
-                jobs: req.body.jobId
+                google_id: googleId,
+                jobs: job
             })
             .count()
             .then(isDuplicate => {
                 if (!isDuplicate) {
                     db.Users.update(
-                        { google_id: req.body.googleId },
-                        { $push: { jobs: req.body.jobId } }
+                        { google_id: googleId },
+                        { $push: { jobs: job } }
                     )
-                        .then(res.status(204))
+                        .then(res.sendStatus(201))
                         .catch(err => res.status(422).json(err))
                 } else {
-                    res.status(204)
+                    res.sendStatus(204)
                 }
             })
     },
-    getJobs: function (req, res) {
+    getJobs: new Promise((resolve, reject) => {
+        console.log(req.params)
         db.Users
             .findOne({
                 google_id: req.params.googleId
             })
             .then(user => {
-                async function getJobsById(jobs, res) {
-                    let result = []
-                    const promises = jobs.map(jobId =>
-                        db.JobListing.findById(jobId, (err, res) => {
-                            // Add job if don't get error from db
-                            if (!err) {
-                                result.push(res)
-                            }
-                        })
-                    )
-                    await Promise.all(promises)
-                    res.json(result)
+                console.log("got user")
+                if (req.dbJobs) {
+                    user.jobs.push(dbJobs)
+                    resolve(user.jobs)
+                } else {
+                    resolve(user.jobs)
                 }
-
-                getJobsById(user.jobs, res)
-            }
-            )
-            .catch(err => res.status(422).json(err))
-    }
+            })
+            .catch(err => reject())
+    })
 };

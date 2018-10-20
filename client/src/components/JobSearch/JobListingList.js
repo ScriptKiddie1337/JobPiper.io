@@ -29,12 +29,11 @@ class JobListingList extends Component {
 
 	handleJobClick = () => {
 
-		api.userSaveJob(this.state.jobId, auth.getUserId())
+		api.userSaveJob(this.props, auth.getUserId())
 		this.setState({ saved: true })
 	}
 
 	state = {
-		jobId: this.props._id,
 		saved: this.props.saved
 	}
 

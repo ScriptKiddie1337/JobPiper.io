@@ -86,7 +86,6 @@ const UserSchema = new Schema({
   }],
   // job interests
   jobs: [{
-    type: String
   }]
 });
 
