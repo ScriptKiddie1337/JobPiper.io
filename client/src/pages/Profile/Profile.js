@@ -8,6 +8,7 @@ import LogOutIcon from '../../components/Icons/LogOutIcon';
 import HomeIcon from '../../components/Icons/HomeIcon';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import FloatingActionButtons from '../../components/FloatingButton'
 
 const homeStyles = theme => ({
 	root: {
@@ -52,7 +53,7 @@ class Profile extends Component {
 			<Grid item md={10} style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 				<div>
 					<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
-						
+						<FloatingActionButtons />
 					</Paper>
 				</div>
   		</Grid>
