@@ -36,13 +36,12 @@ class DayPlanner extends Component {
     return (
       <div>
         <Grid container>
-          <Grid>
-            {/* <OutlinedButtons /> */}
+          <Grid item xs={2}>
             <CreateCalendarEventDialog />
           </Grid>
         </Grid>
-        <Grid>
-          <Paper style={{ border: '#fdd835 solid 2px' }}>
+        <Grid item xs={12} style={{display: 'flex', justifyContent: 'center'}}>
+          <Paper style={{ border: '#fdd835 solid 2px', padding: '10px'}}>
             <MyCalendar />
           </Paper>
         </Grid>

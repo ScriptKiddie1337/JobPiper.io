@@ -7,8 +7,8 @@ import { mdiSettings } from '@mdi/js'
 import { mdiAccountCircle } from '@mdi/js'
 import { mdiLogoutVariant } from '@mdi/js'
 import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+//import List from '@material-ui/core/List';
+//import ListItem from '@material-ui/core/ListItem';
 
 const styles = theme => ({
   root: {
