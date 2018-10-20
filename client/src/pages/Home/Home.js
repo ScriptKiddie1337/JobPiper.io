@@ -40,14 +40,6 @@ render() {
         <Grid container>
         	<Hidden smDown>
         		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
-<<<<<<< HEAD
-					<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-						<img src='../../images/site_logo_1.svg' alt='JobPiper Logo' style={{ height: '200px', 	width: '200px' }}></img>
-					</Grid>
-        			<Grid style={{ justifyContent: 'center', }}>
-						<HomeIcons  />
-            		</Grid>
-=======
 					    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
 						    <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					    </Grid>
@@ -57,7 +49,6 @@ render() {
                 <AccountIcon />
                   <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
                 <LogOutIcon />
->>>>>>> 18e2b796706afbcd2ef21b342abcd8c988bdf33a
             	</Grid>
             </Grid>
           </Hidden>
