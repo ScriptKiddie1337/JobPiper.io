@@ -34,7 +34,7 @@ const styles = theme => ({
   },
   bigIndicator: {
 	  height: 5,
-  }
+  },
   
 });
 

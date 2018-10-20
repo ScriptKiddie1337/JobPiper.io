@@ -28,12 +28,12 @@ const theme = createMuiTheme({
 	
 	overrides: {
 		
-    	MuiTab: { // Name of the component ⚛️ / style sheet
+    	MuiTab: { 
 			root: {
 				backgroundColor: '#546e7a', 
 			},
-      	textColorInherit: { // Name of the rule
-				color: 'black', // Some CSS
+      		textColorInherit: { 
+				color: '#fdd835', 
 			},
 		},
 				
