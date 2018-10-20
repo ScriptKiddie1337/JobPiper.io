@@ -40,6 +40,7 @@ render() {
         <Grid container>
         	<Hidden smDown>
         		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
+					<div style={{margin: '0 auto', position: 'fixed'}}>
 					    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
 						    <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
 					    </Grid>
@@ -50,6 +51,7 @@ render() {
                   <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
                 <LogOutIcon />
             	</Grid>
+				</div>
             </Grid>
           </Hidden>
 			    <Grid item md={10}>
