@@ -86,17 +86,7 @@ const UserSchema = new Schema({
   }],
   // job interests
   jobs: [{
-    job_id: String, // id of job user is interested in
-    // apply this date, 1st interview this date, etc...
-    taskList: [{
-      date: Date,
-      task: String
-    }],
-    contact: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Contacts'
-    }],
-    note: String
+    type: String
   }]
 });
 

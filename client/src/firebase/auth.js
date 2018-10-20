@@ -21,6 +21,9 @@ export const doPasswordReset = email =>
 export const doPasswordUpdate = password =>
   auth.currentUser.updatePassword(password)
 
+export const getUserId = () =>
+  auth.currentUser.uid
+
 // Sign in pop up
 export const signInPopUp = () => {
 

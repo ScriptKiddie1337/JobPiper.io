@@ -31,6 +31,15 @@ export default {
     return axios.post("/api/jobs", jobData);
   },
 
+  // Saves a job for the current user
+  userSaveJob: function (jobId, googleId) {
+    return axios.post("api/user/jobs", { jobId: jobId, googleId: googleId })
+  },
+
+  getUserJobs: googleId => {
+    return axios.get(`api/user/jobs/saved/${googleId}`)
+  },
+
   createUser: user => {
     return axios.post("/api/user", user)
   }

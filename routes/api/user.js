@@ -6,4 +6,13 @@ router
     .route("/")
     .post(userController.upsert);
 
+// Matches with "/api/user/jobs"
+router
+    .route('/jobs')
+    .post(userController.saveJob)
+
+router
+    .route('/jobs/saved/:googleId')
+    .get(userController.getJobs)
+
 module.exports = router;
