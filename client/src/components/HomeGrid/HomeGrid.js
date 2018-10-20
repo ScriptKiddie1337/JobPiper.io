@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import MyCalendar from '../Calendar';
 
+
 const styles = {
     card: {
     minHeight: 10,
@@ -33,9 +34,11 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={6}>
+				
                     <Card className={classes.card} style={{textAlign: 'center'}}>
-                            <MyCalendar />
+							<p>Tech News or instructional material goes here</p>
                     </Card>
+					
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Card className={classes.card} style={{textAlign: 'center'}}>
@@ -43,8 +46,8 @@ function HomeGrid(props) {
                     </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{textAlign: 'center'}}>
-                            <p>Tech News or instructional material goes here</p>
+                    <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px', display: 'flex', justifyContent: 'center'}}>
+						<MyCalendar  />
                     </Card>
                 </Grid>
             </Grid>
