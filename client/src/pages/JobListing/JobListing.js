@@ -213,7 +213,9 @@ class JobListing extends Component {
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
-		API.scrape(this.state.searchTerm, this.state.city, this.state.region)
+		API.scrape((this.state.searchTerm === '' ? '+': this.state.searchTerm), 
+					(this.state.city === '' ? '+': this.state.city), 
+					(this.state.region === '' ? '+': this.state.region))
 		.catch(error => {
 			console.log(error.response)
 		});
