@@ -17,8 +17,9 @@ class Quotes extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.items
+            items: result
           });
+          //regex = str.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -41,7 +42,12 @@ class Quotes extends React.Component {
     } else {
       return (
         <ul>
-          {items}
+           {items.map(item => (
+            <li key={item.ID}>
+              {item.title} 
+              {item.content}
+            </li>
+          ))}
         </ul>
       );
     }
