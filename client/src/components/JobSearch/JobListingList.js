@@ -7,7 +7,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
-import SaveIcon from '@material-ui/icons/Save'
+import SavedIcon from '@material-ui/icons/Stars'
+import SaveIcon from '@material-ui/icons/Stars'
 import { auth } from '../../firebase'
 import api from '../../utils/API'
 //import PropTypes from 'prop-types';
@@ -21,7 +22,7 @@ const styles = theme => ({
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
-	},
+	}
 });
 
 class JobListingList extends Component {
@@ -29,16 +30,21 @@ class JobListingList extends Component {
 	handleJobClick = () => {
 
 		api.userSaveJob(this.state.jobId, auth.getUserId())
+		this.setState({ saved: true })
+	}
+
+	state = {
+		jobId: this.props._id,
+		saved: this.props.saved
 	}
 
 	componentDidMount() {
-
-		this.setState({ jobId: this.props._id })
+		console.log(this.state.saved)
 	}
 
 	render() {
 
-		const { _id, image, title, link, keywords, body } = this.props
+		const { _id, image, title, link, keywords, body, saved } = this.props
 		const keywordsString = keywords.join(' | ')
 		function createMarkup(val) {
 			return { __html: val };
@@ -66,7 +72,11 @@ class JobListingList extends Component {
 									dangerouslySetInnerHTML={createMarkup(body)} />
 							</ExpansionPanelDetails>
 						</ExpansionPanel>
-						<SaveIcon onClick={this.handleJobClick} />
+						{
+							this.state.saved
+								? <SavedIcon sytle={{ background: "gold" }} />
+								: <SaveIcon onClick={this.handleJobClick} />
+						}
 					</Grid>
 				</div>
 			</Paper>

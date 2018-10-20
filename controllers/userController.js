@@ -34,9 +34,23 @@ module.exports = {
                 google_id: req.params.googleId
             })
             .then(user => {
-                user.jobs.forEach(job => axios.get(`api/jobs/${jobId}`))
-                res.status(200)
-            })
+                async function getJobsById(jobs, res) {
+                    let result = []
+                    const promises = jobs.map(jobId =>
+                        db.JobListing.findById(jobId, (err, res) => {
+                            // Add job if don't get error from db
+                            if (!err) {
+                                result.push(res)
+                            }
+                        })
+                    )
+                    await Promise.all(promises)
+                    res.json(result)
+                }
+
+                getJobsById(user.jobs, res)
+            }
+            )
             .catch(err => res.status(422).json(err))
     }
 };
