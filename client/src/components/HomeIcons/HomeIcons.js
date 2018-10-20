@@ -7,8 +7,8 @@ import { mdiSettings } from '@mdi/js'
 import { mdiAccountCircle } from '@mdi/js'
 import { mdiLogoutVariant } from '@mdi/js'
 import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+//import List from '@material-ui/core/List';
+//import ListItem from '@material-ui/core/ListItem';
 
 const styles = theme => ({
   root: {
@@ -23,22 +23,20 @@ function HomeIcons(props) {
     const { classes } = props;
     return (
       <div className={classes.root}>
-      <List>
-        <ListItem>
+    
           <IconButton
-		  	href='/profile'
-		  	variant='fab'
+		  	    href='/profile'
             aria-haspopup="true"
             color="secondary">
             <Icon
               path={mdiAccountCircle}
-			  size={1}
+			        size={1}
               color='fdd835' />
             <p style={{marginLeft: 10, fontSize: '10px'}}>Profile</p>
           </IconButton>
-        </ListItem>
+        
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
-        <ListItem>
+     
           <IconButton
 		  	href='/usersetting'
             aria-haspopup="true"
@@ -49,9 +47,9 @@ function HomeIcons(props) {
               color='#fdd835'/>
             <p style={{marginLeft: 10, fontSize: '10px'}}>Settings</p>
           </IconButton>
-          </ListItem>
+      
         <Divider inset style={{backgroundColor: '#fdd835', marginLeft: 0}}/>
-        <ListItem>
+      
 		  <IconButton	
 		  	href='/'		  
             aria-haspopup="true"
@@ -62,8 +60,7 @@ function HomeIcons(props) {
               color='#fdd835'/>
             <p style={{marginLeft: 10, fontSize: '10px'}}>Log Out</p>
           </IconButton>
-      </ListItem>
-      </List>
+      
       </div>
     )
   

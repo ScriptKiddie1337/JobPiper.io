@@ -10,10 +10,8 @@ import DayPlanner from './pages/DayPlanner';
 import Profile from './pages/Profile';
 import UserSetting from './pages/UserSetting';
 import NoMatch from './pages/NoMatch';
-
 import withAuthentication from './session/withAuthentication'
 import PropTypes from 'prop-types'
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './utils/Theme/Theme'
 import { MuiThemeProvider } from '@material-ui/core/styles';
