@@ -21,7 +21,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Fade from '@material-ui/core/Fade';
 
 const actionsStyles = theme => ({
 	root: {
@@ -120,6 +121,7 @@ const styles = theme => ({
 
 class JobListing extends Component {
 	state = {
+		loading: false,
 		jobs: [],
 		note: [],
 		contact: [],
@@ -204,15 +206,22 @@ class JobListing extends Component {
 				// () => console.log('cities: ', data)
 			));
 	}
+
 	handleCityChange = event => {
 		this.setState({
 			city: event.value
 		});
 	}
 
+	handleClickLoading = () => {
+		this.setState(state => ({
+		  loading: !state.loading,
+		}));
+	  };
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
+		this.handleClickLoading()
 		API.scrape((this.state.searchTerm === '' ? '+': this.state.searchTerm), 
 					(this.state.city === '' ? '+': this.state.city), 
 					(this.state.region === '' ? '+': this.state.region))
@@ -222,6 +231,9 @@ class JobListing extends Component {
 		fetch('/api/jobs')
 			.then(response => response.json())
 			.then(data => this.fuse(data))
+			.then(this.setState(state => ({
+				loading: !state.loading
+			})))
 			.then(x => this.setState({ jobs: x }))
 			// API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
 			// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
@@ -232,7 +244,8 @@ class JobListing extends Component {
 render() {
 	const { classes } = this.props;
     const { jobs:rows, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+	const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+	const { loading } = this.state;
 
     // let currentSearch = this.fuse(this.state.jobs)
     // console.log('Result Count: ',currentSearch.length)
@@ -280,6 +293,7 @@ render() {
 					
         			<Grid item xs={12} md={2}>
             			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
+						
         			</Grid>
         		</Grid>	
         	</div>
@@ -300,7 +314,17 @@ render() {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-
+						<div className={classes.placeholder} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+         					<Fade
+         					  in={loading}
+         					  style={{
+         					    transitionDelay: loading ? '800ms' : '0ms',
+         					  }}
+         					  unmountOnExit
+         					>
+         					  <CircularProgress color='secondary'/>
+         					</Fade>
+        				</div>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// console.log(job.item.title, job.score)
 								if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
@@ -322,7 +346,6 @@ render() {
 								}
 								return null
 							})}
-
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 48 * emptyRows }}>
 									<TableCell colSpan={6} />
@@ -332,7 +355,6 @@ render() {
 						<TableFooter>
 							<TableRow>
 								<TablePagination
-
 									colSpan={3}
 									count={rows.length}
 									rowsPerPage={rowsPerPage}
