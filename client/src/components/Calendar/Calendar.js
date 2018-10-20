@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
- 
+import { initGoogleCalendar } from '../../session/googleCalendar'
+
 class MyCalendar extends Component {
   state = {
-    date: new Date(),
+    googleCalendarId: undefined
   }
- 
+
+  componentDidMount() {
+
+    initGoogleCalendar().then(result => {
+
+      this.setState({ googleCalendarId: result })
+    })
+  }
+
   onChange = date => this.setState({ date })
- 
+
   render() {
     return (
       <div>
-        <Calendar
-          
-          onChange={this.onChange}
-          value={this.state.date}
-        />
+        {
+          this.state.googleCalendarId ?
+            <iframe title="Job Piper Calendar" src={`https://calendar.google.com/calendar/embed?height=550&wkst=1&bgcolor=%23FFFFFF&src=${this.state.googleCalendarId}&color=%238C500B&ctz=America%2FLos_Angeles`}
+              style={{ border: 0 }} width="800" height="600" frameborder="0" scrolling="no"></iframe> : null
+        }
       </div>
     );
   }
