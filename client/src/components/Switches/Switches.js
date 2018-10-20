@@ -3,7 +3,7 @@ import Switch from '@material-ui/core/Switch';
 
 class SwitchLabels extends React.Component {
   state = {
-    checkedA: true,
+    checkedA: false,
     checkedB: true,
   };
 

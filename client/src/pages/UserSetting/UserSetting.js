@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import SwitchLabels from '../../components/Switches';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
+import { List, ListItem } from '@material-ui/core';
+
 
 const homeStyles = theme => ({
 	root: {
@@ -36,7 +38,7 @@ class UserSetting extends Component {
   render() {
     return (
 		<div>
-      <Grid container>
+    	<Grid container>
         <Hidden smDown>
         	<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
 						<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -52,18 +54,48 @@ class UserSetting extends Component {
             </Grid>
         </Hidden>
 			<Grid item md={10} style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-				<div>
+				
 					<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
-						
+					<h2 style={{textAlign: 'center', padding: '15px'}}>
+						Settings
+					</h2>
+					<Divider />
+					<List>
+						<ListItem>
 						<FormControlLabel
           					control={
 			  					<SwitchLabels />
           					}
           					label='Notifications'
         				/>
+						</ListItem>
+						<ListItem>
+						<FormControlLabel
+          					control={
+			  					<SwitchLabels />
+          					}
+          					label='Default City'
+        				/>
+						</ListItem>
+						<ListItem>
+						<FormControlLabel
+          					control={
+			  					<SwitchLabels />
+          					}
+          					label='Upload Image'
+        				/>
+						</ListItem>
+						<ListItem>
+						<FormControlLabel
+          					control={
+			  					<SwitchLabels />
+          					}
+          					label='Delete Account'
+        				/>
+						</ListItem>
+						</List>
 					</Paper>
-				</div>
-  		</Grid>
+  			</Grid>
 		</Grid>
 		<Hidden smUp>
 			<LabelBottomNavigation />
