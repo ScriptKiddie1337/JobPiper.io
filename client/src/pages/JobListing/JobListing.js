@@ -153,7 +153,12 @@ class JobListing extends Component {
 	};
 
 	handleChangeRowsPerPage = event => {
+
 		this.setState({ rowsPerPage: event.target.value });
+
+		// Need to update jobs after page change so can reflect 
+		// changes to jobs user saved on a page
+		this.updateJobs()
 	};
 
 	fuse(list) {
