@@ -21,6 +21,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
+import { auth } from '../../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 
@@ -134,10 +135,10 @@ class JobListing extends Component {
 		countries: [],
 		selectedRegionID: 0,
 		regions: [],
-		region:'',
+		region: '',
 		selectedCityID: 0,
 		cities: [],
-		city:''
+		city: ''
 
 		// ! add persistent search and exclude arrays
 	};
@@ -145,10 +146,19 @@ class JobListing extends Component {
 
 	handleChangePage = (event, page) => {
 		this.setState({ page });
+
+		// Need to update jobs after page change so can reflect 
+		// changes to jobs user saved on a page
+		this.updateJobs()
 	};
 
 	handleChangeRowsPerPage = event => {
+
 		this.setState({ rowsPerPage: event.target.value });
+
+		// Need to update jobs after page change so can reflect 
+		// changes to jobs user saved on a page
+		this.updateJobs()
 	};
 
 	fuse(list) {
@@ -171,18 +181,43 @@ class JobListing extends Component {
 		return res;
 	}
 
-	componentDidMount() {
-		fetch('/api/jobs')
-			.then(response => response.json())
-			.then(data => this.fuse(data))
-			.then(x => this.setState({ jobs: x },
-				// () => console.log(this.state.jobs)
-			));
+	updateJobs = () => {
+
+		API.getUserJobs(auth.getUserId())
+			.then(userSavedJobs => {
+				fetch('/api/jobs')
+					.then(response => response.json())
+					.then(data => {
+						const noDuplicateJobs = data.filter(job => {
+
+							let isNotDuplicateJob = true;
+							userSavedJobs.data.forEach(savedJob => {
+								if (job._id === savedJob._id) {
+									isNotDuplicateJob = false
+								}
+							})
+							return isNotDuplicateJob
+						})
+						return this.fuse(noDuplicateJobs)
+					})
+					.then(x => {
+						// Reverse the order of saved jobs so the latest save appears first.
+						// Then append the unsaved jobs to the end of the saved ones.
+						const jobs = userSavedJobs.data.reverse().concat(x)
+						this.setState({ jobs: jobs })
+					})
+			});
+
 		fetch('/api/loc/state/' + this.state.selectedCountryID)
 			.then(response => response.json())
 			.then(data => this.setState({ regions: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
 				// () => console.log(this.state.states)
 			));
+	}
+
+	componentDidMount() {
+
+		this.updateJobs()
 	}
 
 	handleInputChange = event => {
@@ -215,19 +250,19 @@ class JobListing extends Component {
 
 	handleClickLoading = () => {
 		this.setState(state => ({
-		  loading: !state.loading,
+			loading: !state.loading,
 		}));
-	  };
+	};
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
 		this.handleClickLoading()
-		API.scrape((this.state.searchTerm === '' ? '+': this.state.searchTerm), 
-					(this.state.city === '' ? '+': this.state.city), 
-					(this.state.region === '' ? '+': this.state.region))
-		.catch(error => {
-			console.log(error.response)
-		});
+		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
+			(this.state.city === '' ? '+' : this.state.city),
+			(this.state.region === '' ? '+' : this.state.region))
+			.catch(error => {
+				console.log(error.response)
+			});
 		fetch('/api/jobs')
 			.then(response => response.json())
 			.then(data => this.fuse(data))
@@ -241,64 +276,64 @@ class JobListing extends Component {
 			.catch(err => { throw new Error(err) });
 	};
 
-render() {
-	const { classes } = this.props;
-    const { jobs:rows, rowsPerPage, page } = this.state;
-	const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-	const { loading } = this.state;
+	render() {
+		const { classes } = this.props;
+		const { jobs: rows, rowsPerPage, page } = this.state;
+		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+		const { loading } = this.state;
 
-    // let currentSearch = this.fuse(this.state.jobs)
-    // console.log('Result Count: ',currentSearch.length)
-    
-    return (
-    	<div style={{ padding: '20px', borderRadius: '5px' }}>
-        	<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px'}}>
-    			<Grid container spacing={24} alignItems='center'>
-            		<Grid fullwidth='true' item xs={12} md={6}>
-        				<form onSubmit = {this.handleFormSubmit}>
-                			<Input
-                			name='searchTerm'
-                			value={this.state.searchTerm}
-                			onChange={this.handleInputChange}
-                			placeholder='Search keywords...'
-                			style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
-                			/>
-        				</form>
-            		</Grid>
-            		<Grid fullwidth="true" item xs={12} md={6}>
-            			<Input 
-            			name='excludeTerm'
-            			value={this.state.excludeTerm}
-            			onChange={this.handleInputChange}
-            			placeholder='Exclude keywords...'
-            			style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px'}}
-            			/>
-    				</Grid>
-					
-					<Grid fullwidth="true" item xs={12} md={6}>
-						{/* <LocationSelector 
+		// let currentSearch = this.fuse(this.state.jobs)
+		// console.log('Result Count: ',currentSearch.length)
+
+		return (
+			<div style={{ padding: '20px', borderRadius: '5px' }}>
+				<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px' }}>
+					<Grid container spacing={24} alignItems='center'>
+						<Grid fullwidth='true' item xs={12} md={6}>
+							<form onSubmit={this.handleFormSubmit}>
+								<Input
+									name='searchTerm'
+									value={this.state.searchTerm}
+									onChange={this.handleInputChange}
+									placeholder='Search keywords...'
+									style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+								/>
+							</form>
+						</Grid>
+						<Grid fullwidth="true" item xs={12} md={6}>
+							<Input
+								name='excludeTerm'
+								value={this.state.excludeTerm}
+								onChange={this.handleInputChange}
+								placeholder='Exclude keywords...'
+								style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+							/>
+						</Grid>
+
+						<Grid fullwidth="true" item xs={12} md={6}>
+							{/* <LocationSelector 
 						options={ this.state.countries } 
 						placeholder='Select Country' /> */}
-						<LocationSelector 
-						options={ this.state.regions } 
-						placeholder='Select State/Region' 
-						onChange={ this.handleRegionChange }
-						/>
+							<LocationSelector
+								options={this.state.regions}
+								placeholder='Select State/Region'
+								onChange={this.handleRegionChange}
+							/>
+						</Grid>
+						<Grid fullwidth="true" item xs={12} md={6}>
+							<LocationSelector
+								options={this.state.cities}
+								placeholder='Select City' />
+						</Grid>
+
+						<Grid item xs={12} md={2}>
+							<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>Search</Button>
+
+						</Grid>
 					</Grid>
-					<Grid fullwidth="true" item xs={12} md={6}>
-						<LocationSelector 
-						options={ this.state.cities } 
-						placeholder='Select City' />
-					</Grid>
-					
-        			<Grid item xs={12} md={2}>
-            			<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{backgroundColor: '#fdd835', padding: '10px', height: '50px'}}>Search</Button>
-						
-        			</Grid>
-        		</Grid>	
-        	</div>
-        	<br />		
-        		<div className={classes.tableWrapper}>
+				</div>
+				<br />
+				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
 						<TableHead>
 							<TableRow>
@@ -314,36 +349,57 @@ render() {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-						<div className={classes.placeholder} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-         					<Fade
-         					  in={loading}
-         					  style={{
-         					    transitionDelay: loading ? '800ms' : '0ms',
-         					  }}
-         					  unmountOnExit
-         					>
-         					  <CircularProgress color='secondary'/>
-         					</Fade>
-        				</div>
+							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+								<Fade
+									in={loading}
+									style={{
+										transitionDelay: loading ? '800ms' : '0ms',
+									}}
+									unmountOnExit
+								>
+									<CircularProgress color='secondary' />
+								</Fade>
+							</div>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
-								// console.log(job.item.title, job.score)
-								if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+								// saved jobs are excluded from search terms
+								if (job.item) {
+									if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
+										return (
+											<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+
+												<TableCell component="th" scope="row" style={{ padding: '0px' }}>
+													<JobListingList
+														link={job.item.link}
+														_id={job.item._id}
+														title={job.item.title}
+														keywords={job.item.keywords}
+														body={job.item.body}
+														image={job.item.image}
+														saved={false}
+													/>
+												</TableCell>
+											</TableRow>
+										)
+									}
+								} else {
 									return (
 										<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
 
 											<TableCell component="th" scope="row" style={{ padding: '0px' }}>
 												<JobListingList
-													link={job.item.link}
-													_id={job.item._id}
-													title={job.item.title}
-													keywords={job.item.keywords}
-													body={job.item.body}
-													image={job.item.image}
+													link={job.link}
+													_id={job._id}
+													title={job.title}
+													keywords={job.keywords}
+													body={job.body}
+													image={job.image}
+													saved={true}
 												/>
 											</TableCell>
 										</TableRow>
 									)
 								}
+
 								return null
 							})}
 							{emptyRows > 0 && (
