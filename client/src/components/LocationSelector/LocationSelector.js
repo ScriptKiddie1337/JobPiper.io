@@ -11,7 +11,6 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
@@ -169,9 +168,9 @@ const components = {
 
 const LocationSelector = ({ options, placeholder, selectedItems, onChange, classes }) => (
     <div className={classes.root} >
-    <Grid container spacing={24}>
+    
         <div className={classes.divider} />
-        <Grid item xs={12} md={6}>
+        
         <div style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px 10px 0px' }}>
         <Select
           classes={classes}
@@ -187,8 +186,8 @@ const LocationSelector = ({ options, placeholder, selectedItems, onChange, class
           placeholder={ placeholder }
         />
         </div>
-        </Grid>
-      </Grid>
+        
+      
     </div>
   );
 

@@ -22,6 +22,8 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
 import { auth } from '../../firebase';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Fade from '@material-ui/core/Fade';
 
 const actionsStyles = theme => ({
 	root: {
@@ -120,6 +122,7 @@ const styles = theme => ({
 
 class JobListing extends Component {
 	state = {
+		loading: false,
 		jobs: [],
 		note: [],
 		contact: [],
@@ -233,22 +236,34 @@ class JobListing extends Component {
 				// () => console.log('cities: ', data)
 			));
 	}
+
 	handleCityChange = event => {
 		this.setState({
 			city: event.value
 		});
 	}
 
+	handleClickLoading = () => {
+		this.setState(state => ({
+			loading: !state.loading,
+		}));
+	};
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
-		API.scrape(this.state.searchTerm, this.state.city, this.state.region)
+		this.handleClickLoading()
+		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
+			(this.state.city === '' ? '+' : this.state.city),
+			(this.state.region === '' ? '+' : this.state.region))
 			.catch(error => {
 				console.log(error.response)
 			});
 		fetch('/api/jobs')
 			.then(response => response.json())
 			.then(data => this.fuse(data))
+			.then(this.setState(state => ({
+				loading: !state.loading
+			})))
 			.then(x => this.setState({ jobs: x }))
 			// API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
 			// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
@@ -260,6 +275,7 @@ class JobListing extends Component {
 		const { classes } = this.props;
 		const { jobs: rows, rowsPerPage, page } = this.state;
 		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+		const { loading } = this.state;
 
 		// let currentSearch = this.fuse(this.state.jobs)
 		// console.log('Result Count: ',currentSearch.length)
@@ -268,7 +284,7 @@ class JobListing extends Component {
 			<div style={{ padding: '20px', borderRadius: '5px' }}>
 				<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px' }}>
 					<Grid container spacing={24} alignItems='center'>
-						<Grid item xs={12} md={6}>
+						<Grid fullwidth='true' item xs={12} md={6}>
 							<form onSubmit={this.handleFormSubmit}>
 								<Input
 									name='searchTerm'
@@ -288,25 +304,26 @@ class JobListing extends Component {
 								style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
 							/>
 						</Grid>
-						<Grid item xs={12}>
-						</Grid>
-						<Grid item xs={12} >
+
+						<Grid fullwidth="true" item xs={12} md={6}>
 							{/* <LocationSelector 
-								options={ this.state.countries } 
-								placeholder='Select Country' /> */}
+						options={ this.state.countries } 
+						placeholder='Select Country' /> */}
 							<LocationSelector
 								options={this.state.regions}
 								placeholder='Select State/Region'
 								onChange={this.handleRegionChange}
 							/>
+						</Grid>
+						<Grid fullwidth="true" item xs={12} md={6}>
 							<LocationSelector
 								options={this.state.cities}
-								placeholder='Select City'
-								onChange={this.handleCityChange}
-							/>
+								placeholder='Select City' />
 						</Grid>
+
 						<Grid item xs={12} md={2}>
 							<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>Search</Button>
+
 						</Grid>
 					</Grid>
 				</div>
@@ -327,7 +344,17 @@ class JobListing extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-
+							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+								<Fade
+									in={loading}
+									style={{
+										transitionDelay: loading ? '800ms' : '0ms',
+									}}
+									unmountOnExit
+								>
+									<CircularProgress color='secondary' />
+								</Fade>
+							</div>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// saved jobs are excluded from search terms
 								if (job.item) {
@@ -370,7 +397,6 @@ class JobListing extends Component {
 
 								return null
 							})}
-
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 48 * emptyRows }}>
 									<TableCell colSpan={6} />
@@ -380,7 +406,6 @@ class JobListing extends Component {
 						<TableFooter>
 							<TableRow>
 								<TablePagination
-
 									colSpan={3}
 									count={rows.length}
 									rowsPerPage={rowsPerPage}

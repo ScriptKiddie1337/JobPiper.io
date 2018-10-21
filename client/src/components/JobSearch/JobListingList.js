@@ -61,17 +61,19 @@ class JobListingList extends Component {
 					<Grid container>
 						<Grid item xs={12} style={{ border: '#fdd835 solid 1px', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px' }}>
 							<a href={link} target="_blank" style={{ textDecoration: 'none' }}>
-								<img style={{ maxHeight: "50px" }} src={image} alt={title} />
-								<h3 style={{ color: 'white' }} dangerouslySetInnerHTML={createMarkup(title)} />
+								<Grid container
+									direction="row"
+									justify="space-between"
+									alignItems="center">
+									<Grid item xs={3} style={{ textAlign: "left" }}><h3 style={{ color: 'white' }} dangerouslySetInnerHTML={createMarkup(title)} /></Grid>
+									<Grid item xs={2} ><img align="right" style={{ maxHeight: "50px" }} src={image} alt={title} /></Grid>
+								</Grid>
 							</a>
 						</Grid>
-						<Grid item xs={12}>
-							<p style={{ border: '#546e7a solid 1px', backgroundColor: '#fdd835', paddingLeft: '5px', paddingRight: '5px', marginLeft: '5px', marginRight: '5px', borderRadius: '5px' }}
-								dangerouslySetInnerHTML={createMarkup(keywordsString)} />
-						</Grid>
+
 						<ExpansionPanel style={{ minWidth: '100%' }}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-								<Typography>Description</Typography>
+								<Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
 								<Grid item xs={12} style={{ paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px' }}
