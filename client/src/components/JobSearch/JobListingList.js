@@ -38,13 +38,19 @@ class JobListingList extends Component {
 		this.setState({ saved: false })
 	}
 
-	state = {
-		saved: this.props.saved
+	state = { saved: this.props.saved }
+
+	componentWillReceiveProps(newProps) {
+
+		if (newProps.saved !== this.state.saved) {
+
+			this.setState({ saved: newProps.saved })
+		}
 	}
 
 	render() {
 
-		const { _id, image, title, link, keywords, body, saved } = this.props
+		const { _id, image, title, link, keywords, body } = this.props
 		const keywordsString = keywords.join(' | ')
 		function createMarkup(val) {
 			return { __html: val };

@@ -31,14 +31,10 @@ module.exports = {
             })
     },
     deleteJob: function (req, res) {
-        const jobId = req.params.jobId
-        const googleId = req.params.googleId
-        console.log(jobId)
-        console.log(googleId)
         db.Users
             .findOneAndUpdate(
-                { google_id: googleId },
-                { $pull: { "jobs": { "_id": jobId } } })
+                { google_id: req.params.googleId },
+                { $pull: { "jobs": { "_id": req.params.jobId } } })
             .then(() => res.sendStatus(204))
             .catch(err => res.status(404).json(err))
     },

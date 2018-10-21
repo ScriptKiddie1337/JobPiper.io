@@ -21,9 +21,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
-import { auth } from '../../firebase'
-import { concat } from "rxjs";
-
+import { auth } from '../../firebase';
 
 const actionsStyles = theme => ({
 	root: {
@@ -145,6 +143,10 @@ class JobListing extends Component {
 
 	handleChangePage = (event, page) => {
 		this.setState({ page });
+
+		// Need to update jobs after page change so can reflect 
+		// changes to jobs user saved on a page
+		this.updateJobs()
 	};
 
 	handleChangeRowsPerPage = event => {
@@ -171,17 +173,31 @@ class JobListing extends Component {
 		return res;
 	}
 
-	componentDidMount() {
+	updateJobs = () => {
+
 		API.getUserJobs(auth.getUserId())
 			.then(userSavedJobs => {
 				fetch('/api/jobs')
 					.then(response => response.json())
-					.then(data => this.fuse(data))
+					.then(data => {
+						const noDuplicateJobs = data.filter(job => {
+
+							let isNotDuplicateJob = true;
+							userSavedJobs.data.forEach(savedJob => {
+								if (job._id === savedJob._id) {
+									isNotDuplicateJob = false
+								}
+							})
+							return isNotDuplicateJob
+						})
+						return this.fuse(noDuplicateJobs)
+					})
 					.then(x => {
-						const jobs = userSavedJobs.data.concat(x)
+						// Reverse the order of saved jobs so the latest save appears first.
+						// Then append the unsaved jobs to the end of the saved ones.
+						const jobs = userSavedJobs.data.reverse().concat(x)
 						this.setState({ jobs: jobs })
-					}
-					)
+					})
 			});
 
 		fetch('/api/loc/state/' + this.state.selectedCountryID)
@@ -189,6 +205,11 @@ class JobListing extends Component {
 			.then(data => this.setState({ regions: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
 				// () => console.log(this.state.states)
 			));
+	}
+
+	componentDidMount() {
+
+		this.updateJobs()
 	}
 
 	handleInputChange = event => {
@@ -322,6 +343,7 @@ class JobListing extends Component {
 														keywords={job.item.keywords}
 														body={job.item.body}
 														image={job.item.image}
+														saved={false}
 													/>
 												</TableCell>
 											</TableRow>
