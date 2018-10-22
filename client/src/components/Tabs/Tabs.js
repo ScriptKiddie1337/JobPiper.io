@@ -12,6 +12,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MemoryRouter from 'react-router/MemoryRouter';
 import NoSsr from '@material-ui/core/NoSsr';
+import SavedJobs from '../../pages/SavedJobs'
 
 function TabContainer(props) {
   return (
@@ -68,8 +69,8 @@ class ScrollableTabsButtonAuto extends React.Component {
               <Tab label='Home' />
               <Tab label='Day Planner' />
               <Tab label='Job Search' />
-              <Tab label='Company News' />
-              <Tab label='Meetups' />
+              {/* <Tab label='Company News' /> */}
+              <Tab label='Saved Jobs' />
               </Tabs>
             </AppBar>
             {value === 0 && 
@@ -78,8 +79,9 @@ class ScrollableTabsButtonAuto extends React.Component {
             </TabContainer>}
             {value === 1 && <TabContainer to='/dayplanner'><DayPlanner /></TabContainer>}
             {value === 2 && <TabContainer to='/jobs'><JobListing /></TabContainer>}
-            {value === 3 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>}
-            {value === 4 && <TabContainer to='/meetups'><Meetups /></TabContainer>}
+            {value === 3 && <TabContainer to='/savedjobs'><SavedJobs /></TabContainer>}
+            {value === 4 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>}
+            {value === 5 && <TabContainer to='/meetups'><Meetups /></TabContainer>}
           </div>
         </MemoryRouter>
       </NoSsr>
