@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import JobListingList from '../../components/JobSearch/JobListingList'
-//import AdvancedSearch from '../../components/JobSearch/AdvancedSearch'
-//import API from '../../utils/API'
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,8 +16,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import API from "../../utils/API";
 import { auth } from '../../firebase';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Fade from '@material-ui/core/Fade';
 
 const actionsStyles = theme => ({
 	root: {
@@ -117,25 +112,14 @@ const styles = theme => ({
 	},
 });
 
-class JobListing extends Component {
+class SavedJobs extends Component {
 	state = {
 		loading: false,
 		jobs: [],
 		note: [],
 		contact: [],
-		searchTerm: '',
-		excludeTerm: '',
 		page: 0,
 		rowsPerPage: 5,
-		// location selector id's
-		selectedCountryID: 231,
-		countries: [],
-		selectedRegionID: 0,
-		regions: [],
-		region: '',
-		selectedCityID: 0,
-		cities: [],
-		city: ''
 
 		// ! add persistent search and exclude arrays
 	};
@@ -180,63 +164,17 @@ class JobListing extends Component {
 		});
 	};
 
-	handleRegionChange = async (event) => {
-		this.setState({
-			region: event.value
-		});
-		await this.setState({
-			selectedRegionID: event.id
-		} //, () => console.log('new input: ', this.state.searchTerm)
-		)
-		await fetch('/api/loc/city/' + this.state.selectedRegionID)
-			.then(response => response.json())
-			.then(data => this.setState({ cities: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
-				// () => console.log('cities: ', data)
-			));
-	}
-
-	handleCityChange = event => {
-		this.setState({
-			city: event.value
-		});
-	}
-
 	handleClickLoading = () => {
 		this.setState(state => ({
 			loading: !state.loading,
 		}));
 	};
-	handleFormSubmit = event => {
-		// console.log(this.state)
-		event.preventDefault();
-		this.handleClickLoading()
-		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
-			(this.state.city === '' ? '+' : this.state.city),
-			(this.state.region === '' ? '+' : this.state.region))
-			.catch(error => {
-				console.log(error.response)
-			});
-		fetch('/api/jobs')
-			.then(response => response.json())
-			.then(data => this.fuse(data))
-			.then(this.setState(state => ({
-				loading: !state.loading
-			})))
-			.then(x => this.setState({ jobs: x }))
-			// API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-			// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
-			// .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
-			.catch(err => { throw new Error(err) });
-	};
-
+	
 	render() {
 		const { classes } = this.props;
 		const { jobs: rows, rowsPerPage, page } = this.state;
 		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 		const { loading } = this.state;
-
-		// let currentSearch = this.fuse(this.state.jobs)
-		// console.log('Result Count: ',currentSearch.length)
 
 		return (
 			<div style={{ padding: '20px', borderRadius: '5px' }}>
@@ -257,18 +195,6 @@ class JobListing extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-								<Fade
-									in={loading}
-									style={{
-										transitionDelay: loading ? '800ms' : '0ms',
-									}}
-									unmountOnExit
-								>
-									<CircularProgress color='secondary' />
-								</Fade>
-							</div>
-							{ console.log(this.state.jobs) }
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// saved jobs are excluded from search terms
 								if (job.item) {
@@ -338,7 +264,7 @@ class JobListing extends Component {
 }
 
 
-JobListing.propTypes = {
+SavedJobs.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(JobListing);
+export default withStyles(styles)(SavedJobs);
