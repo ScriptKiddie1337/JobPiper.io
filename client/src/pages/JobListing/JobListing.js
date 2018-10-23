@@ -251,6 +251,7 @@ class JobListing extends Component {
 			loading: !state.loading,
 		}));
 	};
+
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
@@ -347,17 +348,18 @@ class JobListing extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						
 								<Fade
 									in={loading}
 									style={{
 										transitionDelay: loading ? '800ms' : '0ms',
+										
 									}}
 									unmountOnExit
 								>
 									<CircularProgress color='secondary' />
 								</Fade>
-							</div>
+							
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// saved jobs are excluded from search terms
 								if (job.item) {

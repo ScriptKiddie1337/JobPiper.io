@@ -49,6 +49,7 @@ class Quotes extends React.Component {
               {item.title}
               </p> 
             </div>
+			
           ))}
         </div>
       );

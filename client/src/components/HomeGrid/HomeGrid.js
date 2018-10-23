@@ -23,6 +23,7 @@ const styles = {
     },
 };
 
+
 function HomeGrid(props) {
     const { classes } = props;
  
