@@ -10,13 +10,15 @@ router
 router
     .route('/jobs')
     .post(userController.saveJob)
-
+// saved jobs by google user id
 router
     .route('/jobs/saved/:googleId')
     .get(userController.getJobs)
-
+// job by id under user by google user id
 router
     .route('/jobs/saved/:googleId/:jobId')
-    .delete(userController.deleteJob)
+    .get(userController.getUserJob)
+    .put(userController.updateUserJob)
+    .delete(userController.deleteUserJob)
 
 module.exports = router;

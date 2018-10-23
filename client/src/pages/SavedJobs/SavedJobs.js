@@ -144,7 +144,7 @@ class SavedJobs extends Component {
 
 		API.getUserJobs(auth.getUserId())
 			.then(userSavedJobs => {
-				this.setState({jobs:userSavedJobs.data});
+				this.setState({ jobs: userSavedJobs.data });
 			});
 
 	}
@@ -161,16 +161,12 @@ class SavedJobs extends Component {
 		});
 	};
 
-	setNote = (note) => {
-		this.setState({notes: note})
-	}
-
 	handleClickLoading = () => {
 		this.setState(state => ({
 			loading: !state.loading,
 		}));
 	};
-	
+
 	render() {
 		const { classes } = this.props;
 		const { jobs: rows, rowsPerPage, page } = this.state;
@@ -178,7 +174,7 @@ class SavedJobs extends Component {
 
 		return (
 			<div style={{ padding: '20px', borderRadius: '5px' }}>
-				
+
 				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
 						<TableHead>
@@ -196,24 +192,23 @@ class SavedJobs extends Component {
 						</TableHead>
 						<TableBody>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
-								console.log(job)
-									return (
-										<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+								return (
+									<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
 
-											<TableCell component="th" scope="row" style={{ padding: '0px' }}>
-												<SavedJobListing
-													link={job.link}
-													_id={job._id}
-													title={job.title}
-													keywords={job.keywords}
-													body={job.body}
-													image={job.image}
-													saved={true}
-													setNote={ this.setNote }
-												/>
-											</TableCell>
-										</TableRow>
-									)
+										<TableCell component="th" scope="row" style={{ padding: '0px' }}>
+											<SavedJobListing
+												link={job.link}
+												_id={job._id}
+												title={job.title}
+												keywords={job.keywords}
+												body={job.body}
+												image={job.image}
+												notes={job.notes}
+												saved={true}
+											/>
+										</TableCell>
+									</TableRow>
+								)
 							})}
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 48 * emptyRows }}>
