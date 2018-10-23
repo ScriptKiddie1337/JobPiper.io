@@ -44,7 +44,7 @@ class Quotes extends React.Component {
         <div>
            {items.map(item => (
             <div key={item.ID}>
-              <p dangerouslySetInnerHTML={{__html:item.content}} />
+              <p dangerouslySetInnerHTML={{__html:item.content}} style={{backgroundColor: '#fdd835', maxWidth: 800,}}/>
               <p>
               {item.title}
               </p> 
