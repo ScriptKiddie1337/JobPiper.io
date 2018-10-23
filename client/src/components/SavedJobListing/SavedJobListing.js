@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { Input, Button } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
-import SavedIcon from '@material-ui/icons/StarRate'
-import SaveIcon from '@material-ui/icons/Stars'
-import { auth } from '../../firebase'
-import api from '../../utils/API'
-//import PropTypes from 'prop-types';
+import SavedIcon from '@material-ui/icons/StarRate';
+import SaveIcon from '@material-ui/icons/Stars';
+import { auth } from '../../firebase';
+import api from '../../utils/API';
 
 const styles = theme => ({
 	root: {
@@ -25,7 +25,7 @@ const styles = theme => ({
 	}
 });
 
-class JobListingList extends Component {
+class SavedJobListing extends Component {
 
 	handleJobSave = () => {
 
@@ -47,8 +47,6 @@ class JobListingList extends Component {
 
 	componentWillReceiveProps(newProps) {
 
-		this.props = newProps
-
 		if (newProps.saved !== this.state.saved) {
 
 			this.setState({ saved: newProps.saved })
@@ -57,7 +55,7 @@ class JobListingList extends Component {
 
 	render() {
 
-		const { _id, image, title, link, keywords, body } = this.props
+		const { _id, image, title, link, keywords, body, classes } = this.props
 		const keywordsString = keywords.join(' | ')
 		function createMarkup(val) {
 			return { __html: val };
@@ -87,6 +85,12 @@ class JobListingList extends Component {
 									dangerouslySetInnerHTML={createMarkup(body)} />
 							</ExpansionPanelDetails>
 						</ExpansionPanel>
+                        <Input 
+                        defaultValue={ this.props.notes } 
+                        multiline
+                        rows="5"
+                        />
+                        <Button className={classes.button}>Save</Button>
 						{
 							this.state.saved
 								? <SavedIcon onClick={this.handleJobUnsave} color="secondary" />
@@ -99,4 +103,4 @@ class JobListingList extends Component {
 	}
 }
 
-export default withStyles(styles)(JobListingList)
+export default withStyles(styles)(SavedJobListing)
