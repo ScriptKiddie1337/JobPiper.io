@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import JobListingList from '../../components/JobSearch/JobListingList'
-import { Input, Button } from "@material-ui/core";
-import Fuse from 'fuse.js';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,11 +14,8 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import LocationSelector from '../../components/LocationSelector'
 import API from "../../utils/API";
 import { auth } from '../../firebase';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Fade from '@material-ui/core/Fade';
 
 const actionsStyles = theme => ({
 	root: {
@@ -118,25 +112,14 @@ const styles = theme => ({
 	},
 });
 
-class JobListing extends Component {
+class SavedJobs extends Component {
 	state = {
 		loading: false,
 		jobs: [],
 		note: [],
 		contact: [],
-		searchTerm: '',
-		excludeTerm: '',
 		page: 0,
 		rowsPerPage: 5,
-		// location selector id's
-		selectedCountryID: 231,
-		countries: [],
-		selectedRegionID: 0,
-		regions: [],
-		region: '',
-		selectedCityID: 0,
-		cities: [],
-		city: ''
 
 		// ! add persistent search and exclude arrays
 	};
@@ -159,58 +142,14 @@ class JobListing extends Component {
 		this.updateJobs()
 	};
 
-	fuse(list) {
-		const options = {
-			shouldSort: true,
-			tokenize: true,
-			matchAllTokens: true,
-			findAllMatches: true,
-			includeScore: true,
-			// threshold, location and distance are ignored if tokenize is set to true
-			// threshold: 0.6,
-			// location: 0,
-			// distance: 100,
-			maxPatternLength: 64,
-			minMatchCharLength: 5,
-			keys: ["search", "item.search"]
-		};
-		let fuse = new Fuse(list, options);
-		let res = fuse.search(`${this.state.searchTerm} ${this.state.city} ${this.state.region}`);
-		return res;
-	}
 
 	updateJobs = () => {
 
 		API.getUserJobs(auth.getUserId())
 			.then(userSavedJobs => {
-				fetch('/api/jobs')
-					.then(response => response.json())
-					.then(data => {
-						const noDuplicateJobs = data.filter(job => {
-
-							let isNotDuplicateJob = true;
-							userSavedJobs.data.forEach(savedJob => {
-								if (job._id === savedJob._id) {
-									isNotDuplicateJob = false
-								}
-							})
-							return isNotDuplicateJob
-						})
-						return this.fuse(noDuplicateJobs)
-					})
-					.then(x => {
-						// Reverse the order of saved jobs so the latest save appears first.
-						// Then append the unsaved jobs to the end of the saved ones.
-						const jobs = userSavedJobs.data.reverse().concat(x)
-						this.setState({ jobs: jobs })
-					})
+				this.setState({jobs:userSavedJobs.data});
 			});
 
-		fetch('/api/loc/state/' + this.state.selectedCountryID)
-			.then(response => response.json())
-			.then(data => this.setState({ regions: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
-				// () => console.log(this.state.states)
-			));
 	}
 
 	componentDidMount() {
@@ -225,112 +164,21 @@ class JobListing extends Component {
 		});
 	};
 
-	handleRegionChange = async (event) => {
-		this.setState({
-			region: event.value
-		});
-		await this.setState({
-			selectedRegionID: event.id
-		} //, () => console.log('new input: ', this.state.searchTerm)
-		)
-		await fetch('/api/loc/city/' + this.state.selectedRegionID)
-			.then(response => response.json())
-			.then(data => this.setState({ cities: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
-				// () => console.log('cities: ', data)
-			));
-	}
-
-	handleCityChange = event => {
-		this.setState({
-			city: event.value
-		});
-	}
-
 	handleClickLoading = () => {
 		this.setState(state => ({
 			loading: !state.loading,
 		}));
 	};
-	handleFormSubmit = event => {
-		// console.log(this.state)
-		event.preventDefault();
-		this.handleClickLoading()
-		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
-			(this.state.city === '' ? '+' : this.state.city),
-			(this.state.region === '' ? '+' : this.state.region))
-			.catch(error => {
-				console.log(error.response)
-			});
-		fetch('/api/jobs')
-			.then(response => response.json())
-			.then(data => this.fuse(data))
-			.then(this.setState(state => ({
-				loading: !state.loading
-			})))
-			.then(x => this.setState({ jobs: x }))
-			// API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-			// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
-			// .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
-			.catch(err => { throw new Error(err) });
-	};
-
+	
 	render() {
 		const { classes } = this.props;
 		const { jobs: rows, rowsPerPage, page } = this.state;
 		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 		const { loading } = this.state;
 
-		// let currentSearch = this.fuse(this.state.jobs)
-		// console.log('Result Count: ',currentSearch.length)
-
 		return (
 			<div style={{ padding: '20px', borderRadius: '5px' }}>
-				<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px' }}>
-					<Grid container spacing={24} alignItems='center'>
-						<Grid fullwidth='true' item xs={12} md={6}>
-							<form onSubmit={this.handleFormSubmit}>
-								<Input
-									name='searchTerm'
-									value={this.state.searchTerm}
-									onChange={this.handleInputChange}
-									placeholder='Search keywords...'
-									style={{ width: '100%', opacity: .9, backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
-								/>
-							</form>
-						</Grid>
-						<Grid fullwidth="true" item xs={12} md={6}>
-							<Input
-								name='excludeTerm'
-								value={this.state.excludeTerm}
-								onChange={this.handleInputChange}
-								placeholder='Exclude keywords...'
-								style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
-							/>
-						</Grid>
-
-						<Grid fullwidth="true" item xs={12} md={6}>
-							{/* <LocationSelector 
-						options={ this.state.countries } 
-						placeholder='Select Country' /> */}
-							<LocationSelector
-								options={this.state.regions}
-								placeholder='Select State/Region'
-								onChange={this.handleRegionChange}
-							/>
-						</Grid>
-						<Grid fullwidth="true" item xs={12} md={6}>
-							<LocationSelector
-								options={this.state.cities}
-								placeholder='Select City' />
-						</Grid>
-
-						<Grid item xs={12} md={2}>
-							<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>Search</Button>
-
-						</Grid>
-					</Grid>
-				</div>
-				<br />
+				
 				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
 						<TableHead>
@@ -347,17 +195,6 @@ class JobListing extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-								<Fade
-									in={loading}
-									style={{
-										transitionDelay: loading ? '800ms' : '0ms',
-									}}
-									unmountOnExit
-								>
-									<CircularProgress color='secondary' />
-								</Fade>
-							</div>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// saved jobs are excluded from search terms
 								if (job.item) {
@@ -427,7 +264,7 @@ class JobListing extends Component {
 }
 
 
-JobListing.propTypes = {
+SavedJobs.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(JobListing);
+export default withStyles(styles)(SavedJobs);

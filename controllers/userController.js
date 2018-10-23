@@ -38,6 +38,7 @@ module.exports = {
             .then(() => res.sendStatus(204))
             .catch(err => res.status(404).json(err))
     },
+    // find saved jobs per user ID
     getJobs: (req, res) => {
         db.Users
             .findOne({
