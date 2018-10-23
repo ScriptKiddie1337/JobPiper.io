@@ -254,24 +254,14 @@ class JobListing extends Component {
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
-		this.handleClickLoading()
+		this.handleClickLoading();
 		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
 			(this.state.city === '' ? '+' : this.state.city),
 			(this.state.region === '' ? '+' : this.state.region))
 			.catch(error => {
 				console.log(error.response)
 			});
-		fetch('/api/jobs')
-			.then(response => response.json())
-			.then(data => this.fuse(data))
-			.then(this.setState(state => ({
-				loading: !state.loading
-			})))
-			.then(x => this.setState({ jobs: x }))
-			// API.getJobTerm(this.state.searchTerm.replace(/' '/g, '+'))
-			// .then(res => this.fuse(res.data), (res) => console.log('data fused: ', res.data))
-			// .then(x => this.setState({ jobs: x }), () => console.log(this.state.jobs))
-			.catch(err => { throw new Error(err) });
+		this.updateJobs()
 	};
 
 	render() {
@@ -373,7 +363,7 @@ class JobListing extends Component {
 														keywords={job.item.keywords}
 														body={job.item.body}
 														image={job.item.image}
-														saved={false}
+														saved={job.item.saved}
 													/>
 												</TableCell>
 											</TableRow>

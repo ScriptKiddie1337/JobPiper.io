@@ -47,6 +47,8 @@ class JobListingList extends Component {
 
 	componentWillReceiveProps(newProps) {
 
+		this.props = newProps
+
 		if (newProps.saved !== this.state.saved) {
 
 			this.setState({ saved: newProps.saved })
