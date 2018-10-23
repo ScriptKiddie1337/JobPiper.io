@@ -28,11 +28,17 @@ const styles = theme => ({
 class SavedJobListing extends Component {
     state = {
         saved: this.props.saved,
-        notes: this.props.notes
+        notes: ''
     }
 
+	handleInputChange = event => {
+		const { name, value } = event.target;
+		this.setState({
+			[name]: value
+		});
+    };
+    
     handleJobSave = () => {
-
         this.setState({ saved: true })
         API.userSaveJob({
             ...this.props,
@@ -46,10 +52,13 @@ class SavedJobListing extends Component {
         this.setState({ saved: false })
         API.userUnsaveJob(this.props._id, auth.getUserId())
     }
+
     handleUpdateNotes = () => {
         API.getUserJob(this.props._id, auth.getUserId())
         .then(job => {
-            console.log('handleUpdateNotes: ', job)
+            
+            console.log('handleUpdateNotes: ', job.data[0]);
+            console.log('props.jobs', this.props)
         })
     }
     componentWillReceiveProps(newProps) {
@@ -97,6 +106,7 @@ class SavedJobListing extends Component {
                             name="notes"
                             multiline
                             rows="5"
+                            onChange={ this.handleInputChange }
                         />
                         <Button
                             fullwidth="true"
