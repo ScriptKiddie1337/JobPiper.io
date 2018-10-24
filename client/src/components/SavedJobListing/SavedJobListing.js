@@ -91,17 +91,34 @@ class SavedJobListing extends Component {
                 <div key={_id} style={{ margin: '10px' }}>
                     <Grid container>
                         <Grid item xs={12} style={{ border: '#fdd835 solid 1px', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px' }}>
-                            <a href={link} target="_blank" style={{ textDecoration: 'none' }}>
-                                <Grid container
-                                    direction="row"
-                                    justify="space-between"
-                                    alignItems="center">
-                                    <Grid item xs={3} style={{ textAlign: "left" }}><h3 style={{ color: 'white' }} dangerouslySetInnerHTML={createMarkup(title)} /></Grid>
-                                    <Grid item xs={2} ><img align="right" style={{ maxHeight: "50px" }} src={image} alt={title} /></Grid>
+                            <Grid container
+                                direction="row"
+                                justify="space-between"
+                                alignItems="center">
+                                <Grid item xs={1}
+								style={{textAlign: 'center'}}>
+								{
+                                    this.state.saved
+									? <SavedIcon onClick={this.handleJobUnsave}color="secondary" />
+									: <SaveIcon onClick={this.handleJobSave}color='primary' />
+								}
+								</Grid>
+                                <Grid item xs={11}>
+                                    <a href={link} target="_blank" style={{textDecoration: 'none' }}>
+                                    <Grid container
+										direction="row"
+										justify="space-between"
+										alignItems="center">
+                                        <Grid item xs={3} style={{ textAlign: "left" }}><h3 style={{ color: 'white' }} dangerouslySetInnerHTML={createMarkup(title)} />
+                                        </Grid>
+                                        <Grid item xs={2} ><img align="right" style={{ maxHeight: "50px" }} src={image} alt={title} />
+                                        </Grid>
+                                    </Grid>
+                                    </a>
                                 </Grid>
-                            </a>
+                            </Grid>
                         </Grid>
-                        <ExpansionPanel style={{ minWidth: '100%' }}>
+                        <ExpansionPanel style={{ minWidth: '99%', margin: '10px 10px 0px 10px' }}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
                                 <Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
                             </ExpansionPanelSummary>
@@ -110,24 +127,25 @@ class SavedJobListing extends Component {
                                     dangerouslySetInnerHTML={createMarkup(body)} />
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
+                        <Grid item xs={12}>
                         <Input
                             defaultValue={this.props.notes}
                             name="notes"
                             multiline
                             rows="5"
+                            placeholder='Notes'
                             onChange={this.handleInputChange}
+                            style={{width: '100%', backgroundColor: '#F5F5F5', margin: '10px', padding: '10px', border: '#fdd835 solid 1px'}}
                         />
+                        </Grid>
+                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end'}}>
                         <Button
                             fullwidth="true"
                             onClick={ this.handleUpdateNotes }
                             type='success'
-                            style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>
+                            style={{ margin: '0px 10px 0px 0px', backgroundColor: '#fdd835', padding: '10px', height: '40px' }}>
                             Save</Button>
-                        {
-                            this.state.saved
-                                ? <SavedIcon onClick={this.handleJobUnsave} color="secondary" />
-                                : <SaveIcon onClick={this.handleJobSave} color="primary" />
-                        }
+                            </Grid>
                     </Grid>
                 </div>
             </Paper>

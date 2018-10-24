@@ -96,7 +96,7 @@ class JobListingList extends Component {
 							</Grid>
 						</Grid>
 
-						<ExpansionPanel style={{ minWidth: '95%', margin: '10px 10px 0px 10px'}}>
+						<ExpansionPanel style={{ minWidth: '100%', margin: '10px 10px 0px 10px'}}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
 								<Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
 							</ExpansionPanelSummary>
