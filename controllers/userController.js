@@ -49,31 +49,18 @@ module.exports = {
             })
             .catch(err => res.status(404).json(err))
     },
-    updateJobs: (req, res) => {
-        db.Users
-            .update({
-                google_id: req.params.googleId
-            })
-            .then(user => {
-                res.json(user.jobs)
-            })
-            .catch(err => res.status(404).json(err))
+    updateUserJobs: (req, res) => {
+        db.Users.update(
+            { google_id: req.body.googleId },
+            { $set: { jobs: req.body.jobs } }
+            )
+            .then(res.sendStatus(201))
+            .catch(err => res.status(422).json(err))
     },
     getUserJob: (req, res) => {
         db.Users
             .findOne({"google_id": req.params.googleId},
                 {"_id":0,"jobs": {$elemMatch: {"_id": req.params.jobId} } })
-            .then(user => {
-                res.json(user.jobs)
-            })
-            .catch(err => res.status(404).json(err))
-    },
-    updateUserJob: (req, res) => {
-        db.Users
-            .findOne({
-                google_id: req.params.googleId,
-                jobs:{ _id: req.params.jobId } 
-            })
             .then(user => {
                 res.json(user.jobs)
             })

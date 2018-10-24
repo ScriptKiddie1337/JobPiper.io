@@ -10,16 +10,18 @@ router
 router
     .route('/jobs')
     .post(userController.saveJob)
+// update jobs by google user id
+router
+    .route('/jobs/saved/')    
+    .put(userController.updateUserJobs);
 // saved jobs by google user id
 router
     .route('/jobs/saved/:googleId')
     .get(userController.getJobs)
-    .post(userController.updateJobs)
 // job by id under user by google user id
 router
     .route('/jobs/saved/:googleId/:jobId')
     .get(userController.getUserJob)
-    .put(userController.updateUserJob)
-    .delete(userController.deleteUserJob)
+    .delete(userController.deleteJob)
 
 module.exports = router;

@@ -39,6 +39,7 @@ class JobListingList extends Component {
 	}
 
 	handleJobUnsave = () => {
+		console.log('Unsaving job: ', this.props.title)
 		this.setState({ saved: false })
 		api.userUnsaveJob(this.props._id, auth.getUserId())
 	}

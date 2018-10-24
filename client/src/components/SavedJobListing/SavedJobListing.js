@@ -28,14 +28,15 @@ const styles = theme => ({
 class SavedJobListing extends Component {
     state = {
         saved: this.props.saved,
-        notes: ''
+        notes: '',
+        jobs: []
     }
 
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
-        });
+        })
     };
 
     handleJobSave = () => {
@@ -57,7 +58,7 @@ class SavedJobListing extends Component {
         API.getUserJobs(auth.getUserId())
             .then(job => {
                 const newJobs = job.data.map(x => {
-                    if (x._id === "5bca360e342eef29524a7e8b") {
+                    if (x._id === this.props._id) {
                         return { ...x, notes: this.state.notes };
                     }
                     return { ...x };
@@ -65,6 +66,7 @@ class SavedJobListing extends Component {
                 return newJobs;
             })
             .then(jobs => {
+                console.log('Send as update: ', jobs)
                 API.updateUserJobs(jobs, auth.getUserId())
             })
             .catch(err => console.log(`handleUpdateNotes: ${err}`))
@@ -99,7 +101,6 @@ class SavedJobListing extends Component {
                                 </Grid>
                             </a>
                         </Grid>
-                        {this.handleUpdateNotes()}
                         <ExpansionPanel style={{ minWidth: '100%' }}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
                                 <Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
@@ -118,6 +119,7 @@ class SavedJobListing extends Component {
                         />
                         <Button
                             fullwidth="true"
+                            onClick={ this.handleUpdateNotes }
                             type='success'
                             style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>
                             Save</Button>
