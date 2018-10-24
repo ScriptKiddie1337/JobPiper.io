@@ -30,7 +30,7 @@ export default class FormDialog extends React.Component {
 
     handleCreate = () => {
         const { title, description, startTime, endTime } = this.state
-        addEventToGoogleCalendar(title, description, startTime, endTime)
+        addEventToGoogleCalendar(title, description, (startTime? startTime:Date.now()), (endTime?endTime:Date.now()))
         this.handleClose()
     }
 
