@@ -31,13 +31,13 @@ class SavedJobListing extends Component {
         notes: ''
     }
 
-	handleInputChange = event => {
-		const { name, value } = event.target;
-		this.setState({
-			[name]: value
-		});
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
     };
-    
+
     handleJobSave = () => {
         this.setState({ saved: true })
         API.userSaveJob({
@@ -54,12 +54,20 @@ class SavedJobListing extends Component {
     }
 
     handleUpdateNotes = () => {
-        API.getUserJob(this.props._id, auth.getUserId())
-        .then(job => {
-            
-            console.log('handleUpdateNotes: ', job.data[0]);
-            console.log('props.jobs', this.props)
-        })
+        API.getUserJobs(auth.getUserId())
+            .then(job => {
+                const newJobs = job.data.map(x => {
+                    if (x._id === "5bca360e342eef29524a7e8b") {
+                        return { ...x, notes: this.state.notes };
+                    }
+                    return { ...x };
+                })
+                return newJobs;
+            })
+            .then(jobs => {
+                API.updateUserJobs(jobs, auth.getUserId())
+            })
+            .catch(err => console.log(`handleUpdateNotes: ${err}`))
     }
     componentWillReceiveProps(newProps) {
 
@@ -91,7 +99,7 @@ class SavedJobListing extends Component {
                                 </Grid>
                             </a>
                         </Grid>
-                        { this.handleUpdateNotes() }
+                        {this.handleUpdateNotes()}
                         <ExpansionPanel style={{ minWidth: '100%' }}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
                                 <Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
@@ -106,7 +114,7 @@ class SavedJobListing extends Component {
                             name="notes"
                             multiline
                             rows="5"
-                            onChange={ this.handleInputChange }
+                            onChange={this.handleInputChange}
                         />
                         <Button
                             fullwidth="true"

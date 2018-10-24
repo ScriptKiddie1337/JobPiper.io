@@ -50,6 +50,9 @@ export default {
   getUserJobs: googleId => {
     return axios.get(`api/user/jobs/saved/${googleId}`)
   },
+  updateUserJobs: (jobs, googleId) => {
+    return axios.put(`api/user/jobs/saved/${googleId}`,jobs)
+  },
 
   createUser: user => {
     return axios.post("/api/user", user)

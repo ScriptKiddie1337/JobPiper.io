@@ -49,6 +49,16 @@ module.exports = {
             })
             .catch(err => res.status(404).json(err))
     },
+    updateJobs: (req, res) => {
+        db.Users
+            .update({
+                google_id: req.params.googleId
+            })
+            .then(user => {
+                res.json(user.jobs)
+            })
+            .catch(err => res.status(404).json(err))
+    },
     getUserJob: (req, res) => {
         db.Users
             .findOne({"google_id": req.params.googleId},

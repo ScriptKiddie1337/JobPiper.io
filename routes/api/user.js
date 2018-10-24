@@ -14,6 +14,7 @@ router
 router
     .route('/jobs/saved/:googleId')
     .get(userController.getJobs)
+    .post(userController.updateJobs)
 // job by id under user by google user id
 router
     .route('/jobs/saved/:googleId/:jobId')
