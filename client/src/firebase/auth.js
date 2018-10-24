@@ -24,6 +24,9 @@ export const doPasswordUpdate = password =>
 export const getUserId = () =>
   auth.currentUser.uid
 
+  export const getUserProfilePic = () =>
+  auth.currentUser.photoURL
+  
 // Sign in pop up
 export const signInPopUp = () => {
 
