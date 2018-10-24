@@ -30,7 +30,7 @@ class Profile extends Component {
 					<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
 						<FloatingActionButtons />
 						<a href='/' >Back</a>>
-						{this.state.profilePic ?
+									{this.state.profilePic ?
 									<img src={this.state.profilePic} alt="Profile Picture"></img>
 									: null}
 					</Paper>
