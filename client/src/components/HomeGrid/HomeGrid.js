@@ -30,7 +30,7 @@ function HomeGrid(props) {
         return (
             <Grid container spacing={24} style={{ display: 'flex', justifyContent: 'center'}}>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{textAlign: 'center', minHeight: '15vh'}}>
+                    <Card className={classes.card} style={{textAlign: 'center', minHeight: '15vh', backgroundColor: '#fdd835', width: '98%', margin: '0 auto', borderRadius: '5px'}}>
 						<Quotes />
                     </Card>
                 </Grid>
