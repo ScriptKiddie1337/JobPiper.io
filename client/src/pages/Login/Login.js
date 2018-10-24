@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-
 import { signInPopUp } from "../../firebase/auth";
-
-import Nav from '../../components/Nav'
 
 class Login extends Component {
   state = {
