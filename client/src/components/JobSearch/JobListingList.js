@@ -29,18 +29,26 @@ class JobListingList extends Component {
 
 	handleJobSave = () => {
 
-		api.userSaveJob(this.props, auth.getUserId())
 		this.setState({ saved: true })
+		api.userSaveJob({
+			...this.props,
+			saved: true,
+			notes: '',
+			dateSaved: Date.now()
+		}, auth.getUserId())
 	}
 
 	handleJobUnsave = () => {
-		api.userUnsaveJob(this.props._id, auth.getUserId())
+		console.log('Unsaving job: ', this.props.title)
 		this.setState({ saved: false })
+		api.userUnsaveJob(this.props._id, auth.getUserId())
 	}
 
 	state = { saved: this.props.saved }
 
 	componentWillReceiveProps(newProps) {
+
+		this.props = newProps
 
 		if (newProps.saved !== this.state.saved) {
 
