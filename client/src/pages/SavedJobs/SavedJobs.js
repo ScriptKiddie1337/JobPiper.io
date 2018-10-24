@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import JobListingList from '../../components/JobSearch/JobListingList'
+import SavedJobListing from '../../components/SavedJobListing'
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -114,10 +114,7 @@ const styles = theme => ({
 
 class SavedJobs extends Component {
 	state = {
-		loading: false,
 		jobs: [],
-		note: [],
-		contact: [],
 		page: 0,
 		rowsPerPage: 5,
 
@@ -147,7 +144,7 @@ class SavedJobs extends Component {
 
 		API.getUserJobs(auth.getUserId())
 			.then(userSavedJobs => {
-				this.setState({jobs:userSavedJobs.data});
+				this.setState({ jobs: userSavedJobs.data });
 			});
 
 	}
@@ -169,16 +166,15 @@ class SavedJobs extends Component {
 			loading: !state.loading,
 		}));
 	};
-	
+
 	render() {
 		const { classes } = this.props;
 		const { jobs: rows, rowsPerPage, page } = this.state;
 		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-		const { loading } = this.state;
 
 		return (
 			<div style={{ padding: '20px', borderRadius: '5px' }}>
-				
+
 				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
 						<TableHead>
@@ -196,46 +192,23 @@ class SavedJobs extends Component {
 						</TableHead>
 						<TableBody>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
-								// saved jobs are excluded from search terms
-								if (job.item) {
-									if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
-										return (
-											<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+								return (
+									<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
 
-												<TableCell component="th" scope="row" style={{ padding: '0px' }}>
-													<JobListingList
-														link={job.item.link}
-														_id={job.item._id}
-														title={job.item.title}
-														keywords={job.item.keywords}
-														body={job.item.body}
-														image={job.item.image}
-														saved={false}
-													/>
-												</TableCell>
-											</TableRow>
-										)
-									}
-								} else {
-									return (
-										<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
-
-											<TableCell component="th" scope="row" style={{ padding: '0px' }}>
-												<JobListingList
-													link={job.link}
-													_id={job._id}
-													title={job.title}
-													keywords={job.keywords}
-													body={job.body}
-													image={job.image}
-													saved={true}
-												/>
-											</TableCell>
-										</TableRow>
-									)
-								}
-
-								return null
+										<TableCell component="th" scope="row" style={{ padding: '0px' }}>
+											<SavedJobListing
+												link={job.link}
+												_id={job._id}
+												title={job.title}
+												keywords={job.keywords}
+												body={job.body}
+												image={job.image}
+												notes={job.notes}
+												saved={true}
+											/>
+										</TableCell>
+									</TableRow>
+								)
 							})}
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 48 * emptyRows }}>

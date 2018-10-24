@@ -210,7 +210,8 @@ class JobListing extends Component {
 			.then(response => response.json())
 			.then(data => this.setState({ regions: data.map(x => ({ value: x.name, label: x.name, id: x.id })) },
 				// () => console.log(this.state.states)
-			));
+			))
+			.catch(err => console.log(`fetch('/api/loc/state/:countryId'): ${err}`))
 	}
 
 	componentDidMount() {

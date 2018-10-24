@@ -35,14 +35,25 @@ export default {
   userSaveJob: function (jobData, googleId) {
     return axios.post("api/user/jobs", { jobData, googleId })
   },
+  // get job by id for current user
+  getUserJob: function(jobId, googleId) {
+    return axios.get(`api/user/jobs/saved/${googleId}/${jobId}`)
+  },
 
-  // Unsaves a job for the current user
+  // Deletes job from the current users saved jobs list
   userUnsaveJob: function (jobId, googleId) {
     return axios.delete(`api/user/jobs/saved/${googleId}/${jobId}`)
   },
 
   getUserJobs: googleId => {
     return axios.get(`api/user/jobs/saved/${googleId}`)
+  },
+  // takes the users jobs and replaces them with updated info
+  updateUserJobs: (jobs, googleId) => {
+    return axios.put(`api/user/jobs/saved/`,{googleId: googleId,jobs: jobs})
+    .catch(error => {
+      console.log(error.response)
+    });
   },
 
   createUser: user => {
