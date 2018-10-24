@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-
 import { signInPopUp } from "../../firebase/auth";
-
-import Nav from '../../components/Nav'
 
 class Login extends Component {
   state = {
@@ -49,8 +46,6 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <Nav />
-        <div alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw' }} />
       </div>
     );
   }

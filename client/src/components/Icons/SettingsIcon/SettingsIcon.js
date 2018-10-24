@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@mdi/react'
 import { mdiSettings } from '@mdi/js'
 
+
 const styles = theme => ({
     root: {
         width: '100%',
@@ -14,12 +15,12 @@ const styles = theme => ({
 });
 
 function SettingsIcon(props) {
-
     const { classes } = props;
     return (
+
     <div className={classes.root}>
         <IconButton
-		    href='/usersetting'
+            
             aria-haspopup="true"
             color="secondary">
                 <Icon 

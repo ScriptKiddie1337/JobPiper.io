@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@mdi/react'
-import { mdiAccountCircle } from '@mdi/js'
+import { mdiBorderColor} from '@mdi/js'
 
 const styles = theme => ({
     root: {
@@ -13,7 +13,7 @@ const styles = theme => ({
     },
 });
 
-function AccountIcon(props) {
+function EditIcon(props) {
 
     const { classes } = props;
     return (
@@ -22,16 +22,15 @@ function AccountIcon(props) {
             aria-haspopup="true"
             color="secondary">
                 <Icon 
-                    path={mdiAccountCircle} 
+                    path={mdiBorderColor} 
                     size={1.5} 
-                    color='#fdd835'/>
-                <p style={{marginLeft: 10, fontSize: '1.2rem'}}>Profile</p>
+                    color='#546e7a'/>
         </IconButton>
     </div>
     )
 }
-    AccountIcon.propTypes = {
+    EditIcon.propTypes = {
     classes: PropTypes.object.isRequired,
     };
 
-export default withStyles(styles)(AccountIcon);
+export default withStyles(styles)(EditIcon);

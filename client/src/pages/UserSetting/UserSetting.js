@@ -39,20 +39,7 @@ class UserSetting extends Component {
     return (
 		<div>
     	<Grid container>
-        <Hidden smDown>
-        	<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px' }}>
-						<Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-							<img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '200px', 	width: '200px' }}></img>
-						</Grid>
-        		<Grid position='sticky' style={{ alignItems: 'center' }}>
-							<HomeIcon />
-                <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
-              <AccountIcon />
-                <Divider inset style={{backgroundColor: '#fdd835',marginLeft: 0}}/>
-              <LogOutIcon />
-            	</Grid>
-            </Grid>
-        </Hidden>
+       
 			<Grid item md={10} style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 				
 					<Paper style={{ border: '2px solid #fdd835', minWidth: '500px', minHeight: '500px'}}>
