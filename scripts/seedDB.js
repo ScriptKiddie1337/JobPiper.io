@@ -29,6 +29,7 @@ function dropCollection(x) {
     console.log(`mongo joblisting_db --eval 'db.${x}.drop()'`)
     return `mongo joblisting_db --eval 'db.${x}.drop()'`
   } else {
+    // ! this does not work. need to log onto the mlab database to drop the collections.
     console.log(`mongo heroku_78svc1vm --eval 'db.${x}.drop()'`)
     return `mongo heroku_78svc1vm --eval 'db.${x}.drop()'`
   }
@@ -39,7 +40,7 @@ function seedCollection(y) {
   if (process.env.NODE_ENV != "production") {
     return `mongoimport --db joblisting_db --collection ${y} --type json --file ./scripts/${y}.json --jsonArray`
   } else {
-    return `mongoimport --db heroku_78svc1vm --collection ${y} --type json --file ./scripts/${y}.json --jsonArray`
+    return `mongoimport -h  ds037478.mlab.com --port 37478  -d heroku_78svc1vm -c ${y} -u heroku_78svc1vm -p ovfs1le9u4porad14u3puk9dbb  --type json --file ./scripts/${y}.json --jsonArray`
   }
 
 } 
