@@ -11,7 +11,8 @@ class Quotes extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand")
+    this.setState({ state: this.state });
+    fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
       .then(res => res.json())
       .then(
         (result) => {
@@ -28,10 +29,17 @@ class Quotes extends React.Component {
           this.setState({
             isLoaded: true,
             error
-          });
+          }); 
         }
       )
+      
   }
+
+  refreshQuoteList = res => this.setState({ quotes: res.data.quotes })
+
+  refreshQuoteList = () => 
+  this.setState({refreshQuoteList: !this.state.refreshQuoteList})
+  
 
   render() {
     const { error, isLoaded, items } = this.state;
@@ -43,11 +51,10 @@ class Quotes extends React.Component {
       return (
         <div>
            {items.map(item => (
-            <div key={item.ID}>
-              <p dangerouslySetInnerHTML={{__html:item.content}} />
-              <p>
-              {item.title}
-              </p> 
+            <div key={item.ID} style={{backgroundColor: '#fdd835', width: '98%', margin: '0 auto', borderRadius: '5px'}}>
+              <h4 dangerouslySetInnerHTML={{__html:item.content}} />
+              <h3  dangerouslySetInnerHTML={{__html:item.title}}/>
+      
             </div>
           ))}
         </div>
