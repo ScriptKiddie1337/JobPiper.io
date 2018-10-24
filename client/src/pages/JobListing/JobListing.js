@@ -308,11 +308,11 @@ class JobListing extends Component {
 								value={this.state.excludeTerm}
 								onChange={this.handleInputChange}
 								placeholder='Exclude keywords...'
-								style={{ opacity: .9, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
+								style={{ opacity: .95, width: '100%', backgroundColor: 'white', borderRadius: '2px', padding: '10px' }}
 							/>
 						</Grid>
 
-						<Grid fullwidth="true" item xs={12} md={6}>
+						<Grid fullwidth="true" item xs={12} md={6} style={{zIndex: '99'}}>
 							{/* <LocationSelector 
 						options={ this.state.countries } 
 						placeholder='Select Country' /> */}
@@ -328,7 +328,7 @@ class JobListing extends Component {
 								placeholder='Select City' />
 						</Grid>
 
-						<Grid item xs={12} md={2}>
+						<Grid item xs={12} md={2} style={{zIndex: 0}}>
 							<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }}>Search</Button>
 
 						</Grid>
