@@ -244,7 +244,8 @@ class JobListing extends Component {
 	handleCityChange = event => {
 		this.setState({
 			city: event.value
-		});
+		}, () => console.log('city change', this.state.city));
+
 	}
 
 	handleClickLoading = () => {
@@ -257,6 +258,7 @@ class JobListing extends Component {
 		// console.log(this.state)
 		event.preventDefault();
 		this.handleClickLoading()
+		console.log(`search: ${this.state.searchTerm}, city ${this.state.city}, state ${this.state.region}`)
 		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
 			(this.state.city === '' ? '+' : this.state.city),
 			(this.state.region === '' ? '+' : this.state.region))
