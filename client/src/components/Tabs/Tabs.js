@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import HomeGrid from '../HomeGrid'
 import DayPlanner from '../../pages/DayPlanner';
 import JobListing from '../../pages/JobListing';
-import CompanyNews from '../../pages/CompanyNews';
-import Meetups from '../../pages/Meetups';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -16,7 +14,7 @@ import SavedJobs from '../../pages/SavedJobs'
 
 function TabContainer(props) {
   return (
-	  <div style={{ backgroundColor: 'white', marginBottom: '50px', minHeight: '100vh'}}>
+	  <div style={{ backgroundColor: 'white', marginBottom: '50px'}}>
     <Typography component='div' style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
@@ -61,11 +59,11 @@ class ScrollableTabsButtonAuto extends React.Component {
 			  	classes={{indicator: classes.bigIndicator}}
                 value={value}
                 onChange={this.handleChange}
-				indicatorColor='secondary'
+				        indicatorColor='secondary'
                 textColor='inherit'
                 scrollable
                 scrollButtons='auto' 
-              >
+                >
               <Tab label='Home' />
               <Tab label='Day Planner' />
               <Tab label='Job Search' />
@@ -80,8 +78,8 @@ class ScrollableTabsButtonAuto extends React.Component {
             {value === 1 && <TabContainer to='/dayplanner'><DayPlanner /></TabContainer>}
             {value === 2 && <TabContainer to='/jobs'><JobListing /></TabContainer>}
             {value === 3 && <TabContainer to='/savedjobs'><SavedJobs /></TabContainer>}
-            {value === 4 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>}
-            {value === 5 && <TabContainer to='/meetups'><Meetups /></TabContainer>}
+            {/* {value === 4 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>} */}
+            {/* {value === 5 && <TabContainer to='/meetups'><Meetups /></TabContainer>} */}
           </div>
         </MemoryRouter>
       </NoSsr>

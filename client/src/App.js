@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './utils/Theme/Theme'
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { AppBar } from '@material-ui/core';
 
 const AuthenticatedRoutes = (props, { authUser }) => (
   <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
@@ -46,6 +47,8 @@ const NavigationNonAuth = () => (
     <Route path="/" component={Login} />
   </Switch>
 )
+
+
 
 const App = withAuthentication(() => (
 

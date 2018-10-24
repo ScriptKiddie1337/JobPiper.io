@@ -49,8 +49,6 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <Nav />
-        <div alt='Doors' style={{ maxHeight: '85vh', minWidth: '100vw' }} />
       </div>
     );
   }

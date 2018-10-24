@@ -19,7 +19,6 @@ function AccountIcon(props) {
     return (
     <div className={classes.root}>
         <IconButton
-		    href='/profile'
             aria-haspopup="true"
             color="secondary">
                 <Icon 

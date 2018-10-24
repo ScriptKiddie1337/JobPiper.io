@@ -27,27 +27,30 @@ function HomeGrid(props) {
     const { classes } = props;
  
         return (
-            <Grid container spacing={24}>
+            <Grid container spacing={24} style={{ display: 'flex', justifyContent: 'center'}}>
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                    <Card className={classes.card} style={{textAlign: 'center', minHeight: '15vh'}}>
 						<Quotes />
                     </Card>
                 </Grid>
+                
                 <Grid item xs={12} md={6}>
-				
-                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                    <Card className={classes.card} style={{textAlign: 'center', minHeight: '33vh'}}>
 							<p>Tech News or instructional material goes here</p>
                     </Card>
-					
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Card className={classes.card} style={{textAlign: 'center'}}>
+                    <Card className={classes.card} style={{textAlign: 'center', minHeight: '33vh'}}>
                             <p>A Meetup goes here</p>
                     </Card>
                 </Grid>
+              
                 <Grid item xs={12}>
-                    <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px', display: 'flex', justifyContent: 'center'}}>
-						<MyCalendar  />
+                    <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px',  display: 'flex', justifyContent: 'center'}}>
+                        <div style={{ position: 'relative'}}>
+						<MyCalendar 
+                        style={{ position: 'absolute', width:'100%', height:'100%' }}/>
+                        </div>
                     </Card>
                 </Grid>
             </Grid>

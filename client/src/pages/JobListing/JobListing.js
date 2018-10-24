@@ -347,7 +347,7 @@ class JobListing extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<div className={classes.placeholder} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						
 								<Fade
 									in={loading}
 									style={{
@@ -357,7 +357,7 @@ class JobListing extends Component {
 								>
 									<CircularProgress color='secondary' />
 								</Fade>
-							</div>
+							
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								// saved jobs are excluded from search terms
 								if (job.item) {
