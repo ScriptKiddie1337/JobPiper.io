@@ -252,6 +252,7 @@ class JobListing extends Component {
 			loading: !state.loading,
 		}));
 	};
+
 	handleFormSubmit = event => {
 		// console.log(this.state)
 		event.preventDefault();
@@ -353,6 +354,7 @@ class JobListing extends Component {
 									in={loading}
 									style={{
 										transitionDelay: loading ? '800ms' : '0ms',
+										
 									}}
 									unmountOnExit
 								>

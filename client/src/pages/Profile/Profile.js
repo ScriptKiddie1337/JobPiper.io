@@ -9,11 +9,11 @@ import { auth } from '../../firebase'
 
 const homeStyles = theme => ({
 	root: {
-	  position: 'relative',
-	  overflow: 'auto',
+		position: 'relative',
+		overflow: 'auto',
 	},
-	
-  });
+
+});
 
 class Profile extends Component {
 	state = {
