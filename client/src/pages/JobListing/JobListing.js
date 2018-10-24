@@ -244,7 +244,7 @@ class JobListing extends Component {
 	handleCityChange = event => {
 		this.setState({
 			city: event.value
-		}, () => console.log('city change', this.state.city));
+		});
 
 	}
 
@@ -258,7 +258,6 @@ class JobListing extends Component {
 		// console.log(this.state)
 		event.preventDefault();
 		this.handleClickLoading()
-		console.log(`search: ${this.state.searchTerm}, city ${this.state.city}, state ${this.state.region}`)
 		API.scrape((this.state.searchTerm === '' ? '+' : this.state.searchTerm),
 			(this.state.city === '' ? '+' : this.state.city),
 			(this.state.region === '' ? '+' : this.state.region))
@@ -325,7 +324,9 @@ class JobListing extends Component {
 						<Grid fullwidth="true" item xs={12} md={6}>
 							<LocationSelector
 								options={this.state.cities}
-								placeholder='Select City' />
+								placeholder='Select City'
+								onChange={ this.handleCityChange }
+								/>
 						</Grid>
 
 						<Grid item xs={12} md={2} style={{zIndex: 0}}>
