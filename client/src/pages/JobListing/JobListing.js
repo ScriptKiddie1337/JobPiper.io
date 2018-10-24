@@ -245,6 +245,7 @@ class JobListing extends Component {
 		this.setState({
 			city: event.value
 		});
+
 	}
 
 	handleClickLoading = () => {
@@ -323,7 +324,9 @@ class JobListing extends Component {
 						<Grid fullwidth="true" item xs={12} md={6}>
 							<LocationSelector
 								options={this.state.cities}
-								placeholder='Select City' />
+								placeholder='Select City'
+								onChange={ this.handleCityChange }
+								/>
 						</Grid>
 
 						<Grid item xs={12} md={2} style={{zIndex: 0}}>
