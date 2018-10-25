@@ -15,6 +15,13 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByTerm: function(req, res) {
+    let term = req.query.term.replace(/\+/g, ' ')
+    db.JobListing
+      .find({"keywords": {$regex : term, $options: 'i'} })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.JobListing
       .create(req.body)

@@ -6,15 +6,11 @@ const validator = require('validator');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  firebase_id: {
+
+  Name: { // european standard is to do full name as one. Last name field is an american standard only
     type: String,
-    index: true,
-    required: true
+    // required: [false, 'Name can be used for first or full name but must be included.']
   },
-  Name:{ // european standard is to do full name as one. Last name field is an american standard only
-    type: String,
-    required: [true, 'Name can be used for first or full name but must be included.']
-},
   last_name: String,
   email: {
     type: String,
@@ -22,7 +18,7 @@ const UserSchema = new Schema({
       unique: true
     },
     required: true,
-    validate: [email => { 
+    validate: [email => {
       return validator.isEmail(email)
     }, 'user.invalidemail']
   },
@@ -53,7 +49,8 @@ const UserSchema = new Schema({
     index: {
       unique: true,
       sparse: true
-    }
+    },
+    required: true
   },
   github_id: {
     type: String,
@@ -89,17 +86,6 @@ const UserSchema = new Schema({
   }],
   // job interests
   jobs: [{
-    job_id: String, // id of job user is interested in
-    // apply this date, 1st interview this date, etc...
-    taskList: [{
-      date: Date,
-      task: String
-    }],
-    contact: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Contacts'
-    }],
-    note: String
   }]
 });
 
