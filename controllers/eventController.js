@@ -17,6 +17,8 @@ module.exports = {
     createEvent: function (req, res) {
         const googleId = req.body.googleId;
         const newEvent = req.body.newEvent;
+        console.log({ google_id: googleId },
+            { $push: { events: newEvent } })
         db.Users.update(
             { google_id: googleId },
             { $push: { events: newEvent } }

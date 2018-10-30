@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Calendar from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
+import API from "../../utils/API";
+import { auth } from '../../firebase';
 
 // import "./App.css"
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -34,7 +36,18 @@ class BigCalendar extends Component {
     onEventDrop = ({ event, start, end, allDay }) => {
         console.log(start);
     };
-    onDoubleClickEvent = (event) => console.log(event)
+    onDoubleClickEvent = (event) => {
+        console.log(event)
+        API.createEvent(auth.getUserId(), {
+            start: 'Tue Oct 30 2018 14:52:27 GMT-0700 (Pacific Daylight Time)',
+            end: 'Wed Oct 31 2018 14:52:27 GMT-0700 (Pacific Daylight Time)',
+            title: 'Test event',
+            allDay:true
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    }
 
     render() {
         return (
@@ -49,7 +62,7 @@ class BigCalendar extends Component {
                     onEventResize={this.onEventResize}
                     onDoubleClickEvent={this.onDoubleClickEvent}
                     resizable
-                    popup="true"
+                    popup
                     style={{ height: "90vh" }}
                 />
             </div>

@@ -79,7 +79,7 @@ const UserSchema = new Schema({
     title: String,
     start: Date,
     end: Date,
-    allDay?: Boolean,
+    allDay: Boolean,
   }],
   // job interests
   jobs: [{
