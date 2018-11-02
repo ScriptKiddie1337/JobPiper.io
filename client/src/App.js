@@ -27,7 +27,7 @@ AuthenticatedRoutes.contextTypes = {
 
 const NavigationAuth = () => (
   <Switch>
-    <Route exact path='/' component={Home} />
+    <Route exact path='/' component={Login} />
     <Route path='/home' component={Home} />
     <Route path='/jobs' component={JobListing} />
     <Route path='/jobs/:id' component={Detail} />

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { signInPopUp } from "../../firebase/auth";
+import Button from '@material-ui/core/Button'
 
 class Login extends Component {
   state = {
@@ -12,10 +13,9 @@ class Login extends Component {
     loginTimeout: null
   };
 
-  componentDidMount() {
-
-    this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
-  }
+   componentDidMount() {
+      this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
+   }
 
   signIn = () => {
 
@@ -46,6 +46,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+		  <Button>Button</Button>
       </div>
     );
   }
