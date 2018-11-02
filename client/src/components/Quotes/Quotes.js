@@ -11,12 +11,8 @@ class Quotes extends React.Component {
   }
 
   antiCorsFunction() {
-    return "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
-  }
-  
-  componentDidMount() {
     this.setState({ state: this.state });
-    fetch(this.antiCorsFunction())
+    fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
       .then(res => res.json())
       .then(
         (result) => {
@@ -24,6 +20,7 @@ class Quotes extends React.Component {
             isLoaded: true,
             items: result
           });
+          console.log(result)
         },
         (error) => {
           this.setState({
@@ -32,6 +29,11 @@ class Quotes extends React.Component {
           }); 
         }
       )
+  }
+
+  
+  componentDidMount() {
+    return this.antiCorsFunction()
       
   }
 
