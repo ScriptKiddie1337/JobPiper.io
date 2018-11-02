@@ -65,6 +65,35 @@ export default {
       .catch(error => {
         console.log(error.response)
       })
-  }
+  },
+	// get spreadsheet
+  	getSpreadSheets: function () {
+    return axios.get("/api/spreadsheets");
+  },  
+   // Gets the job with the given id
+   getSpreadSheetsId: function (id) {
+    return axios.get("/api/spreadsheet/" + id);
+  },
 
+ 	// Saves a job for the current user
+ 	userSaveSheet: function (jobData, googleId) {
+    return axios.post("api/user/spreadsheet", { jobData, googleId })
+  },
+
+  getUserSheets: googleId => {
+    return axios.get(`api/user/spreadsheet/saved/${googleId}`)
+  },
+
+  // takes the users jobs and replaces them with updated info
+  updateUserSheets: (jobs, googleId) => {
+    return axios.put(`api/user/spreadsheet/saved/`, { googleId: googleId, jobs: jobs })
+      .catch(error => {
+        console.log(error.response)
+      });
+  },
+
+   // Deletes the job with the given id
+   deleteSheet: function (id) {
+    return axios.delete("/api/spreadsheet/" + id);
+  },
 };
