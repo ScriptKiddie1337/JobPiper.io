@@ -4,6 +4,7 @@ import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import API from "../../utils/API";
 import { auth } from '../../firebase';
+import { initGoogleCalendar, getCalendarEvents } from '../../session/googleCalendar'
 
 // import "./App.css"
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -14,6 +15,20 @@ const localizer = Calendar.momentLocalizer(moment)
 const DnDCalendar = withDragAndDrop(Calendar)
 
 class BigCalendar extends Component {
+
+    componentDidMount() {
+
+        initGoogleCalendar()
+        .then( calendarId => {
+
+            this.setState({calendarId})
+            getCalendarEvents(calendarId, new Date(), new Date(moment().add(30, 'days')))
+            .then(res => {
+                this.setState({googleCalEvents: res.result.items})
+            })
+        })
+    }
+
     state = {
         events: [
             {

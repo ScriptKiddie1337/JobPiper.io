@@ -78,10 +78,10 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
             },
         }
 
-        gapi.client.calendar.events.insert({
+        return gapi.client.calendar.events.insert({
             'calendarId': calendarId,
             'resource': event
-        }).then(response => console.log(response))
+        })
     }
 
     return new Promise((resolve, reject) => {
@@ -100,15 +100,48 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
                         })
                             .then(function (response) {
 
-                                createCalendarEvent(response.result.id)
+                                createCalendarEvent(response.result.id).then(res => resolve(res))
                             })
                     } else {
                         createCalendarEvent(ourCalendar.id)
+                        .then(res => resolve(res))
                     }
                 })
         } else {
             auth.signOut(); // Something went wrong, sign out
-            return reject("Signed out user, as google api client returned not signed in")
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+// Adds an event to the user's job calendar
+// Will check that the user's job calendar still exists, and create one if needed
+export const getCalendarEvents = (calendarId, startDate, endDate) => {
+
+    const getCalendarEvents = () => {
+
+        var event = {
+            'calendarId': calendarId,
+            'timeMin': new Date(startDate).toISOString(),
+            'timeMax': new Date(endDate).toISOString()
+        }
+
+        return gapi.client.calendar.events.list(event)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return getCalendarEvents()
+                })
+                .then(function (response) {
+                    resolve(response)
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
         }
     })
 }
