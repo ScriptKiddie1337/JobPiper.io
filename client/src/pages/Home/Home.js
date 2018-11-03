@@ -6,18 +6,18 @@ import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
-import { mdiLogoutVariant } from '@mdi/js'
 import UserSettings from '../UserSetting'
-import Profile from '../Profile'
+import Profile from '../Profile';
 import MemoryRouter from 'react-router/MemoryRouter';
 import NoSsr from '@material-ui/core/NoSsr';
-import Icon from '@mdi/react'
-import { mdiHome } from '@mdi/js'
-import { mdiSettings } from '@mdi/js'
+import Icon from '@mdi/react';
+import { mdiHome } from '@mdi/js';
+import { mdiLogoutVariant } from '@mdi/js';
+import { mdiSettings } from '@mdi/js';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Avatar from '@material-ui/core/Avatar';
-import { auth } from '../../firebase'
+import { auth } from '../../firebase';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const homeStyles = theme => ({
