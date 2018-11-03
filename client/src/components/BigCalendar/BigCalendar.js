@@ -4,7 +4,7 @@ import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import API from "../../utils/API";
 import { auth } from '../../firebase';
-import { initGoogleCalendar, getCalendarEvents } from '../../session/googleCalendar'
+import { initGoogleCalendar, getCalendarEvents, createCalendarEvent, deleteCalendarEvent, updateCalendarEvent } from '../../session/googleCalendar'
 
 // import "./App.css"
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -24,7 +24,41 @@ class BigCalendar extends Component {
             this.setState({calendarId})
             getCalendarEvents(calendarId, new Date(), new Date(moment().add(30, 'days')))
             .then(res => {
+                if(res.status === 200){
+                // Update the state with the retrieved calendar events
                 this.setState({googleCalEvents: res.result.items})
+
+
+                createCalendarEvent(this.state.calendarId,"Job Piper IO", "test event", new Date(moment().subtract(2, 'days')), new Date(moment().add(1, 'days')))
+                .then(res => {
+                    if(res.status === 200){
+                        // Update state with the event that was sucessfully created
+                        let calendarEvents = this.state.googleCalEvents
+                        calendarEvents.push(res.result)
+                        this.setState({googleCalEvents: calendarEvents})
+
+                        //update the calendar event at index 0
+                        updateCalendarEvent(this.state.calendarId, this.state.googleCalEvents[0].id, "Job Piper IO2", "updated event!", new Date(moment().add(2, 'days')), new Date(moment().add(4, 'days')))
+                        .then(res =>{
+                            if(res.status === 200) {
+
+                                let calEvents = this.state.googleCalEvents
+                                calEvents[0] = res.result
+                                this.setState({googleCalEvents: calEvents}) 
+                            }
+                        })
+
+                        // Delete the calendar event at index 0
+                        // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
+                        // .then(res => {
+                        //     if(res.status === 204) {
+                        //         // The first arg of splice is the index of the event you want to remove
+                        //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
+                        //     }
+                        // })
+                    }
+                })
+            }
             })
         })
     }

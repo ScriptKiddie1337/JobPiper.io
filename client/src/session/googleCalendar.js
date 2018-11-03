@@ -61,9 +61,9 @@ export const initGoogleCalendar = () => {
 
 // Adds an event to the user's job calendar
 // Will check that the user's job calendar still exists, and create one if needed
-export const addEventToGoogleCalendar = (title, description, startTime, endTime) => {
+export const createCalendarEvent = (calendarId, title, description, startTime, endTime) => {
 
-    const createCalendarEvent = calendarId => {
+    const createCalendarEvent = () => {
 
         var event = {
             'summary': title,
@@ -89,24 +89,9 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
         if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
             auth.refreshToken()
                 .then(function (token) {
-                    return gapi.client.calendar.calendarList.list({ maxResults: 250 })
+                    return createCalendarEvent()
                 })
-                .then(function (response) {
-                    const ourCalendar = response.result.items.find(item => item.summary === "Job Piper")
-
-                    if (ourCalendar === undefined) {
-                        return gapi.client.calendar.calendars.insert({
-                            summary: "Job Piper"
-                        })
-                            .then(function (response) {
-
-                                createCalendarEvent(response.result.id).then(res => resolve(res))
-                            })
-                    } else {
-                        createCalendarEvent(ourCalendar.id)
-                        .then(res => resolve(res))
-                    }
-                })
+                .then(res => resolve(res))
         } else {
             auth.signOut(); // Something went wrong, sign out
             reject("Signed out user, as google api client returned not signed in")
@@ -114,8 +99,8 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
     })
 }
 
-// Adds an event to the user's job calendar
-// Will check that the user's job calendar still exists, and create one if needed
+// Retrieves the user's calendar events for the specified calendar
+// within the specified timeframe.
 export const getCalendarEvents = (calendarId, startDate, endDate) => {
 
     const getCalendarEvents = () => {
@@ -127,6 +112,76 @@ export const getCalendarEvents = (calendarId, startDate, endDate) => {
         }
 
         return gapi.client.calendar.events.list(event)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return getCalendarEvents()
+                })
+                .then(function (response) {
+                    resolve(response)
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+export const deleteCalendarEvent = (calendarId, eventId) => {
+
+    const deleteCalendarEvent = () => {
+
+        var event = {
+            calendarId,
+            eventId
+        }
+
+        return gapi.client.calendar.events.delete(event)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return deleteCalendarEvent()
+                })
+                .then(function (response) {
+                    resolve(response)
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+export const updateCalendarEvent = (calendarId, eventId, title, description, startTime, endTime) => {
+
+    const getCalendarEvents = () => {
+
+        var event = {
+            'summary': title,
+            'description': description,
+            'start': {
+                'dateTime': new Date(startTime).toISOString(),
+                'timeZone': 'America/Los_Angeles'
+            },
+            'end': {
+                'dateTime': new Date(endTime).toISOString(),
+                'timeZone': 'America/Los_Angeles'
+            },
+        }
+
+        return gapi.client.calendar.events.update({
+            calendarId,
+            eventId,
+            'resource': event
+        })
     }
 
     return new Promise((resolve, reject) => {
