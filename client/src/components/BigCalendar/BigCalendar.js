@@ -37,11 +37,13 @@ class BigCalendar extends Component {
                         if (res.status === 200) {
                             // Update the state with the retrieved calendar events
                             const eventArray = res.result.items.map(date => ({
+                                id: date.id,
                                 start: date.start.dateTime,
                                 end: date.end.dateTime,
                                 title: date.summary,
-                                allDay: false
+                                isAllDay: false
                             }))
+                            console.log(eventArray)
                             this.setState({ events: eventArray }, () => console.log(this.state))
 
 
@@ -53,25 +55,15 @@ class BigCalendar extends Component {
                             //             (res.result && calendarEvents.push(res.result));
                             //             this.setState({ googleCalEvents: calendarEvents })
 
-                            //             //update the calendar event at index 0
-                            //             updateCalendarEvent(this.state.calendarId, this.state.googleCalEvents[0].id, "Job Piper IO2", "updated event!", new Date(moment().add(2, 'days')), new Date(moment().add(4, 'days')))
-                            //                 .then(res => {
-                            //                     if (res.status === 200) {
 
-                            //                         let calEvents = this.state.googleCalEvents
-                            //                         calEvents[0] = res.result
-                            //                         this.setState({ googleCalEvents: calEvents })
-                            //                     }
-                            //                 })
-
-                            //             //         // Delete the calendar event at index 0
-                            //             //         // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
-                            //             //         // .then(res => {
-                            //             //         //     if(res.status === 204) {
-                            //             //         //         // The first arg of splice is the index of the event you want to remove
-                            //             //         //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
-                            //             //         //     }
-                            //             //         // })
+                            // Delete the calendar event at index 0
+                            // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
+                            // .then(res => {
+                            //     if(res.status === 204) {
+                            //         // The first arg of splice is the index of the event you want to remove
+                            //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
+                            //     }
+                            // })
                             //         }
                             //     })
                         }
@@ -80,65 +72,71 @@ class BigCalendar extends Component {
     }
 
     state = {
-        events: [
-            {
-                start: new Date(),
-                end: new Date(moment().add(1, 'days')),
-                title: 'Test event',
-                allDay: true
-            }
-        ],
-        newEvent: {
-            start: new Date(),
-            end: new Date(moment().add(1, 'days')),
-            title: 'Test event',
-            allDay: true
+        events: [],
+        updateEvent: {
+            start: '',
+            end: '',
+            title: '',
+            isAllDay: true,
+            eventId: ''
         },
         open: false
     }
 
-    onEventResize = ({ event, start, end, allDay }) => {
-        this.setState(state => {
-            state.events[0].start = start;
-            state.events[0].end = end;
-            return { events: state.events };
-        }, () => console.log(start, end));
+    onEventResize = (event) => {
+        const { start, end, isAllDay } = event;
+        const { id, title } = event.event
+        let updatedEvent = this.state.events.find(event => event.id === id)
+        updatedEvent.start = moment(start).format("YYYY-MM-DDTHH:mm:ssZ");
+        updatedEvent.end = moment(end).format("YYYY-MM-DDTHH:mm:ssZ");
+
+        console.log(updatedEvent)
+        let newEvents = this.state.events.filter(event => event.id !== id);
+        // add the unchanged characters to the updated character array
+        newEvents.push(updatedEvent)
+        this.setState({ ...this.state, events: newEvents });
+console.log(title)
+                    //update the calendar event at index 0
+                    updateCalendarEvent(this.state.calendarId, id, title, "updated event", start, end)
+                        .then(res => {
+                            if (res.status === 200) {
+
+                                let calEvents = this.state.googleCalEvents
+                                calEvents = res.result
+                                this.setState({ googleCalEvents: calEvents })
+                            }
+        console.log(this.state)
+                        })
+
+
     };
 
-    onEventDrop = ({ event, start, end, allDay }) => {
-        console.log(start);
+    onEventDrop = ({ event, id, start, end, isAllDay }) => {
+        console.log("id is : ", event.id, start, end, isAllDay);
     };
     onDoubleClickEvent = (event) => {
         console.log(this.state)
         this.setState({ open: true })
-        API.createEvent(auth.getUserId(), {
-            start: 'Tue Oct 30 2018 14:52:27 GMT-0700 (Pacific Daylight Time)',
-            end: 'Wed Oct 31 2018 14:52:27 GMT-0700 (Pacific Daylight Time)',
-            title: 'Test event',
-            allDay: true
-        })
-            .catch(error => {
-                console.log(error)
-            });
+
     }
     handleClickOpen = () => {
         this.setState({ open: true });
-        console.log('All Day: ', this.state.newEvent.allDay);
+        console.log('All Day: ', this.state.updateEvent.isAllDay);
     };
 
     handleClose = () => {
         this.setState({ open: false });
-        console.log('All Day: ', this.state.newEvent.allDay);
+        console.log('All Day: ', this.state.updateEvent.isAllDay);
     };
 
-    handleAllDay = name => event => {
-        let newEvent = { ...this.state.newEvent }
-        newEvent.allDay = event.target.checked
-        this.setState({ newEvent });
+    handleisAllDay = name => event => {
+        let updateEvent = { ...this.state.updateEvent }
+        updateEvent.isAllDay = event.target.checked
+        this.setState({ updateEvent });
     };
 
     render() {
-        const { allDay } = this.state;
+        const { isAllDay } = this.state;
         return (
             <div>
                 <DnDCalendar
@@ -170,10 +168,10 @@ class BigCalendar extends Component {
                             />
                             <FormControlLabel control={
                                 <Checkbox
-                                    checked={allDay}
-                                    onChange={this.handleAllDay('allDay')}
+                                    checked={isAllDay}
+                                    onChange={this.handleisAllDay('isAllDay')}
                                     color="primary"
-                                    value="allDay"
+                                    value="isAllDay"
                                 />
                             }
                                 label="All-Day Event" />
