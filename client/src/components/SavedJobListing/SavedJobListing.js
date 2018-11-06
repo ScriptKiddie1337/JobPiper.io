@@ -81,7 +81,7 @@ class SavedJobListing extends Component {
 
     render() {
 
-        const { _id, image, title, link, keywords, body, classes } = this.props
+        const { _id, image, title, link, keywords, body,  } = this.props
         const keywordsString = keywords.join(' | ')
         function createMarkup(val) {
             return { __html: val };

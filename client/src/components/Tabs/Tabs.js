@@ -29,7 +29,7 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
   flexGrow: 1,
-	width: '100%',
+	width: '100vw',
   },
   bigIndicator: {
 	  height: 5,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ScrollableTabsButtonAuto from '../../components/Tabs/Tabs';
 import Grid from '@material-ui/core/Grid';
@@ -51,105 +51,104 @@ class Home extends React.Component {
         // render function
         const { classes } = this.props;
         const { value } = this.state;
-        console.log(value)
         return (
           <NoSsr>
-        <MemoryRouter initialEntries={['/home']} initialIndex={0}>
-	    <div className={classes.root}>
-        <Grid container>
-        	<Hidden smDown>
-        		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px', minHeight: '100vh'}}>
-					      <Grid item xs={12} style={{margin: '20px', display: 'flex', justifyContent: 'center'}}>
-						      <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '50%', 	width: '50%'}}></img>
-					      </Grid>
-                <Grid item xs={12} style={{textAlign: 'center'}}>
-                    {this.state.userName ?
-										<h3 style={{ color: 'white'}} alt="userId">Welcome,  {this.state.userName}.</h3>
-										: null}
-                </Grid>
-                <div style={{margin: '0 auto', position: 'fixed' }}>
-                <Grid item xs={12} style={{ marginTop: '20vh' }}>
-                  <Tabs 
-                    classes={{ flexContainer: classes.flexContainer }}
-                    value={value}
-                    style={{ flexDirection: 'column' }}
-                    onChange={this.handleChange}
-				            indicatorColor='primary'
-                    textColor='inherit'
-                    >
-                      <Tab
-                      classes={{ labelContainer: classes.labelContainer}}
-                        value={1}
-                        onChange={this.handleChange}
-                        label=
-                          {
-                          <Tooltip title='Profile'>
-                            <Avatar
-                            alt=""
-                            size={1.5}
-                            src={this.state.profilePic} alt="Profile Picture"
-                            className={classNames(classes.avatar, classes.bigAvatar)}
-                            />
-                          </Tooltip>
-                          }>
-                      </Tab>
-                    <Tab
-                        value={0}
-                        onChange={this.handleChange}
-                        label=
-                          {
-                          <Tooltip title='Home'>
-                            <Icon 
-                              path={mdiHome} 
-                              size={1.5} 
-                              color='#fdd835'/>
-                          </Tooltip>
-                          }>
-                      </Tab>
-                      <Tab
-                        value={2}
-                        onChange={this.handleChange}
-                        label=
-                          {
-                          <Tooltip title='Settings'>
-                            <Icon 
-                              path={mdiSettings} 
-                              size={1.5} 
-                              color='#fdd835'/>
-                          </Tooltip>
-                          }>
-                      </Tab>
-                      <Tab
-                        value={3}
-                        onChange={this.handleChange}
-                        label=
-                          {
-                          <Tooltip title='Log Out'>
-                            <Icon 
-                              path={mdiLogoutVariant} 
-                              size={1.5} 
-                              color='#fdd835'/>
-                          </Tooltip>
-                          }>
-                      </Tab>
-                  </Tabs>
-            	  </Grid>
-				      </div>
-            </Grid>
-          </Hidden>
-			    <Grid item md={10}>
-            {value === 0 && <Grid item xs={12}><ScrollableTabsButtonAuto /></Grid>}
-            {value === 1 && <Grid item xs={12}to='/profile'><Profile /></Grid>}
-            {value === 2 && <Grid item xs={12}to='/usersettings'><UserSettings /></Grid>}
-  			  </Grid>
-		    </Grid>
-            
-		    <Hidden mdUp>
-			    <LabelBottomNavigation />
-		    </Hidden>
-	    </div>
-        </MemoryRouter>
-        </NoSsr>
+          <MemoryRouter initialEntries={['/home']} initialIndex={0}>
+	          <div className={classes.root} style={{ minWidth: '100vw'}}>
+              <Grid container >
+              	<Hidden smDown>
+              		<Grid item md={2} style={{ backgroundColor: '#819ca9', borderRight: '#fdd835 solid 2px', minHeight: '100vh'}}>
+		      			      <Grid item xs={12} style={{margin: '20px', display: 'flex', justifyContent: 'center'}}>
+		      				      <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '50%', 	width: '50%'}}></img>
+		      			      </Grid>
+                      <Grid item xs={12} style={{textAlign: 'center'}}>
+                          {this.state.userName ?
+		      								<h2 style={{ color: 'white'}} alt="userId">Welcome,  {this.state.userName}.</h2>
+		      								: null}
+                      </Grid>
+                      <div style={{margin: '0 auto', position: 'fixed' }}>
+                      <Grid item xs={12} style={{ marginTop: '20vh' }}>
+                        <Tabs 
+                          classes={{ flexContainer: classes.flexContainer }}
+                          value={value}
+                          style={{ flexDirection: 'column' }}
+                          onChange={this.handleChange}
+		      		            indicatorColor='primary'
+                          textColor='inherit'
+                          >
+                            <Tab
+                              classes={{ labelContainer: classes.labelContainer}}
+                              value={1}
+                              onChange={this.handleChange}
+                              label=
+                                {
+                                <Tooltip title='Profile'>
+                                  <Avatar
+                                  alt=""
+                                  size={1.5}
+                                  src={this.state.profilePic}
+                                  className={classNames(classes.avatar, classes.bigAvatar)}
+                                  />
+                                </Tooltip>
+                                }>
+                            </Tab>
+                          <Tab
+                              value={0}
+                              onChange={this.handleChange}
+                              label=
+                                {
+                                <Tooltip title='Home'>
+                                  <Icon 
+                                    path={mdiHome} 
+                                    size={1.5} 
+                                    color='#fdd835'/>
+                                </Tooltip>
+                                }>
+                            </Tab>
+                            <Tab
+                              value={2}
+                              onChange={this.handleChange}
+                              label=
+                                {
+                                <Tooltip title='Settings'>
+                                  <Icon 
+                                    path={mdiSettings} 
+                                    size={1.5} 
+                                    color='#fdd835'/>
+                                </Tooltip>
+                                }>
+                            </Tab>
+                            <Tab
+                              value={3}
+                              onChange={this.handleChange}
+                              label=
+                                {
+                                <Tooltip title='Log Out'>
+                                  <Icon 
+                                    path={mdiLogoutVariant} 
+                                    size={1.5} 
+                                    color='#fdd835'/>
+                                </Tooltip>
+                                }>
+                            </Tab>
+                        </Tabs>
+                  	  </Grid>
+		      		      </div>
+                  </Grid>
+                </Hidden>
+		      	    <Grid item md={10}>
+                  {value === 0 && <Grid item xs={12}><ScrollableTabsButtonAuto /></Grid>}
+                  {value === 1 && <Grid item xs={12}to='/profile'><Profile /></Grid>}
+                  {value === 2 && <Grid item xs={12}to='/usersettings'><UserSettings /></Grid>}
+  	      		  </Grid>
+		          </Grid>
+                              
+		          <Hidden mdUp>
+		      	    <LabelBottomNavigation />
+		          </Hidden>
+	          </div>
+          </MemoryRouter>
+          </NoSsr>
     );
   }
 }

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
 import Paper from '@material-ui/core/Paper';
-import FloatingActionButtons from '../../components/FloatingButton'
+//import FloatingActionButtons from '../../components/FloatingButton'
 import { auth } from '../../firebase';
 import LocationSelector from '../../components/LocationSelector'
 
@@ -36,7 +36,7 @@ class Profile extends Component {
 								<Grid item xs={12}>
 									<Grid item xs={3} >
 										{this.state.profilePic ?
-										<img src={this.state.profilePic} style={{ maxWidth: '100px', borderRadius: '50%', margin: '10px'}} alt="Profile 	Picture"></img>
+										<img src={this.state.profilePic} style={{ maxWidth: '100px', borderRadius: '50%', margin: '10px'}} alt="Profile 	"></img>
 										: null}
 									</Grid>
 								</Grid>
