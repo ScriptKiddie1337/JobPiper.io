@@ -10,7 +10,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MemoryRouter from 'react-router/MemoryRouter';
 import NoSsr from '@material-ui/core/NoSsr';
-import SavedJobs from '../../pages/SavedJobs'
+import SavedJobs from '../../pages/SavedJobs';
+import SpreadSheet from '../../pages/SpreadSheet';
 
 function TabContainer(props) {
   return (
@@ -29,7 +30,7 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
   flexGrow: 1,
-	width: '100vw',
+	maxWidth: '100vw',
   },
   bigIndicator: {
 	  height: 5,
@@ -64,11 +65,11 @@ class ScrollableTabsButtonAuto extends React.Component {
                 scrollable
                 scrollButtons='auto' 
                 >
-              <Tab label='Home' />
-              <Tab label='Day Planner' />
-              <Tab label='Job Search' />
-              {/* <Tab label='Company News' /> */}
-              <Tab label='Saved Jobs' />
+              	<Tab label='Home' />
+              	<Tab label='Day Planner' />
+              	<Tab label='Job Search' />
+              	<Tab label='Saved Jobs' />
+            	<Tab label='Spreadsheet' /> 
               </Tabs>
             </AppBar>
             {value === 0 && 
@@ -78,7 +79,7 @@ class ScrollableTabsButtonAuto extends React.Component {
             {value === 1 && <TabContainer to='/BigCalendar'><BigCalendar /></TabContainer>}
             {value === 2 && <TabContainer to='/jobs'><JobListing /></TabContainer>}
             {value === 3 && <TabContainer to='/savedjobs'><SavedJobs /></TabContainer>}
-            {/* {value === 4 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>} */}
+            {value === 4 && <TabContainer to='/spreadsheet'><SpreadSheet /></TabContainer>}
             {/* {value === 5 && <TabContainer to='/meetups'><Meetups /></TabContainer>} */}
           </div>
         </MemoryRouter>

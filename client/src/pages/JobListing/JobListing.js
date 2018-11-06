@@ -110,9 +110,7 @@ const styles = theme => ({
 		width: '100%',
 		marginTop: theme.spacing.unit * 3,
 	},
-	table: {
-		minWidth: 500,
-	},
+
 	tableWrapper: {
 		overflowX: 'auto',
 	},
@@ -287,7 +285,7 @@ class JobListing extends Component {
 		// console.log('Result Count: ',currentSearch.length)
 
 		return (
-			<div style={{ padding: '20px', borderRadius: '5px' }}>
+			<div style={{ borderRadius: '5px' }}>
 				<div style={{ padding: '20px', backgroundImage: "url('../../images/boardroom-ss.jpeg')", width: '100%', height: '100%', backgroundSize: 'cover', borderRadius: '5px' }}>
 					<Grid container spacing={24} alignItems='center'>
 						<Grid fullwidth='true' item xs={12} md={6}>
@@ -341,6 +339,7 @@ class JobListing extends Component {
 						<TableHead>
 							<TableRow>
 								<TablePagination
+									style={{ maxWidth: '100vw'}}
 									colSpan={3}
 									count={rows.length}
 									rowsPerPage={rowsPerPage}
@@ -369,7 +368,7 @@ class JobListing extends Component {
 								if (job.item) {
 									if (!job.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
 										return (
-											<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+											<TableRow key={i} style={{ listStyleType: 'none' }}>
 
 												<TableCell component="th" scope="row" style={{ padding: '0px' }}>
 													<JobListingList
@@ -387,7 +386,7 @@ class JobListing extends Component {
 									}
 								} else {
 									return (
-										<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+										<TableRow key={i} style={{ listStyleType: 'none', margin: '0px' }}>
 
 											<TableCell component="th" scope="row" style={{ padding: '0px' }}>
 												<JobListingList
@@ -415,6 +414,7 @@ class JobListing extends Component {
 						<TableFooter>
 							<TableRow>
 								<TablePagination
+								style={{ maxWidth: '100vw'}}
 									colSpan={3}
 									count={rows.length}
 									rowsPerPage={rowsPerPage}

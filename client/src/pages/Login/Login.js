@@ -55,7 +55,7 @@ class Login extends Component {
               <GIcon 
                 style={{ margin: '0px 10px 0px 0px' }}
                 size={1} 
-                color='red'
+                color='primary'
 				component={svgProps => (
 					<svg {...svgProps}>
 					  <defs>
