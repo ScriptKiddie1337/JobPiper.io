@@ -9,10 +9,12 @@ class Quotes extends React.Component {
       items: []
     };
   }
+  
 
-  antiCorsFunction() {
+  
+  componentDidMount() {
     this.setState({ state: this.state });
-    fetch("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
+    fetch("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
       .then(res => res.json())
       .then(
         (result) => {
@@ -29,11 +31,6 @@ class Quotes extends React.Component {
           }); 
         }
       )
-  }
-
-  
-  componentDidMount() {
-    return this.antiCorsFunction()
       
   }
 
