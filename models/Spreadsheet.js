@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new AddressSchema object
 // This is similar to a Sequelize model
-const SpreadSheetSchema = new Schema({
+const SheetSchema = new Schema({
   // `title` of job is required and of type String
   title: {
     type: String,
@@ -43,13 +43,9 @@ const SpreadSheetSchema = new Schema({
   status: {
 	  type: String
   },
-//Industry of job
-  industry: {
-	  type: String
-  },
   // Date applied for job
   date: {type: Date, default: Date.now}
 });
 
 // Export the Spreadsheet model
-module.exports = mongoose.model('SpreadSheet', SpreadSheetSchema);
+module.exports = mongoose.model('SpreadSheet', SheetSchema);

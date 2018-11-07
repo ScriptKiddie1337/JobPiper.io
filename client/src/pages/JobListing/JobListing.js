@@ -9,7 +9,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
-import TableHead from '@material-ui/core/TableHead'
+import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
@@ -339,7 +339,7 @@ class JobListing extends Component {
 						<TableHead>
 							<TableRow>
 								<TablePagination
-									style={{ maxWidth: '100vw'}}
+									style={{ maxWidth: '300px'}}
 									colSpan={3}
 									count={rows.length}
 									rowsPerPage={rowsPerPage}

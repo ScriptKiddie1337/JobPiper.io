@@ -67,8 +67,8 @@ export default {
       })
   },
 	// get spreadsheet
-  	getSpreadSheets: function () {
-    return axios.get("/api/spreadsheets");
+  	getUserSpreadSheets: googleId => {
+    return axios.get(`/api/spreadsheets/saved/${googleId}`);
   },  
    // Gets the job with the given id
    getSpreadSheetsId: function (id) {
@@ -76,17 +76,13 @@ export default {
   },
 
  	// Saves a job for the current user
- 	userSaveSheet: function (jobData, googleId) {
-    return axios.post("api/user/spreadsheet", { jobData, googleId })
+ 	userSaveSheet: function (sheetData, googleId) {
+    return axios.post("api/user/spreadsheet", { sheetData, googleId })
   },
 
-  getUserSheets: googleId => {
-    return axios.get(`api/user/spreadsheet/saved/${googleId}`)
-  },
-
-  // takes the users jobs and replaces them with updated info
-  updateUserSheets: (jobs, googleId) => {
-    return axios.put(`api/user/spreadsheet/saved/`, { googleId: googleId, jobs: jobs })
+  // takes the users sheet and replaces them with updated info
+  updateUserSheets: (sheets, googleId) => {
+    return axios.put(`api/user/spreadsheet/saved/`, { googleId: googleId, sheets: sheets })
       .catch(error => {
         console.log(error.response)
       });
