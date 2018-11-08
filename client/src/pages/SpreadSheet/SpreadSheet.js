@@ -7,12 +7,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
+import Button from '@material-ui/core/Button'
 
 class SpreadSheet extends Component {
   state = {
+    loading: false,
     sheets: [],
     title: "",
     site_link: "",
@@ -28,10 +28,7 @@ class SpreadSheet extends Component {
     contact: []
   };
 
-  componentDidMount() {
-    // this.loadSpreadSheet();
-  }
-;
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -40,9 +37,20 @@ class SpreadSheet extends Component {
     });
   };
 
+  handleClickLoading = () => {
+		this.setState(state => ({
+			loading: !state.loading,
+		}));
+  };
+  
   handleFormSubmit = event => {
     event.preventDefault();
-    
+    this.handleClickLoading();
+
+    fetch('/api/spreadSheet')
+    .then(response => response.json())
+    .then(x => this.setState({ sheets: x}))
+    .catch(err => { throw new Error(err) });
   };
 
   render() {
@@ -55,8 +63,15 @@ class SpreadSheet extends Component {
   					<Table>
               <TableHead>
                 <TableRow>
-                  <h2>Tracker</h2>
-                </TableRow>
+                  <TableCell>Job Title</TableCell>
+                  <TableCell>Company</TableCell>
+                  <TableCell>Industry</TableCell>
+                  <TableCell>Company Size</TableCell>
+                  <TableCell>Link to Job Desc</TableCell>
+                  <TableCell>Link to HR</TableCell>
+                  <TableCell>Method Applied</TableCell>
+                  <TableCell>Status</TableCell>
+                </TableRow> 
               </TableHead>
               <TableBody>
               {this.state.sheets.map((sheet, i) => {
@@ -64,9 +79,9 @@ class SpreadSheet extends Component {
 								if (sheet.item) {
 									if (!sheet.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                     return (
-                <TableRow key={i} style={{ listStyleType: 'none' }}>
-                  <TableCell component="th" scope="row" style={{ padding: '0px' }}>
+                
                     <SpreadSheetList
+                    key={i}
                       site_link={sheet.item.site_link}
                       _id={sheet.item._id}
                       title={sheet.item.title}
@@ -77,43 +92,45 @@ class SpreadSheet extends Component {
                       size={sheet.item.size}
                       method={sheet.item.method}
                       status={sheet.item.status}
-                      company={sheet.item.company}
                       saved={false}
                     />
-                  </TableCell>
-                </TableRow>
+              
                     )
                 }
               }
               else {
                 return (
-                  <TableRow key={i} style={{ listStyleType: 'none', margin: '0px' }}>
-
-                    <TableCell component="th" scope="row" style={{ padding: '0px' }}>
-                      <SpreadSheetList
-                        link={sheet.link}
-                        _id={sheet._id}
-                        title={sheet.title}
-                        keywords={sheet.keywords}
-                        body={sheet.body}
-                        image={sheet.image}
-                        saved={true}
-                      />
-                    </TableCell>
-                  </TableRow>
+                    <SpreadSheetList
+                      key={i}
+                      site_link={sheet.site_link}
+                      _id={sheet._id}
+                      title={sheet.title}
+                      hr_link={sheet.hr_link}
+                      body={sheet.body}
+                      company={sheet.company}
+                      industry={sheet.industry}
+                      size={sheet.size}
+                      method={sheet.method}
+                      status={sheet.status}
+                      saved={false}
+                    />
                 )
               }
 
               return null
             })}
               </TableBody>
+              <TableFooter>
+               
+                  <TableRow>
+                    <TableCell>
+                    <Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }} >Search</Button>
+                    </TableCell>
+                  </TableRow>
+               
+              </TableFooter>
             </Table>
 				</Grid>
-			</Grid>
-			<Grid>
-				<Paper style={{ border: '#fdd835 solid 2px'}}>
-        SpreadSheet go here!!!
-				</Paper>
 			</Grid>
 	  </div>
     );

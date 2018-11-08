@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
-import SavedIcon from '@material-ui/icons/StarRate'
-import SaveIcon from '@material-ui/icons/Stars'
 import { auth } from '../../firebase'
 import api from '../../utils/API'
+import TableCell from '@material-ui/core/TableCell';
+import { TableRow } from '@material-ui/core';
 //import PropTypes from 'prop-types';
 
 const styles = theme => ({
@@ -37,7 +30,7 @@ class SpreadSheetList extends Component {
 			dateSaved: Date.now()
 		}, auth.getUserId())
 	}
-//change to delet row
+//change to delete row
 	// handleJobUnsave = () => {
 	// 	console.log('Unsaving job: ', this.props.title)
 	// 	this.setState({ saved: false })
@@ -58,56 +51,23 @@ class SpreadSheetList extends Component {
 
 	render() {
 
-		const { _id, image, title, link, keywords, body } = this.props
-		const keywordsString = keywords.join(' | ')
+		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
 		function createMarkup(val) {
 			return { __html: val };
 		}
 		return (
-			<Paper style={{ backgroundColor: '#FAFAFA', margin: '10px', border: 'solid 3px #819ca9', borderRadius: '5px' }}>
-				<div key={_id} style={{ margin: '10px' }}>
-					<Grid container>
-						<Grid item xs={12} style={{ border: '#fdd835 solid 1px', backgroundColor: '#819ca9', padding: '10px', borderRadius: '5px' }}>
-							<Grid container
-								direction="row"
-								justify="space-between"
-								alignItems="center">
-								<Grid item xs={1}
-									style={{textAlign: 'center'}}>
-									{
-										this.state.saved
-										? <SavedIcon onClick={this.handleJobUnsave} color="secondary" />
-										: <SaveIcon onClick={this.handleJobSave} color='primary' />
-									}
-								</Grid>
-								<Grid item xs={11}>
-									<a href={link} target="_blank" style={{ textDecoration: 'none' }}>
-									<Grid container
-										direction="row"
-										justify="space-between"
-										alignItems="center">
-										<Grid item xs={10} style={{ textAlign: "left" }}><h3 style={{ color: 'white' }} dangerouslySetInnerHTML={createMarkup(title)} />
-										</Grid>
-										<Grid item xs={2} ><img align="right" style={{ maxHeight: "50px" }} src={image} alt={title} />
-										</Grid>
-									</Grid>
-									</a>
-								</Grid>
-							</Grid>
-						</Grid>
-
-						<ExpansionPanel style={{margin: '10px 10px 0px 10px'}}>
-							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-								<Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<Grid item xs={12} style={{ padding: '10px 10px 10px 0px' }}
-									dangerouslySetInnerHTML={createMarkup(body)} />
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-					</Grid>
-				</div>
-			</Paper>
+			
+				<TableRow  style={{ listStyleType: 'none' }}>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
+					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
+				</TableRow>
+		
 		)
 	}
 }
