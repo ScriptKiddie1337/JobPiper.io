@@ -36,7 +36,7 @@ export default {
     return axios.post("api/user/jobs", { jobData, googleId })
   },
   // get job by id for current user
-  getUserJob: function(jobId, googleId) {
+  getUserJob: function (jobId, googleId) {
     return axios.get(`api/user/jobs/saved/${googleId}/${jobId}`)
   },
 
@@ -50,13 +50,21 @@ export default {
   },
   // takes the users jobs and replaces them with updated info
   updateUserJobs: (jobs, googleId) => {
-    return axios.put(`api/user/jobs/saved/`,{googleId: googleId,jobs: jobs})
-    .catch(error => {
-      console.log(error.response)
-    });
+    return axios.put(`api/user/jobs/saved/`, { googleId: googleId, jobs: jobs })
+      .catch(error => {
+        console.log(error.response)
+      });
   },
 
   createUser: user => {
     return axios.post("/api/user", user)
+  },
+
+  createEvent: (googleId, newEvent) => {
+    return axios.post('/api/event/', { googleId: googleId, newEvent: newEvent })
+      .catch(error => {
+        console.log(error.response)
+      })
   }
+
 };

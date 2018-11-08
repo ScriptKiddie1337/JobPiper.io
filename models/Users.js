@@ -74,15 +74,12 @@ const UserSchema = new Schema({
     }
   },
 
-  // job title interests
-  job_interests: [{
-    title: String,
-    desc: String
-  }],
   // dated planner for upcoming events "reminders"
   events: [{
-    date: Date,
-    event: String
+    title: String,
+    start: Date,
+    end: Date,
+    allDay: Boolean,
   }],
   // job interests
   jobs: [{
