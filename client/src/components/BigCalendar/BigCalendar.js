@@ -62,17 +62,12 @@ class BigCalendar extends Component {
         })
     }
 
-    deleteCalendarEvent = () => {
- // Delete the calendar event at index 0
-                        // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
-                        // .then(res => {
-                        //     if(res.status === 204) {
-                        //         // The first arg of splice is the index of the event you want to remove
-                        //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
-                        //     }
-                        // })
-                        //         }
-                        //     })
+    deleteEvent = (event) => {
+        this.setState({open: false});
+        deleteCalendarEvent(this.state.calendarId,this.state.eventId)
+        this.drawCalendarEvents();
+        this.resetEvent();
+      
     }
 
     resetEvent = () => {
@@ -89,34 +84,31 @@ class BigCalendar extends Component {
 
     componentDidMount() {
         this.drawCalendarEvents();
-    }
+    };
 
     handleCreateEvent = () => {
         const { start, end, title, eventId } = this.state
         const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
         console.log(updateEvent)
         this.setState({ open: true })
-    }
-    onEventResize = (event) => {
-        const { start, end } = event;
-        const { id, title } = event.event
+    };
+
+    handleUpdateEvent = (e) => {
+        const { start, end } = e;
+        const { id, title } = e.event
         let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
         this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
-        //update the calendar event at index 0
-       
+    };
+
+    onEventResize = (event) => {
+        this.handleUpdateEvent(event);
     };
 
     onEventDrop  = (event) => {
-        console.log(event)
-        // const { id, title, start, end } = event;
-        // let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
-        // let newEvents = this.state.events.filter(event => event.id !== id);
-        // // add the unchanged characters to the updated character array
-        // newEvents.push(updatedEvent)
-        // this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
+        this.handleUpdateEvent(event);
     };
 
     onDoubleClickEvent  = (event) => {
@@ -200,6 +192,7 @@ class BigCalendar extends Component {
                 >
                     <DialogTitle id="form-dialog-title">Event Details</DialogTitle>
                     <DialogContent>
+                    
                         {/* Title and all-day flag */}
                         <FormGroup row>
                             <TextField
@@ -251,12 +244,15 @@ class BigCalendar extends Component {
 
                     </DialogContent>
                     <DialogActions>
+                        <Button variant="fab" color="primary" aria-label="Delete"  >
+                            <DeleteIcon onClick={this.deleteEvent} />
+                        </Button>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
-            </Button>
+                        </Button>
                         <Button onClick={this.handleSave} color="primary">
                             Save
-            </Button>
+                        </Button>
                     </DialogActions>
                 </Dialog>
             </div>
