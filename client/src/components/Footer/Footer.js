@@ -13,10 +13,11 @@ const styles = {
   root: {
     width: '100%',
     backgroundColor: '#fdd835',
-	position: "fixed",
+	  position: "fixed",
     left: 0,
     bottom: 0,
     textAlign: "center",
+    zIndex: '999'
   },
 };
 

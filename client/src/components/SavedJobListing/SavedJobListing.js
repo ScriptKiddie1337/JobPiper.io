@@ -182,7 +182,7 @@ class SavedJobListing extends Component {
 
     render() {
 
-        const { _id, image, title, link, keywords, body, classes } = this.props
+        const { _id, image, title, link, keywords, body,  } = this.props
         const keywordsString = keywords.join(' | ')
         function createMarkup(val) {
             return { __html: val };
@@ -219,7 +219,7 @@ class SavedJobListing extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <ExpansionPanel style={{ minWidth: '99%', margin: '10px 10px 0px 10px' }}>
+                        <ExpansionPanel style={{ margin: '10px 10px 0px 10px' }}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
                                 <Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
                             </ExpansionPanelSummary>

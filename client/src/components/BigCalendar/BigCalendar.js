@@ -176,7 +176,7 @@ class BigCalendar extends Component {
                     style={{ height: "90vh" }}
                 />
                 <Tooltip title="Create Event">
-                    <Button aria-label="Create Event" style={{color: '#fdd835', position: 'absolute', right: 50, bottom: 80 }} variant="fab" color="primary" aria-label="Add"  >
+                    <Button aria-label="Create Event" style={{color: '#fdd835', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="primary" aria-label="Add"  >
                         <AddIcon onClick={this.handleOpen} />
                     </Button>
                 </Tooltip>
