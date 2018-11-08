@@ -55,7 +55,7 @@ class BigCalendar extends Component {
                             title: date.summary,
                             isAllDay: false
                         }))
-                        this.setState({ events: eventArray }, () => console.log(this.state))
+                        this.setState({ events: eventArray })
                     }
                 })
         })
