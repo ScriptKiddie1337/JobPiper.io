@@ -58,14 +58,14 @@ class SpreadSheetList extends Component {
 		return (
 			
 				<TableRow  style={{ listStyleType: 'none' }}>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
-					<TableCell><h3 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
+					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
 				</TableRow>
 		
 		)
