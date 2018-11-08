@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Quotes from '../Quotes';
-import MyCalendar from '../Calendar';
+import BigCalendar from '../BigCalendar';
 
 const styles = {
     card: {
@@ -47,7 +47,7 @@ function HomeGrid(props) {
             </Grid>
             <Grid item xs={12}>
                 <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px', display: 'flex', justifyContent: 'center' }}>
-                    <MyCalendar calendarRefreshCallback={() => { }} />
+                    <BigCalendar view="month" />
                 </Card>
             </Grid>
         </Grid>
