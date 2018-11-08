@@ -2,21 +2,10 @@ import React, { Component } from "react";
 import Calendar from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import API from "../../utils/API";
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Icon from '@material-ui/core/Icon';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { auth } from '../../firebase';
+import EventModal from '../EventModal';
+import Tooltip from '@material-ui/core/Tooltip';
 import { initGoogleCalendar, getCalendarEvents, createCalendarEvent, deleteCalendarEvent, updateCalendarEvent } from '../../session/googleCalendar'
 
 // import "./App.css"
@@ -33,6 +22,7 @@ class BigCalendar extends Component {
         start: new Date(),
         end: new Date(),
         title: '',
+        description: '',
         isAllDay: true,
         eventId: '',
         open: false,
@@ -86,8 +76,8 @@ class BigCalendar extends Component {
     };
 
     handleCreateEvent = () => {
-        const { start, end, title, eventId } = this.state
-        const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
+        const { start, end, title, eventId, description } = this.state
+        const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId, description: description }
         this.setState({ open: true })
     };
 
@@ -156,7 +146,6 @@ class BigCalendar extends Component {
     };
 
     render() {
-        const { isAllDay, title, start, end, eventId } = this.state;
         return (
             <div>
                 <DnDCalendar
@@ -174,81 +163,18 @@ class BigCalendar extends Component {
                     popup
                     style={{ height: "90vh" }}
                 />
-                <div>
-                <Button style={{color: '#fdd835', position: 'absolute', right: 10, }} variant="fab" color="primary" aria-label="Add"  >
-                    <AddIcon onClick={this.handleCreateEvent} />
-                </Button>
-                </div>
-                <Dialog
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    aria-labelledby="form-dialog-title"
-                >
-                    <DialogTitle id="form-dialog-title">Event Details</DialogTitle>
-                    <DialogContent>
-                    
-                        {/* Title and all-day flag */}
-                        <FormGroup row>
-                            <TextField
-                                id="title"
-                                name="title"
-                                label="Event Title"
-                                margin="normal"
-                                value={title}
-                                onChange={this.handleChange}
-                            />
-                            {/* <FormControlLabel control={
-                                <Checkbox
-                                    checked={isAllDay}
-                                    onChange={this.handleisAllDay}
-                                    color="primary"
-                                    value="isAllDay"
-                                />
-                            }
-                                label="All-Day Event" /> */}
-                        </FormGroup>
-                        {/* Start Date */}
-                        <FormGroup row>
-                            <TextField
-                                id="startDate"
-                                label="Start Date"
-                                name="start"
-                                type="datetime-local"
-                                onChange={this.handleChange}
-                                defaultValue={(start ? moment(start).format("YYYY-MM-DDThh:mm") : moment(Date.now()).format("YYYY-MM-DDThh:mm"))}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                        </FormGroup>
-                        {/* End Date */}
-                        <FormGroup row>
-                            <TextField
-                                id="endDate"
-                                name="end"
-                                label="End Date"
-                                type="datetime-local"
-                                onChange={this.handleChange}
-                                defaultValue={(end ? moment(end).format("YYYY-MM-DDThh:mm") : moment(Date.now()).format("YYYY-MM-DDThh:mm"))}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                        </FormGroup>
-
-                    </DialogContent>
-                    <DialogActions>
-                        <Button variant="fab" color="primary" aria-label="Delete"  >
-                            <DeleteIcon onClick={this.deleteEvent} />
-                        </Button>
-                        <Button onClick={this.handleClose} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleSave} color="primary">
-                            Save
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                <Tooltip title="Create Event">
+                    <Button aria-label="Create Event" style={{color: '#fdd835', position: 'absolute', right: 50, bottom: 80 }} variant="fab" color="primary" aria-label="Add"  >
+                        <AddIcon onClick={this.handleCreateEvent} />
+                    </Button>
+                </Tooltip>
+                <EventModal 
+                    updateEvent={ this.state }
+                    onClose={ this.handleClose }
+                    onChange={ this.handleChange }
+                    deleteEvent={ this.deleteEvent }
+                    saveEvent={ this.handleSave }
+                />
             </div>
         );
     }

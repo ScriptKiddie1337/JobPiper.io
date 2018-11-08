@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 import SavedIcon from '@material-ui/icons/StarRate';
 import SaveIcon from '@material-ui/icons/Stars';
+import EventModal from '../EventModal';
 import { auth } from '../../firebase';
 import API from '../../utils/API';
 
