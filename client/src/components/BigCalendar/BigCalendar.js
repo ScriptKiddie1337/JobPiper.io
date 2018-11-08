@@ -55,7 +55,6 @@ class BigCalendar extends Component {
                             title: date.summary,
                             isAllDay: false
                         }))
-                        console.log(eventArray)
                         this.setState({ events: eventArray }, () => console.log(this.state))
                     }
                 })
@@ -89,7 +88,6 @@ class BigCalendar extends Component {
     handleCreateEvent = () => {
         const { start, end, title, eventId } = this.state
         const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
-        console.log(updateEvent)
         this.setState({ open: true })
     };
 
@@ -132,14 +130,8 @@ class BigCalendar extends Component {
         });
         if (eventId !== '' && eventId !== undefined) {
             updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", new Date(start), new Date(end))
-            .then(res => {
-                if (res.status === 200) {
-                    console.log(`Events Updated: Code ${res.status}`)
-                }
-            })
-                .catch(err => console.log(err))
+            .catch(err => console.log(err))
         } else {
-            console.log("Creating Event", this.state.calendarId, title, "created event", start, end)
             createCalendarEvent(this.state.calendarId, title, "created event", new Date(start), new Date(end))
                 .then(res => {
                     if (res.status === 200) {
