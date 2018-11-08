@@ -155,7 +155,6 @@ class SpreadSheet extends Component {
   };
 
   updateSheets = () => {
-
 	fetch('/api/spreadSheet')
     .then(response => response.json())
     .then(x => this.setState({ sheets: x}))
@@ -222,11 +221,12 @@ class SpreadSheet extends Component {
     .then(this.updateSheets())
     .then(document.getElementById("jobForm").reset())
     .catch(error => console.error('Error:', error));
+    this.setState({ open: false})
   };
  
   handleCreateEvent = () => {
-    const { start, end, title, eventId } = this.state
-    const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
+    //const { start, end, title, eventId } = this.state
+   // const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
     this.setState({ open: true })
 };
 
@@ -413,7 +413,6 @@ handleClose = () => {
 									if (!sheet.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                    						return (
                               <SpreadSheetList 
-                                  
                     							key={i}
                     							site_link={sheet.item.site_link}
                     							_id={sheet.item._id}
@@ -424,7 +423,8 @@ handleClose = () => {
                     							industry={sheet.item.industry}
                     							size={sheet.item.size}
                     							method={sheet.item.method}
-                    							status={sheet.item.status}
+                                  status={sheet.item.status}
+                                  saved={false}
                     						/>
                                 
               							)
@@ -445,7 +445,7 @@ handleClose = () => {
                     						size={sheet.size}
                     						method={sheet.method}
                     						status={sheet.status}
-                    						saved={false}
+                    						saved={true}
                     					/>
                 					)
               					}

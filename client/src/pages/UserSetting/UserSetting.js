@@ -84,7 +84,7 @@ class UserSetting extends Component {
 					</Paper>
   			</Grid>
 		</Grid>
-		<Hidden smUp>
+		<Hidden mdUp>
 			<LabelBottomNavigation />
 		</Hidden>
 	</div>

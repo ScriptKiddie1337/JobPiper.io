@@ -33,7 +33,10 @@ class SpreadSheetList extends Component {
 		}, auth.getUserId())
 	}
 
-	state = { saved: this.props.saved }
+	state = { 
+		saved: this.props.saved,
+		
+	 }
 
 	componentWillReceiveProps(newProps) {
 
@@ -45,28 +48,23 @@ class SpreadSheetList extends Component {
 		}
 	}
 	updateSheets = () => {
-
-		fetch('/api/spreadSheet')
-		.then(response => response.json())
-		.then(x => this.setState({ sheets: x}))
-		.catch(err => { throw new Error(err) });
+		console.log("yes")
+		this.setState({ saved: true })
+		api.getUserSpreadSheets({
+			...this.props,
+			saved: true,
+			notes: '',
+			dateSaved: Date.now()
+		}, auth.getUserId())
 	}
+
 	handleDelete = () => {
-		let id = document.getElementById(this._id)
-		console.log(id)
-		fetch('/api/spreadSheet/' + id, {
-			method: 'DELETE',
-			headers: {
-			  'Accept': 'application/json',
-			  'Content-Type': 'application/json',
-			},
-		  })
-		  .then("success")
-		  .then(this.updateSheets())
-		  .catch((error) => {
-			throw (error);
-		  });
+		console.log('Unsaving job: ', this.props.title)
+		this.setState({ saved: false })
+		api.deleteSheet(this.props._id, auth.getUserId())
+		this.updateSheets()
 		  }
+		  
 	render() {
 
 		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
@@ -76,7 +74,7 @@ class SpreadSheetList extends Component {
 		return (
 			
 				<TableRow  style={{ listStyleType: 'none' }}>
-					<TableCell><Button id={_id} onClick={this.handleDelete}><DeleteIcon /></Button></TableCell>
+					<TableCell><Button id={_id} onClick={this.handleDelete} ><DeleteIcon /></Button></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>

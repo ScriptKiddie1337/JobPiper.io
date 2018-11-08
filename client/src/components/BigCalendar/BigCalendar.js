@@ -2,28 +2,10 @@ import React, { Component } from "react";
 import Calendar from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-<<<<<<< HEAD
-//import API from "../../utils/API";
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-//import Icon from '@material-ui/core/Icon';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-//import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormGroup from '@material-ui/core/FormGroup';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Checkbox from '@material-ui/core/Checkbox';
-//import { auth } from '../../firebase';
-=======
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import EventModal from '../EventModal';
 import Tooltip from '@material-ui/core/Tooltip';
->>>>>>> 32caf94d6f536ff6b0f2bb2ca69f7f796107dd9a
 import { initGoogleCalendar, getCalendarEvents, createCalendarEvent, deleteCalendarEvent, updateCalendarEvent } from '../../session/googleCalendar'
 
 // import "./App.css"
@@ -194,7 +176,7 @@ class BigCalendar extends Component {
                     style={{ height: "90vh" }}
                 />
                 <Tooltip title="Create Event">
-                    <Button aria-label="Create Event" style={{color: '#fdd835', position: 'absolute', right: 50, bottom: 80 }} variant="fab" color="primary" aria-label="Add"  >
+                    <Button aria-label="Create Event" style={{color: '#fdd835', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="primary" aria-label="Add"  >
                         <AddIcon onClick={this.handleOpen} />
                     </Button>
                 </Tooltip>

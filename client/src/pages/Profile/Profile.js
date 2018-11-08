@@ -73,7 +73,7 @@ class Profile extends Component {
 				</div>
   		</Grid>
 		</Grid>
-		<Hidden smUp>
+		<Hidden mdUp>
 			<LabelBottomNavigation />
 		</Hidden>
 	</div>
