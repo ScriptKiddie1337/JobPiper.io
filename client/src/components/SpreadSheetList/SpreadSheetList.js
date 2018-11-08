@@ -4,6 +4,8 @@ import { auth } from '../../firebase'
 import api from '../../utils/API'
 import TableCell from '@material-ui/core/TableCell';
 import { TableRow } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 //import PropTypes from 'prop-types';
 
 const styles = theme => ({
@@ -30,12 +32,6 @@ class SpreadSheetList extends Component {
 			dateSaved: Date.now()
 		}, auth.getUserId())
 	}
-//change to delete row
-	// handleJobUnsave = () => {
-	// 	console.log('Unsaving job: ', this.props.title)
-	// 	this.setState({ saved: false })
-	// 	api.userUnsaveJob(this.props._id, auth.getUserId())
-	// }
 
 	state = { saved: this.props.saved }
 
@@ -48,7 +44,29 @@ class SpreadSheetList extends Component {
 			this.setState({ saved: newProps.saved })
 		}
 	}
+	updateSheets = () => {
 
+		fetch('/api/spreadSheet')
+		.then(response => response.json())
+		.then(x => this.setState({ sheets: x}))
+		.catch(err => { throw new Error(err) });
+	}
+	handleDelete = () => {
+		let id = document.getElementById(this._id)
+		console.log(id)
+		fetch('/api/spreadSheet/' + id, {
+			method: 'DELETE',
+			headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json',
+			},
+		  })
+		  .then("success")
+		  .then(this.updateSheets())
+		  .catch((error) => {
+			throw (error);
+		  });
+		  }
 	render() {
 
 		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
@@ -58,12 +76,13 @@ class SpreadSheetList extends Component {
 		return (
 			
 				<TableRow  style={{ listStyleType: 'none' }}>
+					<TableCell><Button id={_id} onClick={this.handleDelete}><DeleteIcon /></Button></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
+					<TableCell><a href={hr_link} dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
+					<TableCell><a href={site_link} dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
 					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
 				</TableRow>

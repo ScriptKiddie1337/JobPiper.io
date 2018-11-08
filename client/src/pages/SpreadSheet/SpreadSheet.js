@@ -14,6 +14,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+//import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
 	container: {
@@ -37,50 +44,50 @@ const styles = theme => ({
 
 const numberOfEmployees = [
 	{
-	  value: '100',
+	  value: 100,
 	  label: '100',
 	},
 	{
-	  value: '1000',
+	  value: 1000,
 	  label: '1,000',
 	},
 	{
-	  value: '5000',
+	  value: 5000,
 	  label: '5,000',
 	},
 	{
-	  value: '10000',
+	  value: 10000,
 	  label: '10,000',
 	},
   ];
 
   const methodApplied = [
 	{
-	  value: 'online',
+	  value: 'Online',
 	  label: 'Online',
 	},
 	{
-	  value: 'person',
+	  value: 'In Person',
 	  label: 'In person',
 	},
 	{
-	  value: 'network',
+	  value: 'Networking event',
 	  label: 'Networking event',
 	},
 	{
-	  value: 'referral',
+	  value: 'Referral',
 	  label: 'Referral',
 	},
 	{
-	  value: 'linkedin',
+	  value: 'Linked In referral',
 	  label: 'Linked In referral',
 	},
 	{
-	  value: 'hremail',
+	  value: 'HR cold email',
 	  label: 'HR cold email',
 	},
 	{
-	  value: 'other',
+	  value: 'Other',
 	  label: 'Other',
 	},
   ];
@@ -135,17 +142,16 @@ class SpreadSheet extends Component {
     status: "",
     image: "",
     note: [],
-	contact: [],
-	// form states
-	jobname: '',
-	companyName: '',
-	industryDescription: '',
-	numberOfEmployees: '',
-	jobLink: '',
-	hrLink: '',
-	methodApplied: '',
-	currentStatus: '',
-   
+	  contact: [],
+	  // form states
+	  jobname: '',
+	  companyName: '',
+	  industryDescription: '',
+	  numberOfEmployees: '',
+	  jobLink: '',
+	  hrLink: '',
+	  methodApplied: '',
+	  currentStatus: '',
   };
 
   updateSheets = () => {
@@ -182,24 +188,82 @@ class SpreadSheet extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     this.handleClickLoading();
+    let title = document.getElementById("standard-title").value;
+    let site_link = document.getElementById("standard-jobLink").value;
+    let hr_link = document.getElementById("standard-hrLink").value;
+    let company = document.getElementById("standard-hrLink").value;
+    let industry = document.getElementById("standard-industry").value;
+    let size = document.getElementById("standard-select-number").value;
+    let method = document.getElementById("standard-select-method").value;
+    let status = document.getElementById("standard-select-status").value;
+    let date = document.getElementById('date').value;
 
-    fetch('/api/spreadSheet')
-    .then(response => response.json())
-    .then(x => this.setState({ sheets: x}))
-    .catch(err => { throw new Error(err) });
+    var url = '/api/spreadSheet';
+    var data = {
+      title: title,
+      site_link: site_link,
+      hr_link: hr_link,
+      company: company,
+      industry: industry,
+      size: size,
+      method: method,
+      status: status,
+      date: date,
+    };
+    
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .then(response => console.log('Success:', JSON.stringify(response)))
+    .then(this.updateSheets())
+    .then(document.getElementById("jobForm").reset())
+    .catch(error => console.error('Error:', error));
   };
+ 
+  handleCreateEvent = () => {
+    const { start, end, title, eventId } = this.state
+    const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
+    this.setState({ open: true })
+};
+
+resetForm = () => {
+  this.setState({
+    jobname: '',
+	  companyName: '',
+	  industryDescription: '',
+	  numberOfEmployees: '',
+	  jobLink: '',
+	  hrLink: '',
+	  methodApplied: '',
+	  currentStatus: '',
+  })
+}
+handleClose = () => {
+  this.setState({ open: false });
+  this.resetForm();
+};
+
+
 
   render() {
 
 	  const { classes } = this.props;
 		
     return (
-
       <div>
-			<Grid container>
-				<Grid item xs={12}>
-				<form noValidate autoComplete="off">
-					<TextField
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+          >
+          <DialogTitle id="form-dialog-title">Update</DialogTitle>
+          <DialogContent>
+				<form id='jobForm' className={classes.formData} noValidate autoComplete="off">
+          <TextField
         				id="standard-title"
         				label="Job Description"
         				className={classes.textField}
@@ -310,14 +374,28 @@ class SpreadSheet extends Component {
           			))}
         		</TextField>
 				</form>
-				</Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="fab" color="primary" aria-label="Delete">
+            <DeleteIcon onClick={this.deleteEvent} />
+          </Button>
+          <Button onClick={this.handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleFormSubmit} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+        </Dialog>
+			<Grid container>
 				<Grid item xs={12}>
-						<Button>Submit</Button>
+          <Button variant="fab" onClick={this.handleCreateEvent} type='success' style={{ backgroundColor: '#fdd835', padding: '10px' }} ><AddIcon /></Button>
 				</Grid>
 				<Grid item xs={12}>
   					<Table>
               			<TableHead>
                 			<TableRow>
+                        <TableCell>Edit</TableCell> 
                 				<TableCell>Job Title</TableCell>
                 				<TableCell>Company</TableCell>
                 				<TableCell>Industry</TableCell>
@@ -334,7 +412,8 @@ class SpreadSheet extends Component {
 								if (sheet.item) {
 									if (!sheet.item.search.some(x => x.toLowerCase().includes(this.state.excludeTerm)) || this.state.excludeTerm === '') {
                    						return (
-                							<SpreadSheetList
+                              <SpreadSheetList 
+                                  
                     							key={i}
                     							site_link={sheet.item.site_link}
                     							_id={sheet.item._id}
@@ -346,13 +425,15 @@ class SpreadSheet extends Component {
                     							size={sheet.item.size}
                     							method={sheet.item.method}
                     							status={sheet.item.status}
-                    							saved={false}
                     						/>
+                                
               							)
                 					}
               					} else {
                 					return (
                     					<SpreadSheetList
+                                //onChange={this.handleDelete()}
+                                
                     						key={i}
                     						site_link={sheet.site_link}
                     						_id={sheet._id}
@@ -373,11 +454,7 @@ class SpreadSheet extends Component {
             				})}
               			</TableBody>
               			<TableFooter>
-                  			<TableRow>
-                    			<TableCell>
-                    				<Button fullwidth="true" onClick={this.handleFormSubmit} type='success' style={{ backgroundColor: '#fdd835', padding: '10px', height: '50px' }} >Search</Button>
-                    			</TableCell>
-                  			</TableRow>
+                  		
             			</TableFooter>
             		</Table>
 				</Grid>
