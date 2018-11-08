@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 import { Grid } from '@material-ui/core';
 import SpreadSheetList from '../../components/SpreadSheetList';
 //import Paper from '@material-ui/core/Paper';
@@ -21,10 +21,12 @@ const styles = theme => ({
 	  flexWrap: 'wrap',
 	},
 	textField: {
+    marginTop: 'auto',
 	  marginLeft: theme.spacing.unit,
 	  marginRight: theme.spacing.unit,
 	  width: 200,
-	},
+  },
+  
 	dense: {
 	  marginTop: 19,
 	},
@@ -241,7 +243,7 @@ class SpreadSheet extends Component {
            				</MenuItem>
           			))}
         		</TextField>
-				<TextField
+				    <TextField
         				id="standard-jobLink"
         				label="Link to Job Description"
         				className={classes.textField}
@@ -249,7 +251,17 @@ class SpreadSheet extends Component {
         				onChange={this.handleChange('jobLink')}
         				margin="normal"
         			/>
-					<TextField
+              <TextField
+                id="date"
+                label="Date Applied"
+                type="date"
+                defaultValue="2017-05-24"
+                className={classes.textField}
+                InputLabelProps={{
+                shrink: true,
+                }}
+              />
+					  <TextField
         				id="standard-hrLink"
         				label="Link to HR email"
         				className={classes.textField}
@@ -257,18 +269,18 @@ class SpreadSheet extends Component {
         				onChange={this.handleChange('hrLink')}
         				margin="normal"
         			/>
-				<TextField
-          				id="standard-select-method"
-          				select
-						label="How did you apply"
-						className={classes.textField}
-          				value={this.state.methodApplied}
-          				onChange={this.handleChange('methodApplied')}
-          				SelectProps={{
-            				MenuProps: {
-              				className: classes.menu,
-            				},
-          				}}
+				    <TextField
+          			id="standard-select-method"
+          			select
+						    label="How did you apply"
+						    className={classes.textField}
+          			value={this.state.methodApplied}
+          			onChange={this.handleChange('methodApplied')}
+          			SelectProps={{
+            			MenuProps: {
+              			className: classes.menu,
+            			},
+          			}}
           				margin="normal"
         			>
           			{methodApplied.map(option => (
@@ -277,19 +289,19 @@ class SpreadSheet extends Component {
            				</MenuItem>
           			))}
         		</TextField>
-				<TextField
-          				id="standard-select-status"
-          				select
-						label="Status"
-						className={classes.textField}
-          				value={this.state.currentStatus}
-          				onChange={this.handleChange('currentStatus')}
-          				SelectProps={{
-            				MenuProps: {
-              				className: classes.menu,
-            				},
-          				}}
-          				margin="normal"
+				    <TextField
+          		id="standard-select-status"
+          		select
+						  label="Status"
+				      className={classes.textField}
+          		value={this.state.currentStatus}
+          		onChange={this.handleChange('currentStatus')}
+          		SelectProps={{
+            		MenuProps: {
+              		className: classes.menu,
+            		},
+          		}}
+          		margin="normal"
         			>
           			{currentStatus.map(option => (
             			<MenuItem key={option.value} value={option.value}>
