@@ -55,7 +55,7 @@ class BigCalendar extends Component {
                             title: date.summary,
                             isAllDay: false
                         }))
-                        this.setState({ events: eventArray }, () => console.log(this.state))
+                        this.setState({ events: eventArray })
                     }
                 })
         })
@@ -163,7 +163,7 @@ class BigCalendar extends Component {
                     localizer={localizer}
                     selectable="ignoreEvents"
                     defaultDate={new Date()}
-                    defaultView="month"
+                    defaultView={ this.props.view }
                     events={this.state.events}
                     onEventDrop={this.onEventDrop}
                     onEventResize={this.onEventResize}

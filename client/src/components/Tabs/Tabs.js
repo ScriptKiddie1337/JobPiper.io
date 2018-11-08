@@ -75,7 +75,7 @@ class ScrollableTabsButtonAuto extends React.Component {
             <TabContainer>
               <HomeGrid />
             </TabContainer>}
-            {value === 1 && <TabContainer to='/BigCalendar'><BigCalendar /></TabContainer>}
+            {value === 1 && <TabContainer to='/BigCalendar'><BigCalendar view="week" /></TabContainer>}
             {value === 2 && <TabContainer to='/jobs'><JobListing /></TabContainer>}
             {value === 3 && <TabContainer to='/savedjobs'><SavedJobs /></TabContainer>}
             {/* {value === 4 && <TabContainer to='/companynews'><CompanyNews /></TabContainer>} */}
