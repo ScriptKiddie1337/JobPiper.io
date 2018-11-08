@@ -50,8 +50,8 @@ class BigCalendar extends Component {
                         // Update the state with the retrieved calendar events
                         const eventArray = res.result.items.map(date => ({
                             id: date.id,
-                            start: moment(date.start.dateTime),
-                            end: moment(date.end.dateTime),
+                            start: new Date(date.start.dateTime),
+                            end: new Date(date.end.dateTime),
                             title: date.summary,
                             isAllDay: false
                         }))
@@ -93,18 +93,18 @@ class BigCalendar extends Component {
 
     handleCreateEvent = () => {
         const { start, end, title, eventId } = this.state
-        const updateEvent = { start: start, end: end, title: title, eventId: eventId }
+        const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
         console.log(updateEvent)
         this.setState({ open: true })
     }
     onEventResize = (event) => {
         const { start, end } = event;
         const { id, title } = event.event
-        let updatedEvent = { id: id, start: start, end: end, title: title }
+        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
-        this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
+        this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
         //update the calendar event at index 0
        
     };
@@ -112,20 +112,20 @@ class BigCalendar extends Component {
     onEventDrop  = (event) => {
         console.log(event)
         // const { id, title, start, end } = event;
-        // let updatedEvent = { id: id, start: start, end: end, title: title }
+        // let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
         // let newEvents = this.state.events.filter(event => event.id !== id);
         // // add the unchanged characters to the updated character array
         // newEvents.push(updatedEvent)
-        // this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
+        // this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
     };
 
     onDoubleClickEvent  = (event) => {
         const { id, title, start, end } = event;
-        let updatedEvent = { id: id, start: start, end: end, title: title }
+        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
-        this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
+        this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
 
     }
 
@@ -139,7 +139,7 @@ class BigCalendar extends Component {
             open: false,
         });
         if (eventId !== '' && eventId !== undefined) {
-            updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", start, end)
+            updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", new Date(start), new Date(end))
             .then(res => {
                 if (res.status === 200) {
                     console.log(`Events Updated: Code ${res.status}`)
@@ -148,7 +148,7 @@ class BigCalendar extends Component {
                 .catch(err => console.log(err))
         } else {
             console.log("Creating Event", this.state.calendarId, title, "created event", start, end)
-            createCalendarEvent(this.state.calendarId, title, "created event", start, end)
+            createCalendarEvent(this.state.calendarId, title, "created event", new Date(start), new Date(end))
                 .then(res => {
                     if (res.status === 200) {
                         // Update state with the event that was sucessfully created
