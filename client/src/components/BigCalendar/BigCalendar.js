@@ -29,6 +29,31 @@ class BigCalendar extends Component {
         calendarId: ''
     }
 
+    handleSave = (event) => {
+        console.log(this.state)
+        const { start, end, title, description, eventId } = this.state
+        this.setState({
+            open: false,
+        });
+        if (eventId !== '' && eventId !== undefined) {
+            updateCalendarEvent(this.state.calendarId, eventId, title, description, new Date(start), new Date(end))
+            .catch(err => console.log(err))
+        } else {
+            createCalendarEvent(this.state.calendarId, title, description, new Date(start), new Date(end))
+                .then(res => {
+                    if (res.status === 200) {
+                        // Update state with the event that was sucessfully created
+                        let calendarEvents = this.state.events;
+                        (res.result && calendarEvents.push(res.result));
+                        this.setState({ events: calendarEvents })
+                    };
+                })
+                .catch(err => console.log(err))
+        }
+        this.resetEvent();
+        this.drawCalendarEvents();
+    };
+
     drawCalendarEvents = () => {
         initGoogleCalendar()
         .then(calendarId => {
@@ -43,6 +68,7 @@ class BigCalendar extends Component {
                             start: new Date(date.start.dateTime),
                             end: new Date(date.end.dateTime),
                             title: date.summary,
+                            description: date.description,
                             isAllDay: false
                         }))
                         this.setState({ events: eventArray })
@@ -54,8 +80,8 @@ class BigCalendar extends Component {
     deleteEvent = (event) => {
         this.setState({open: false});
         deleteCalendarEvent(this.state.calendarId,this.state.eventId)
-        this.drawCalendarEvents();
         this.resetEvent();
+        this.drawCalendarEvents();
       
     }
 
@@ -64,6 +90,7 @@ class BigCalendar extends Component {
             start: new Date(),
             end: new Date(),
             title: '',
+            description: '',
             isAllDay: true,
             eventId: '',
             open: false,
@@ -75,20 +102,41 @@ class BigCalendar extends Component {
         this.drawCalendarEvents();
     };
 
-    handleCreateEvent = () => {
-        const { start, end, title, eventId, description } = this.state
-        const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId, description: description }
+    handleOpen = () => {
         this.setState({ open: true })
     };
 
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleisAllDay = name => event => {
+        this.setState({ isAllDay: event.target.checked });
+    };
+
     handleUpdateEvent = (e) => {
-        const { start, end } = e;
+        const { start, end, description } = e;
         const { id, title } = e.event
-        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
+        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title, description: description }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
-        this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
+        this.setState({ 
+            ...this.state, 
+            events: newEvents, 
+            start: new Date(start), 
+            end: new Date(end), 
+            eventId: id, 
+            title: title, 
+            description: description, 
+            open: true 
+        }, 
+        // () => console.log(this.state)
+        );
     };
 
     onEventResize = (event) => {
@@ -100,50 +148,13 @@ class BigCalendar extends Component {
     };
 
     onDoubleClickEvent  = (event) => {
-        const { id, title, start, end } = event;
-        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title }
+        const { id, title, description, start, end } = event;
+        let updatedEvent = { id: id, start: new Date(start), end: new Date(end), title: title, description: description }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
-        this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, open: true });
-
+        this.setState({ ...this.state, events: newEvents, start: new Date(start), end: new Date(end), eventId: id, title: title, description: description, open: true });
     }
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
-    handleSave = (event) => {
-        const { start, end, title, eventId } = this.state
-        this.setState({
-            open: false,
-        });
-        if (eventId !== '' && eventId !== undefined) {
-            updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", new Date(start), new Date(end))
-            .catch(err => console.log(err))
-        } else {
-            createCalendarEvent(this.state.calendarId, title, "created event", new Date(start), new Date(end))
-                .then(res => {
-                    if (res.status === 200) {
-                        // Update state with the event that was sucessfully created
-                        let calendarEvents = this.state.events;
-                        (res.result && calendarEvents.push(res.result));
-                        this.setState({ events: calendarEvents })
-                    };
-                })
-                .catch(err => console.log(err))
-        }
-        this.drawCalendarEvents();
-        this.resetEvent();
-    };
-
-    handleisAllDay = name => event => {
-        this.setState({ isAllDay: event.target.checked });
-    };
-
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
 
     render() {
         return (
@@ -160,12 +171,13 @@ class BigCalendar extends Component {
                     startAccessor="start"
                     endAccessor="end"
                     resizable
+                    fullwidth
                     popup
                     style={{ height: "90vh" }}
                 />
                 <Tooltip title="Create Event">
                     <Button aria-label="Create Event" style={{color: '#fdd835', position: 'absolute', right: 50, bottom: 80 }} variant="fab" color="primary" aria-label="Add"  >
-                        <AddIcon onClick={this.handleCreateEvent} />
+                        <AddIcon onClick={this.handleOpen} />
                     </Button>
                 </Tooltip>
                 <EventModal 

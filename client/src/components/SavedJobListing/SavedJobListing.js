@@ -11,6 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 import SavedIcon from '@material-ui/icons/StarRate';
 import SaveIcon from '@material-ui/icons/Stars';
 import EventModal from '../EventModal';
+import Tooltip from '@material-ui/core/Tooltip';
+import { initGoogleCalendar, getCalendarEvents, createCalendarEvent, deleteCalendarEvent, updateCalendarEvent } from '../../session/googleCalendar'
+import moment from "moment";
 import { auth } from '../../firebase';
 import API from '../../utils/API';
 
@@ -29,9 +32,36 @@ const styles = theme => ({
 class SavedJobListing extends Component {
     state = {
         saved: this.props.saved,
+        start: new Date(),
+        end: new Date(),
+        title: this.props.title,
+        description: this.props.keywords,
         notes: '',
+        isAllDay: true,
+        open: false,
+        calendarId:'',
         jobs: []
     }
+
+    componentDidMount = () => {
+        initGoogleCalendar()
+        .then(calendarId => {
+
+            this.setState({ calendarId: calendarId })
+        })
+    }
+
+    handleOpen = () => {
+        this.setState({ open: true })
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -39,6 +69,76 @@ class SavedJobListing extends Component {
             [name]: value
         })
     };
+
+    handleSave = (event) => {
+        console.log(this.state)
+        const { start, end, title, description, eventId } = this.state
+        this.setState({
+            open: false,
+        });
+        if (eventId !== '' && eventId !== undefined) {
+            updateCalendarEvent(this.state.calendarId, eventId, title, description, new Date(start), new Date(end))
+            .catch(err => console.log(err))
+        } else {
+            createCalendarEvent(this.state.calendarId, title, description, new Date(start), new Date(end))
+                .then(res => {
+                    if (res.status === 200) {
+                        // Update state with the event that was sucessfully created
+                        let calendarEvents = this.state.events;
+                        (res.result && calendarEvents.push(res.result));
+                        this.setState({ events: calendarEvents })
+                    };
+                })
+                .catch(err => console.log(err))
+        }
+        this.resetEvent();
+        this.drawCalendarEvents();
+    };
+
+    drawCalendarEvents = () => {
+        initGoogleCalendar()
+        .then(calendarId => {
+
+            this.setState({ calendarId: calendarId })
+            getCalendarEvents(calendarId, new Date(moment().subtract(30, 'days')), new Date(moment().add(30, 'days')))
+                .then(res => {
+                    if (res.status === 200) {
+                        // Update the state with the retrieved calendar events
+                        const eventArray = res.result.items.map(date => ({
+                            id: date.id,
+                            start: new Date(date.start.dateTime),
+                            end: new Date(date.end.dateTime),
+                            title: date.summary,
+                            description: date.description,
+                            isAllDay: false
+                        }))
+                        this.setState({ events: eventArray })
+                    }
+                })
+        })
+    }
+
+    deleteEvent = (event) => {
+        this.setState({open: false});
+        deleteCalendarEvent(this.state.calendarId,this.state.eventId)
+        this.resetEvent();
+        this.drawCalendarEvents();
+      
+    }
+
+    resetEvent = () => {
+        this.setState({
+            start: new Date(),
+            end: new Date(),
+            title: this.props.title,
+            description: this.props.keywords,
+            notes: '',
+            isAllDay: true,
+            eventId: '',
+            open: false,
+            calendarId: ''
+        })
+    }
 
     handleJobSave = () => {
         this.setState({ saved: true })
@@ -134,20 +234,39 @@ class SavedJobListing extends Component {
                             name="notes"
                             multiline
                             rows="5"
-                            placeholder='Notes'
+                            placeholder='notes'
                             onChange={this.handleInputChange}
                             style={{width: '100%', backgroundColor: '#F5F5F5', margin: '10px', padding: '10px', border: '#fdd835 solid 1px'}}
                         />
                         </Grid>
-                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button
-                            fullwidth="true"
-                            onClick={ this.handleUpdateNotes }
-                            type='success'
-                            style={{ margin: '0px 10px 0px 0px', backgroundColor: '#fdd835', padding: '10px', height: '40px' }}>
-                            Save</Button>
-                            </Grid>
+                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between'}}>
+                            <Tooltip title="Create Event">
+                                <Button 
+                                aria-label="Create Event" 
+                                style={{ margin: '0px 10px 0px 0px', backgroundColor: '#fdd835', padding: '10px', height: '40px' }} 
+                                color="primary" 
+                                onClick={this.handleOpen} >
+                                Create Event
+                                </Button>
+                            </Tooltip>
+                            <Tooltip title="Save Notes">
+                                <Button
+                                    fullwidth="true"
+                                    onClick={ this.handleUpdateNotes }
+                                    type='success'
+                                    style={{ margin: '0px 10px 0px 0px', backgroundColor: '#fdd835', padding: '10px', height: '40px' }}>
+                                    Save
+                                </Button>
+                            </Tooltip>
+                        </Grid>
                     </Grid>
+                    <EventModal 
+                        updateEvent={ this.state }
+                        onClose={ this.handleClose }
+                        onChange={ this.handleChange }
+                        deleteEvent={ this.deleteEvent }
+                        saveEvent={ this.handleSave }
+                    />
                 </div>
             </Paper>
         )

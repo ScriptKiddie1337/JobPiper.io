@@ -80,6 +80,7 @@ class EventModal extends Component {
                     <FormGroup row>
                             <TextField
                                 id="description"
+                                name="description"
                                 label="Notes"
                                 multiline
                                 rowsMax="10"
