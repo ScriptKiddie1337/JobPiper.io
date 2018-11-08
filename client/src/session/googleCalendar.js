@@ -1,6 +1,7 @@
 /* global gapi */
 
 import { firebase, auth } from '../firebase'
+import moment from "moment";
 
 // Init google calendar to get the ID the calendar containing our events
 // This ID is used to display an iframe of their google calendar with only our events
@@ -69,11 +70,11 @@ export const createCalendarEvent = (calendarId, title, description, startTime, e
             'summary': title,
             'description': description,
             'start': {
-                'dateTime': new Date(startTime).toISOString(),
+                'dateTime': moment(startTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
             'end': {
-                'dateTime': new Date(endTime).toISOString(),
+                'dateTime': moment(endTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
         }
@@ -107,8 +108,8 @@ export const getCalendarEvents = (calendarId, startDate, endDate) => {
 
         var event = {
             'calendarId': calendarId,
-            'timeMin': new Date(startDate).toISOString(),
-            'timeMax': new Date(endDate).toISOString()
+            'timeMin': moment(startDate).toISOString(),
+            'timeMax': moment(endDate).toISOString()
         }
 
         return gapi.client.calendar.events.list(event)
@@ -168,11 +169,11 @@ export const updateCalendarEvent = (calendarId, eventId, title, description, sta
             'summary': title,
             'description': description,
             'start': {
-                'dateTime': new Date(startTime).toISOString(),
+                'dateTime': moment(startTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
             'end': {
-                'dateTime': new Date(endTime).toISOString(),
+                'dateTime': moment(endTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
         }

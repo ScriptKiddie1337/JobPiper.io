@@ -28,167 +28,151 @@ const localizer = Calendar.momentLocalizer(moment)
 const DnDCalendar = withDragAndDrop(Calendar)
 
 class BigCalendar extends Component {
-
-    componentDidMount() {
-
-        initGoogleCalendar()
-            .then(calendarId => {
-
-                this.setState({ calendarId })
-                getCalendarEvents(calendarId, new Date(), new Date(moment().add(30, 'days')))
-                    .then(res => {
-                        if (res.status === 200) {
-                            // Update the state with the retrieved calendar events
-                            const eventArray = res.result.items.map(date => ({
-                                id: date.id,
-                                start: date.start.dateTime,
-                                end: date.end.dateTime,
-                                title: date.summary,
-                                isAllDay: false
-                            }))
-                            console.log(eventArray)
-                            this.setState({ events: eventArray }, () => console.log(this.state))
-
-
-                            // createCalendarEvent(this.state.calendarId, "Job Piper IO", "test event", new Date(moment().subtract(2, 'days')), new Date(moment().add(1, 'days')))
-                            //     .then(res => {
-                            //         if (res.status === 200) {
-                            //             // Update state with the event that was sucessfully created
-                            //             let calendarEvents = this.state.googleCalEvents;
-                            //             (res.result && calendarEvents.push(res.result));
-                            //             this.setState({ googleCalEvents: calendarEvents })
-
-
-                            // Delete the calendar event at index 0
-                            // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
-                            // .then(res => {
-                            //     if(res.status === 204) {
-                            //         // The first arg of splice is the index of the event you want to remove
-                            //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
-                            //     }
-                            // })
-                            //         }
-                            //     })
-                        }
-                    })
-            })
-    }
-
     state = {
         events: [],
-        start: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-        end: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
+        start: new Date(),
+        end: new Date(),
         title: '',
         isAllDay: true,
         eventId: '',
-        open: false
+        open: false,
+        calendarId: ''
+    }
+
+    drawCalendarEvents = () => {
+        initGoogleCalendar()
+        .then(calendarId => {
+
+            this.setState({ calendarId: calendarId })
+            getCalendarEvents(calendarId, new Date(moment().subtract(30, 'days')), new Date(moment().add(30, 'days')))
+                .then(res => {
+                    if (res.status === 200) {
+                        // Update the state with the retrieved calendar events
+                        const eventArray = res.result.items.map(date => ({
+                            id: date.id,
+                            start: moment(date.start.dateTime),
+                            end: moment(date.end.dateTime),
+                            title: date.summary,
+                            isAllDay: false
+                        }))
+                        console.log(eventArray)
+                        this.setState({ events: eventArray }, () => console.log(this.state))
+                    }
+                })
+        })
+    }
+
+    deleteCalendarEvent = () => {
+ // Delete the calendar event at index 0
+                        // deleteCalendarEvent(this.state.calendarId,this.state.googleCalEvents[0].id)
+                        // .then(res => {
+                        //     if(res.status === 204) {
+                        //         // The first arg of splice is the index of the event you want to remove
+                        //         this.setState({googleCalEvents: this.state.googleCalEvents.splice(0, 1)})
+                        //     }
+                        // })
+                        //         }
+                        //     })
+    }
+
+    resetEvent = () => {
+        this.setState({
+            start: new Date(),
+            end: new Date(),
+            title: '',
+            isAllDay: true,
+            eventId: '',
+            open: false,
+            calendarId: ''
+        })
+    }
+
+    componentDidMount() {
+        this.drawCalendarEvents();
     }
 
     handleCreateEvent = () => {
         const { start, end, title, eventId } = this.state
         const updateEvent = { start: start, end: end, title: title, eventId: eventId }
-        console.log(this.state.updateEvent)
+        console.log(updateEvent)
         this.setState({ open: true })
     }
     onEventResize = (event) => {
         const { start, end } = event;
         const { id, title } = event.event
-        let updatedEvent = this.state.events.find(event => event.id === id)
-        updatedEvent.start = moment(start).format("YYYY-MM-DDTHH:mm:ssZ");
-        updatedEvent.end = moment(end).format("YYYY-MM-DDTHH:mm:ssZ");
-
+        let updatedEvent = { id: id, start: start, end: end, title: title }
         let newEvents = this.state.events.filter(event => event.id !== id);
         // add the unchanged characters to the updated character array
         newEvents.push(updatedEvent)
-        this.setState({ ...this.state, events: newEvents, updateEvent: updatedEvent, open: true });
+        this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
         //update the calendar event at index 0
-        updateCalendarEvent(this.state.calendarId, id, title, "updated event", start, end)
-            .then(res => {
-                if (res.status === 200) {
-
-                    let calEvents = this.state.googleCalEvents
-                    calEvents = res.result
-                    this.setState({ googleCalEvents: calEvents })
-                }
-            })
+       
     };
 
-    onEventDrop = ({ event, id, start, end, isAllDay }) => {
-        console.log("id is : ", event.id, start, end, isAllDay);
+    onEventDrop  = (event) => {
+        console.log(event)
+        // const { id, title, start, end } = event;
+        // let updatedEvent = { id: id, start: start, end: end, title: title }
+        // let newEvents = this.state.events.filter(event => event.id !== id);
+        // // add the unchanged characters to the updated character array
+        // newEvents.push(updatedEvent)
+        // this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
     };
-    onDoubleClickEvent = (event) => {
-        console.log(this.state)
-        this.setState({ open: true })
+
+    onDoubleClickEvent  = (event) => {
+        const { id, title, start, end } = event;
+        let updatedEvent = { id: id, start: start, end: end, title: title }
+        let newEvents = this.state.events.filter(event => event.id !== id);
+        // add the unchanged characters to the updated character array
+        newEvents.push(updatedEvent)
+        this.setState({ ...this.state, events: newEvents, start: start, end: end, eventId: id, title: title, open: true });
 
     }
-    handleClickOpen = () => {
-        this.setState({ open: true });
-        console.log('All Day: ', this.state.updateEvent.isAllDay);
-    };
 
     handleClose = () => {
         this.setState({ open: false });
     };
 
     handleSave = (event) => {
-        const { title, start, end, eventId } = this.state.updateEvent;
+        const { start, end, title, eventId } = this.state
         this.setState({
             open: false,
         });
-        console.log(this.state.updateEvent)
-        // console.log(`title ${title}, start ${start}, end ${end}`)
-        // if (eventId !== '' || undefined) {
-        //     updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", start, end)
-        //         .then(res => {
-        //             if (res.status === 200) {
+        if (eventId !== '' && eventId !== undefined) {
+            updateCalendarEvent(this.state.calendarId, eventId, title, "updated event", start, end)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(`Events Updated: Code ${res.status}`)
+                }
+            })
+                .catch(err => console.log(err))
+        } else {
+            console.log("Creating Event", this.state.calendarId, title, "created event", start, end)
+            createCalendarEvent(this.state.calendarId, title, "created event", start, end)
+                .then(res => {
+                    if (res.status === 200) {
+                        // Update state with the event that was sucessfully created
+                        let calendarEvents = this.state.events;
+                        (res.result && calendarEvents.push(res.result));
+                        this.setState({ events: calendarEvents })
+                    };
+                })
+                .catch(err => console.log(err))
+        }
+        this.drawCalendarEvents();
+        this.resetEvent();
+    };
 
-        //                 let calEvents = this.state.googleCalEvents
-        //                 calEvents = res.result
-        //                 this.setState({ events: calEvents })
-        //             }
-        //         })
-        //         .catch(err => console.log(err))
-        // } else {
-        //     createCalendarEvent(this.state.calendarId, title, "created event", start, end)
-        //         .then(res => {
-        //             if (res.status === 200) {
-        //                 // Update state with the event that was sucessfully created
-        //                 let calendarEvents = this.state.googleCalEvents;
-        //                 (res.result && calendarEvents.push(res.result));
-        //                 this.setState({ events: calendarEvents })
-        //             };
-        //         })
-        //         .catch(err => console.log(err))
-        // }
-        // reset updateEvent
-        // updateEvent: {
-        //     start: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-        //     end: moment(Date.now()).format("YYYY-MM-DDTHH:mm:ssZ"),
-        //     title: '',
-        //     isAllDay: true,
-        //     eventId: ''
-        // }
-
-    }
     handleisAllDay = name => event => {
-        let updateEvent = { ...this.state.updateEvent }
-        updateEvent.isAllDay = event.target.checked
-        this.setState({ updateEvent });
-    };
-    handleEventChange = event => {
-        const eventChange = Object.assign({}, this.state.updateEvent, {
-            title: event.target.value
-        })
-
-        this.setState({ eventChange });
+        this.setState({ isAllDay: event.target.checked });
     };
 
-    // const salary = Object.assign({}, this.state.salary, { min: minValue });
-
-    // this.setState({ salary });
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     render() {
-        const { isAllDay, title, start, end, eventId } = this.state.updateEvent;
+        const { isAllDay, title, start, end, eventId } = this.state;
         return (
             <div>
                 <DnDCalendar
@@ -200,6 +184,8 @@ class BigCalendar extends Component {
                     onEventDrop={this.onEventDrop}
                     onEventResize={this.onEventResize}
                     onDoubleClickEvent={this.onDoubleClickEvent}
+                    startAccessor="start"
+                    endAccessor="end"
                     resizable
                     popup
                     style={{ height: "90vh" }}
@@ -218,15 +204,16 @@ class BigCalendar extends Component {
                         <FormGroup row>
                             <TextField
                                 id="title"
+                                name="title"
                                 label="Event Title"
                                 margin="normal"
                                 value={title}
-                                onChange={this.handleEventChange}
+                                onChange={this.handleChange}
                             />
                             {/* <FormControlLabel control={
                                 <Checkbox
                                     checked={isAllDay}
-                                    onChange={this.handleEventChange('isAllDay')}
+                                    onChange={this.handleisAllDay}
                                     color="primary"
                                     value="isAllDay"
                                 />
@@ -238,7 +225,9 @@ class BigCalendar extends Component {
                             <TextField
                                 id="startDate"
                                 label="Start Date"
+                                name="start"
                                 type="datetime-local"
+                                onChange={this.handleChange}
                                 defaultValue={(start ? moment(start).format("YYYY-MM-DDThh:mm") : moment(Date.now()).format("YYYY-MM-DDThh:mm"))}
                                 InputLabelProps={{
                                     shrink: true,
@@ -249,8 +238,10 @@ class BigCalendar extends Component {
                         <FormGroup row>
                             <TextField
                                 id="endDate"
+                                name="end"
                                 label="End Date"
                                 type="datetime-local"
+                                onChange={this.handleChange}
                                 defaultValue={(end ? moment(end).format("YYYY-MM-DDThh:mm") : moment(Date.now()).format("YYYY-MM-DDThh:mm"))}
                                 InputLabelProps={{
                                     shrink: true,
