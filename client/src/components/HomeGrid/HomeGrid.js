@@ -46,7 +46,7 @@ function HomeGrid(props) {
                 </Card>
             </Grid>
             <Grid item xs={12}>
-                <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px', display: 'flex', justifyContent: 'center' }}>
+                <Card className={classes.card} style={{ border: '#fdd835 solid 2px', padding: '10px',  }}>
                     <BigCalendar view="month" />
                 </Card>
             </Grid>
