@@ -48,7 +48,7 @@ function HomeIcons(props) {
             <Icon 
               path={mdiSettings} 
               size={2} 
-              color='#fdd835'/>
+              color='green'/>
             <Hidden mdDown>
               <p style={{marginLeft: 10, fontSize: '22px'}}>Settings</p>
             </Hidden>  
