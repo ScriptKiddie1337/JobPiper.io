@@ -203,7 +203,7 @@ class SavedJobs extends Component {
 												keywords={job.keywords}
 												body={job.body}
 												image={job.image}
-												notes={job.notes}
+												description={job.description}
 												saved={true}
 											/>
 										</TableCell>
