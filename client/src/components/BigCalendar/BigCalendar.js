@@ -174,9 +174,11 @@ class BigCalendar extends Component {
                     popup
                     style={{ height: "90vh" }}
                 />
-                <Button variant="fab" color="primary" aria-label="Add"  >
+                <div>
+                <Button style={{color: '#fdd835', position: 'absolute', right: 10, }} variant="fab" color="primary" aria-label="Add"  >
                     <AddIcon onClick={this.handleCreateEvent} />
                 </Button>
+                </div>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
