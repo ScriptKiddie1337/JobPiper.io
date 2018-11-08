@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DateTimePicker from './DateTimePicker/DateTimePicker';
-import { addEventToGoogleCalendar } from '../../session/googleCalendar'
+import { createCalendarEvent } from '../../session/googleCalendar'
 
 const initialState = {
     open: false,
@@ -30,7 +30,7 @@ export default class FormDialog extends React.Component {
 
     handleCreate = () => {
         const { title, description, startTime, endTime } = this.state
-        addEventToGoogleCalendar(title, description, (startTime? startTime:Date.now()), (endTime?endTime:Date.now()))
+        createCalendarEvent(this.props.calendarId, title, description, (startTime? startTime:Date.now()), (endTime?endTime:Date.now()))
             .then(this.props.eventCreatedCallback())
         this.handleClose()
     }

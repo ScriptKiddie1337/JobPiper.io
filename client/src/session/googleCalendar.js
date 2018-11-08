@@ -1,6 +1,7 @@
 /* global gapi */
 
 import { firebase, auth } from '../firebase'
+import moment from "moment";
 
 // Init google calendar to get the ID the calendar containing our events
 // This ID is used to display an iframe of their google calendar with only our events
@@ -61,27 +62,27 @@ export const initGoogleCalendar = () => {
 
 // Adds an event to the user's job calendar
 // Will check that the user's job calendar still exists, and create one if needed
-export const addEventToGoogleCalendar = (title, description, startTime, endTime) => {
+export const createCalendarEvent = (calendarId, title, description, startTime, endTime) => {
 
-    const createCalendarEvent = calendarId => {
+    const createCalendarEvent = () => {
 
         var event = {
             'summary': title,
             'description': description,
             'start': {
-                'dateTime': new Date(startTime).toISOString(),
+                'dateTime': moment(startTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
             'end': {
-                'dateTime': new Date(endTime).toISOString(),
+                'dateTime': moment(endTime).toISOString(),
                 'timeZone': 'America/Los_Angeles'
             },
         }
 
-        gapi.client.calendar.events.insert({
+        return gapi.client.calendar.events.insert({
             'calendarId': calendarId,
             'resource': event
-        }).then(response => console.log(response))
+        })
     }
 
     return new Promise((resolve, reject) => {
@@ -89,26 +90,114 @@ export const addEventToGoogleCalendar = (title, description, startTime, endTime)
         if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
             auth.refreshToken()
                 .then(function (token) {
-                    return gapi.client.calendar.calendarList.list({ maxResults: 250 })
+                    return createCalendarEvent()
+                })
+                .then(res => resolve(res))
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+// Retrieves the user's calendar events for the specified calendar
+// within the specified timeframe.
+export const getCalendarEvents = (calendarId, startDate, endDate) => {
+
+    const getCalendarEvents = () => {
+
+        var event = {
+            'calendarId': calendarId,
+            'timeMin': moment(startDate).toISOString(),
+            'timeMax': moment(endDate).toISOString()
+        }
+
+        return gapi.client.calendar.events.list(event)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return getCalendarEvents()
                 })
                 .then(function (response) {
-                    const ourCalendar = response.result.items.find(item => item.summary === "Job Piper")
-
-                    if (ourCalendar === undefined) {
-                        return gapi.client.calendar.calendars.insert({
-                            summary: "Job Piper"
-                        })
-                            .then(function (response) {
-
-                                createCalendarEvent(response.result.id)
-                            })
-                    } else {
-                        createCalendarEvent(ourCalendar.id)
-                    }
+                    resolve(response)
                 })
         } else {
             auth.signOut(); // Something went wrong, sign out
-            return reject("Signed out user, as google api client returned not signed in")
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+export const deleteCalendarEvent = (calendarId, eventId) => {
+
+    const deleteCalendarEvent = () => {
+
+        var event = {
+            calendarId,
+            eventId
+        }
+
+        return gapi.client.calendar.events.delete(event)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return deleteCalendarEvent()
+                })
+                .then(function (response) {
+                    resolve(response)
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
+        }
+    })
+}
+
+export const updateCalendarEvent = (calendarId, eventId, title, description, startTime, endTime) => {
+
+    const getCalendarEvents = () => {
+
+        var event = {
+            'summary': title,
+            'description': description,
+            'start': {
+                'dateTime': moment(startTime).toISOString(),
+                'timeZone': 'America/Los_Angeles'
+            },
+            'end': {
+                'dateTime': moment(endTime).toISOString(),
+                'timeZone': 'America/Los_Angeles'
+            },
+        }
+
+        return gapi.client.calendar.events.update({
+            calendarId,
+            eventId,
+            'resource': event
+        })
+    }
+
+    return new Promise((resolve, reject) => {
+        // Make sure the Google API Client is properly signed in
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            auth.refreshToken()
+                .then(function (token) {
+                    return getCalendarEvents()
+                })
+                .then(function (response) {
+                    resolve(response)
+                })
+        } else {
+            auth.signOut(); // Something went wrong, sign out
+            reject("Signed out user, as google api client returned not signed in")
         }
     })
 }
