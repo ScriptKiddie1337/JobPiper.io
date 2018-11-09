@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 //import classNames from 'classnames';
 import { Grid } from '@material-ui/core';
 import SpreadSheetList from '../../components/SpreadSheetList';
-//import Paper from '@material-ui/core/Paper';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,6 +23,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
 	container: {
 	  display: 'flex',
 	  flexWrap: 'wrap',
@@ -39,7 +44,11 @@ const styles = theme => ({
 	},
 	menu: {
 	  width: 200,
-	},
+  },
+  
+  table: {
+    minWidth: 700,
+  },
   });
 
 const numberOfEmployees = [
@@ -389,10 +398,13 @@ handleClose = () => {
         </Dialog>
 			<Grid container>
 				<Grid item xs={12}>
-          <Button variant="fab" onClick={this.handleCreateEvent} type='success' style={{ backgroundColor: '#fdd835', padding: '10px' }} ><AddIcon /></Button>
+          <Button aria-label="Create Event" style={{color: '#546e7a', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="secondary" aria-label="Add" ><AddIcon onClick={this.handleCreateEvent}/></Button>
+
+        
 				</Grid>
 				<Grid item xs={12}>
-  					<Table>
+        <Paper className={classes.root}>
+  					<Table className={classes.table}>
               			<TableHead>
                 			<TableRow>
                         <TableCell>Edit</TableCell> 
@@ -457,6 +469,7 @@ handleClose = () => {
                   		
             			</TableFooter>
             		</Table>
+                </Paper>
 				</Grid>
 			</Grid>
 	  </div>

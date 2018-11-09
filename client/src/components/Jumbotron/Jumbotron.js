@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-//import MoreIcon from '@material-ui/icons/MoreVert';
-//import Hidden from '@material-ui/core/Hidden';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Menu from '@material-ui/core/Menu';
-// import IconButton from '@material-ui/core/IconButton';
-// import Icon from '@mdi/react'
-// import { mdiSettings } from '@mdi/js'
-// import { mdiAccountCircle } from '@mdi/js'
-// import { mdiLogoutVariant } from '@mdi/js'
+import Hidden from '@material-ui/core/Hidden'
 
 const styles = theme => ({
   h1: {
@@ -156,9 +148,11 @@ return (
         <Grid item xs={12}>
         <Typography variant="h1" className={classes.root} style={{  color: 'white', backgroundColor: 'transparent', fontFamily: 'Federant, cursive', textShadow: '4px 4px #fdd835'}}>Jobs Piper</Typography>
 				</Grid>
+        <Hidden smDown>
         <Grid item xs={12} style={{ margin: '1vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '50%', 	width: '50%'}}></img>
+          <img src='../../images/site_logo_1.svg' alt='Brand Logo' style={{ height: '50%', 	width: '50%', marginTop: '-10vh'}}></img>
         </Grid>
+        </Hidden>
 			</Grid>
   </div>
   )
