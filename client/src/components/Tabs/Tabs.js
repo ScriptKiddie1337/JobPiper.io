@@ -30,7 +30,7 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
   flexGrow: 1,
-	maxWidth: '100vw',
+  maxWidth: '100vw',
   },
   bigIndicator: {
 	  height: 5,
@@ -65,11 +65,11 @@ class ScrollableTabsButtonAuto extends React.Component {
                 scrollable
                 scrollButtons='auto' 
                 >
-              	<Tab label='Home' />
-              	<Tab label='Day Planner' />
-              	<Tab label='Job Search' />
-              	<Tab label='Saved Jobs' />
-            	<Tab label='Spreadsheet' /> 
+              	<Tab style={{ color: 'white'}}label='Home' />
+              	<Tab style={{ color: 'white'}}label='Day Planner' />
+              	<Tab style={{ color: 'white'}}label='Job Search' />
+              	<Tab style={{ color: 'white'}}label='Saved Jobs' />
+            	<Tab style={{ color: 'white'}}label='Spreadsheet' /> 
               </Tabs>
             </AppBar>
             {value === 0 && 
