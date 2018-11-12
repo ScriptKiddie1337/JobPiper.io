@@ -12,7 +12,7 @@ const styles = theme => ({
 	root: {
 		flexShrink: 0,
 		color: theme.palette.text.secondary,
-		
+
 	},
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
@@ -33,10 +33,10 @@ class SpreadSheetList extends Component {
 		}, auth.getUserId())
 	}
 
-	state = { 
+	state = {
 		saved: this.props.saved,
-		
-	 }
+
+	}
 
 	componentWillReceiveProps(newProps) {
 
@@ -63,8 +63,9 @@ class SpreadSheetList extends Component {
 		this.setState({ saved: false })
 		api.deleteSheet(this.props._id, auth.getUserId())
 		this.updateSheets()
-		  }
-		  
+		this.props.deleteCallback(this.props._id)
+	}
+
 	render() {
 
 		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
@@ -72,19 +73,19 @@ class SpreadSheetList extends Component {
 			return { __html: val };
 		}
 		return (
-			
-				<TableRow  style={{ listStyleType: 'none' }}>
-					<TableCell><Button id={_id} onClick={this.handleDelete} ><DeleteIcon /></Button></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
-					<TableCell><a href={hr_link} dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
-					<TableCell><a href={site_link} dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
-					<TableCell><h5 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
-				</TableRow>
-		
+
+			<TableRow style={{ listStyleType: 'none' }}>
+				<TableCell><Button id={_id} onClick={this.handleDelete} ><DeleteIcon /></Button></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
+				<TableCell><a href={hr_link} dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
+				<TableCell><a href={site_link} dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(status)} /></TableCell>
+			</TableRow>
+
 		)
 	}
 }
