@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-//import classNames from 'classnames';
+import { auth } from '../../firebase'
 import { Grid } from '@material-ui/core';
 import SpreadSheetList from '../../components/SpreadSheetList';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-//import DialogContentText from '@material-ui/core/DialogContentText';
+import api from '../../utils/API'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -132,12 +132,13 @@ const currentStatus = [
 	},
 	{
 		value: 'yes',
-		label: 'No offer',
+		label: 'Got job offer',
 	},
 ];
 
 class SpreadSheet extends Component {
 	state = {
+		open: false,
 		loading: false,
 		sheets: [],
 		title: "",
@@ -163,6 +164,13 @@ class SpreadSheet extends Component {
 		currentStatus: '',
 	};
 
+	handleDelete = () => {
+		console.log('Unsaving job: ', this.props.title)
+		this.setState({ saved: false })
+		api.deleteSheet(this.props._id, auth.getUserId())
+		this.updateSheets()
+		this.props.deleteCallback(this.props._id)
+	}
 	updateSheets = () => {
 		fetch('/api/spreadSheet')
 			.then(response => response.json())
@@ -246,6 +254,7 @@ class SpreadSheet extends Component {
 			let updatedSheets = this.state.sheets
 			updatedSheets.splice(deletedIndex, 1)
 			this.setState({ sheets: updatedSheets })
+			this.setState.handleClose()
 		}
 	}
 
@@ -396,7 +405,7 @@ class SpreadSheet extends Component {
 					</DialogContent>
 					<DialogActions>
 						<Button variant="fab" color="primary" aria-label="Delete">
-							<DeleteIcon onClick={this.deleteEvent} />
+							<DeleteIcon onClick={this.handleDelete} />
 						</Button>
 						<Button onClick={this.handleClose} color="primary">
 							Cancel
@@ -408,7 +417,7 @@ class SpreadSheet extends Component {
 				</Dialog>
 				<Grid container>
 					<Grid item xs={12}>
-						<Button aria-label="Create Event" style={{ color: '#546e7a', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="secondary" aria-label="Add" ><AddIcon onClick={this.handleCreateEvent} /></Button>
+						<Button aria-label="Create Event" style={{ color: '#546e7a', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="secondary"><AddIcon onClick={this.handleCreateEvent} /></Button>
 
 
 					</Grid>
@@ -447,7 +456,7 @@ class SpreadSheet extends Component {
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
-														deleteCallback={this.handleDeleteEvent}
+														onClick={this.handleCreateEvent}
 													/>
 
 												)
@@ -469,7 +478,7 @@ class SpreadSheet extends Component {
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
-													deleteCallback={this.handleDeleteEvent}
+													handleCreateEvent={this.handleCreateEvent}
 												/>
 											)
 										}

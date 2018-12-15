@@ -4,7 +4,7 @@ import { auth } from '../../firebase'
 import api from '../../utils/API'
 import TableCell from '@material-ui/core/TableCell';
 import { TableRow } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
 import Button from '@material-ui/core/Button';
 //import PropTypes from 'prop-types';
 
@@ -65,7 +65,7 @@ class SpreadSheetList extends Component {
 		this.updateSheets()
 		this.props.deleteCallback(this.props._id)
 	}
-
+	
 	render() {
 
 		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
@@ -75,7 +75,7 @@ class SpreadSheetList extends Component {
 		return (
 
 			<TableRow style={{ listStyleType: 'none' }}>
-				<TableCell><Button id={_id} onClick={this.handleDelete} ><DeleteIcon /></Button></TableCell>
+				<TableCell><Button id={_id} onClick={this.props.handleCreateEvent} ><CreateIcon /></Button></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
