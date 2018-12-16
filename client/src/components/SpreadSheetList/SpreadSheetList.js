@@ -75,7 +75,7 @@ class SpreadSheetList extends Component {
 		return (
 
 			<TableRow style={{ listStyleType: 'none' }}>
-				<TableCell><Button id={_id} onClick={this.props.handleCreateEvent} ><CreateIcon /></Button></TableCell>
+				<TableCell><Button id={_id} onClick={this.props.handleCreateEvent}><CreateIcon /></Button></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(title)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>

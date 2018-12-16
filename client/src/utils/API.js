@@ -77,7 +77,7 @@ export default {
 
  	// Saves a job for the current user
  	userSaveSheet: function (sheetData, googleId) {
-    return axios.post("api/user/spreadsheet", { sheetData, googleId })
+    return axios.post("api/user/spreadsheet/", { sheetData, googleId })
   },
 
   // takes the users sheet and replaces them with updated info

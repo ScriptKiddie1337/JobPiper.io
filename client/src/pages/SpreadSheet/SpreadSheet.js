@@ -238,13 +238,26 @@ class SpreadSheet extends Component {
 			.then(this.updateSheets())
 			.then(document.getElementById("jobForm").reset())
 			.catch(error => console.error('Error:', error));
-		this.setState({ open: false })
+			this.setState({ open: false })
+			this.resetForm();
+
 	};
 
-	handleCreateEvent = () => {
-		//const { start, end, title, eventId } = this.state
-		// const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
-		this.setState({ open: true })
+	handleCreateEvent = (id) => {
+		let findIndex = id.currentTarget.id
+		if (findIndex) {
+			id=findIndex
+			let url = '/api/spreadsheet/' + id
+			console.log(url)
+			fetch(url)
+				.then(response => console.log(response.json()))
+				.then(this.setState({ open: true }))
+				.catch(err => { throw new Error(err) });
+			
+		} else {
+			console.log('create')
+				this.setState({ open: true })
+		}
 	};
 
 	handleDeleteEvent = id => {
@@ -409,10 +422,10 @@ class SpreadSheet extends Component {
 						</Button>
 						<Button onClick={this.handleClose} color="primary">
 							Cancel
-          </Button>
+    					</Button>
 						<Button onClick={this.handleFormSubmit} color="primary">
 							Save
-          </Button>
+        				</Button>
 					</DialogActions>
 				</Dialog>
 				<Grid container>
@@ -456,7 +469,7 @@ class SpreadSheet extends Component {
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
-														onClick={this.handleCreateEvent}
+														handleCreateEvent={this.handleCreateEvent}
 													/>
 
 												)
