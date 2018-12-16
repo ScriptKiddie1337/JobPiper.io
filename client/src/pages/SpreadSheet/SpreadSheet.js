@@ -162,6 +162,7 @@ class SpreadSheet extends Component {
 		hrLink: '',
 		methodApplied: '',
 		currentStatus: '',
+		dateApplied: ''
 	};
 
 	handleDelete = () => {
@@ -245,15 +246,28 @@ class SpreadSheet extends Component {
 
 	handleCreateEvent = (id) => {
 		let findIndex = id.currentTarget.id
+		let sheetRow = this.state.sheets
+		console.log(sheetRow)
 		if (findIndex) {
 			id=findIndex
-			let url = '/api/spreadsheet/' + id
-			console.log(url)
-			fetch(url)
-				.then(response => console.log(response.json()))
-				.then(this.setState({ open: true }))
-				.catch(err => { throw new Error(err) });
-			
+				for (let i = 0; i < sheetRow.length; i++) {
+					if (sheetRow[i]._id === id) {
+						console.log(sheetRow[i])
+						this.setState({
+							jobname: sheetRow[i].title,
+							companyName: sheetRow[i].company,
+							industryDescription: sheetRow[i].industry,
+							numberOfEmployees: sheetRow[i].size,
+							jobLink: sheetRow[i].site_link,
+							hrLink: sheetRow[i].hr_link,
+							dateApplied: sheetRow[i].date,
+							methodApplied: sheetRow[i].method,
+							currentStatus: sheetRow[i].status,
+							dateApplied: sheetRow[i].date,
+						})
+					}	
+				}
+				this.setState({ open: true })
 		} else {
 			console.log('create')
 				this.setState({ open: true })
@@ -281,6 +295,7 @@ class SpreadSheet extends Component {
 			hrLink: '',
 			methodApplied: '',
 			currentStatus: '',
+			dateApplied: ''
 		})
 	}
 	handleClose = () => {
@@ -444,6 +459,7 @@ class SpreadSheet extends Component {
 										<TableCell>Company</TableCell>
 										<TableCell>Industry</TableCell>
 										<TableCell>Company Size</TableCell>
+										<TableCell>Date</TableCell>
 										<TableCell>Link to Job Desc</TableCell>
 										<TableCell>Link to HR</TableCell>
 										<TableCell>Method Applied</TableCell>
@@ -466,6 +482,7 @@ class SpreadSheet extends Component {
 														company={sheet.item.company}
 														industry={sheet.item.industry}
 														size={sheet.item.size}
+														date={sheet.item.dateApplied}
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
@@ -477,8 +494,6 @@ class SpreadSheet extends Component {
 										} else {
 											return (
 												<SpreadSheetList
-													//onChange={this.handleDelete()}
-
 													key={i}
 													site_link={sheet.site_link}
 													_id={sheet._id}
@@ -488,6 +503,7 @@ class SpreadSheet extends Component {
 													company={sheet.company}
 													industry={sheet.industry}
 													size={sheet.size}
+													date={sheet.dateApplied}
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}

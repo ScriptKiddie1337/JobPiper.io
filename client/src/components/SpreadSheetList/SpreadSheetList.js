@@ -68,7 +68,7 @@ class SpreadSheetList extends Component {
 	
 	render() {
 
-		const { _id, site_link, title, hr_link, company, industry, size, method, status } = this.props
+		const { _id, site_link, title, hr_link, company, date, industry, size, method, status } = this.props
 		function createMarkup(val) {
 			return { __html: val };
 		}
@@ -80,6 +80,7 @@ class SpreadSheetList extends Component {
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(company)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(industry)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(size)} /></TableCell>
+				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(date)} /></TableCell>
 				<TableCell><a href={hr_link} dangerouslySetInnerHTML={createMarkup(hr_link)} /></TableCell>
 				<TableCell><a href={site_link} dangerouslySetInnerHTML={createMarkup(site_link)} /></TableCell>
 				<TableCell><h5 dangerouslySetInnerHTML={createMarkup(method)} /></TableCell>
