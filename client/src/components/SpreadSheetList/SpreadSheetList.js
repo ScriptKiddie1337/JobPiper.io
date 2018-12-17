@@ -58,14 +58,6 @@ class SpreadSheetList extends Component {
 		}, auth.getUserId())
 	}
 
-	handleDelete = () => {
-		console.log('Unsaving job: ', this.props.title)
-		this.setState({ saved: false })
-		api.deleteSheet(this.props._id, auth.getUserId())
-		this.updateSheets()
-		this.props.deleteCallback(this.props._id)
-	}
-	
 	render() {
 
 		const { _id, site_link, title, hr_link, company, date, industry, size, method, status } = this.props

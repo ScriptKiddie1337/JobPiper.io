@@ -141,6 +141,7 @@ class SpreadSheet extends Component {
 		open: false,
 		loading: false,
 		sheets: [],
+		id: '',
 		title: "",
 		site_link: "",
 		hr_link: "",
@@ -166,11 +167,12 @@ class SpreadSheet extends Component {
 	};
 
 	handleDelete = () => {
-		console.log('Unsaving job: ', this.props.title)
+		//console.log(document.getElementById())
+		console.log('Unsaving job: ', this.id)
 		this.setState({ saved: false })
-		api.deleteSheet(this.props._id, auth.getUserId())
+		api.deleteSheet(this._id, auth.getUserId())
 		this.updateSheets()
-		this.props.deleteCallback(this.props._id)
+		this.deleteCallback(this._id)
 	}
 	updateSheets = () => {
 		fetch('/api/spreadSheet')
@@ -205,6 +207,7 @@ class SpreadSheet extends Component {
 	handleFormSubmit = event => {
 		event.preventDefault();
 		this.handleClickLoading();
+
 		let title = document.getElementById("standard-title").value;
 		let site_link = document.getElementById("standard-jobLink").value;
 		let hr_link = document.getElementById("standard-hrLink").value;
@@ -217,6 +220,7 @@ class SpreadSheet extends Component {
 
 		var url = '/api/spreadSheet';
 		var data = {
+			//id: _id,
 			title: title,
 			site_link: site_link,
 			hr_link: hr_link,
@@ -227,14 +231,30 @@ class SpreadSheet extends Component {
 			status: status,
 			date: date,
 		};
-
-		fetch(url, {
+		//console.log(data.id)
+		//  if (id !== '' && id !== undefined) {
+        //      fetch(url, {
+		//  		method: 'PUT', // or 'PUT'
+		//  		body: JSON.stringify(data), // data can be `string` or {object}!
+		//  		headers: {
+		//  			'Content-Type': 'application/json'
+		//  		}
+		//  	}).then(res => res.json())
+		//  		.then(response => console.log('Success:', JSON.stringify(response)))
+		//  		.then(this.updateSheets())
+		//  		.then(document.getElementById("jobForm").reset())
+		//  		.catch(error => console.error('Error:', error));
+		//  		this.setState({ open: false })
+		//  		this.resetForm();
+        //  } else {
+		// }
+			fetch(url, {
 			method: 'POST', // or 'PUT'
 			body: JSON.stringify(data), // data can be `string` or {object}!
 			headers: {
 				'Content-Type': 'application/json'
 			}
-		}).then(res => res.json())
+			}).then(res => res.json())
 			.then(response => console.log('Success:', JSON.stringify(response)))
 			.then(this.updateSheets())
 			.then(document.getElementById("jobForm").reset())
@@ -245,15 +265,17 @@ class SpreadSheet extends Component {
 	};
 
 	handleCreateEvent = (id) => {
-		let findIndex = id.currentTarget.id
-		let sheetRow = this.state.sheets
-		console.log(sheetRow)
+
+		let findIndex = id.currentTarget.id;
+		let sheetRow = this.state.sheets;
+		console.log(findIndex)
 		if (findIndex) {
 			id=findIndex
 				for (let i = 0; i < sheetRow.length; i++) {
 					if (sheetRow[i]._id === id) {
 						console.log(sheetRow[i])
 						this.setState({
+							id: findIndex,
 							jobname: sheetRow[i].title,
 							companyName: sheetRow[i].company,
 							industryDescription: sheetRow[i].industry,
@@ -263,15 +285,15 @@ class SpreadSheet extends Component {
 							dateApplied: sheetRow[i].date,
 							methodApplied: sheetRow[i].method,
 							currentStatus: sheetRow[i].status,
-							dateApplied: sheetRow[i].date,
-						})
-					}	
-				}
-				this.setState({ open: true })
+							date: sheetRow[i].date,
+						});
+					};
+				};
+				this.setState({ open: true });
 		} else {
-			console.log('create')
-				this.setState({ open: true })
-		}
+			console.log('create');
+				this.setState({ open: true });
+		};
 	};
 
 	handleDeleteEvent = id => {
@@ -320,7 +342,7 @@ class SpreadSheet extends Component {
 					<DialogContent>
 						<form id='jobForm' className={classes.formData} noValidate autoComplete="off">
 							<TextField
-								id="standard-title"
+								id='standard-title'
 								label="Job Description"
 								className={classes.textField}
 								value={this.state.jobname}
@@ -432,8 +454,15 @@ class SpreadSheet extends Component {
 						</form>
 					</DialogContent>
 					<DialogActions>
-						<Button variant="fab" color="primary" aria-label="Delete">
-							<DeleteIcon onClick={this.handleDelete} />
+						<Button 
+							id={this.state.id} 
+							variant="fab" 
+							color="primary" 
+							aria-label="Delete"
+							deleteCallback={this.handleDeleteEvent}
+							
+							>
+							<DeleteIcon onClick={this.handleDeleteEvent} />
 						</Button>
 						<Button onClick={this.handleClose} color="primary">
 							Cancel
@@ -482,7 +511,7 @@ class SpreadSheet extends Component {
 														company={sheet.item.company}
 														industry={sheet.item.industry}
 														size={sheet.item.size}
-														date={sheet.item.dateApplied}
+														date={sheet.item.date}
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
@@ -503,7 +532,7 @@ class SpreadSheet extends Component {
 													company={sheet.company}
 													industry={sheet.industry}
 													size={sheet.size}
-													date={sheet.dateApplied}
+													date={sheet.date}
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
