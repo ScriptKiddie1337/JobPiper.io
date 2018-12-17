@@ -163,17 +163,11 @@ class SpreadSheet extends Component {
 		hrLink: '',
 		methodApplied: '',
 		currentStatus: '',
-		dateApplied: ''
+		dateApplied: '',
+		saved: this.props.saved,
 	};
 
-	handleDelete = () => {
-		//console.log(document.getElementById())
-		console.log('Unsaving job: ', this.id)
-		this.setState({ saved: false })
-		api.deleteSheet(this._id, auth.getUserId())
-		this.updateSheets()
-		this.deleteCallback(this._id)
-	}
+
 	updateSheets = () => {
 		fetch('/api/spreadSheet')
 			.then(response => response.json())
@@ -296,16 +290,27 @@ class SpreadSheet extends Component {
 		};
 	};
 
-	handleDeleteEvent = id => {
-
-		let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === id)
-		if (deletedIndex > -1) {
-			let updatedSheets = this.state.sheets
-			updatedSheets.splice(deletedIndex, 1)
-			this.setState({ sheets: updatedSheets })
-			this.setState.handleClose()
-		}
+	handleDelete = () => {
+		let findId = this.state.id;
+		console.log('Unsaving job: ', findId);
+		this.setState({ saved: false });
+		debugger
+		api.deleteSheet(findId, auth.getUserId());
+		this.updateSheets();
+		this.setState({ open: false });
+		this.resetForm();
 	}
+
+	// handleDeleteEvent = () => {
+	// 	let findId = this.state.id;
+	// 	let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === findId);
+	// 	console.log(findId);
+	// 	if (deletedIndex > -1) {
+	// 		let updatedSheets = this.state.sheets;
+	// 		updatedSheets.splice(deletedIndex, 1);
+	// 		this.setState({ sheets: updatedSheets });
+	// 	}
+	// }
 
 	resetForm = () => {
 		this.setState({
@@ -320,12 +325,6 @@ class SpreadSheet extends Component {
 			dateApplied: ''
 		})
 	}
-	handleClose = () => {
-		this.setState({ open: false });
-		this.resetForm();
-	};
-
-
 
 	render() {
 
@@ -460,9 +459,8 @@ class SpreadSheet extends Component {
 							color="primary" 
 							aria-label="Delete"
 							deleteCallback={this.handleDeleteEvent}
-							
 							>
-							<DeleteIcon onClick={this.handleDeleteEvent} />
+							<DeleteIcon onClick={this.handleDelete} />
 						</Button>
 						<Button onClick={this.handleClose} color="primary">
 							Cancel
