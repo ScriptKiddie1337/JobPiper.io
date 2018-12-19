@@ -242,6 +242,7 @@ class SpreadSheet extends Component {
 		//  		this.resetForm();
         //  } else {
 		// }
+		debugger
 			fetch(url, {
 			method: 'POST', // or 'PUT'
 			body: JSON.stringify(data), // data can be `string` or {object}!
@@ -254,7 +255,7 @@ class SpreadSheet extends Component {
 			.then(document.getElementById("jobForm").reset())
 			.catch(error => console.error('Error:', error));
 			this.setState({ open: false })
-			this.resetForm();
+			
 
 	};
 
@@ -292,25 +293,30 @@ class SpreadSheet extends Component {
 
 	handleDelete = () => {
 		let findId = this.state.id;
-		console.log('Unsaving job: ', findId);
+		console.log('Unsaving job: ', this.state.id);
 		this.setState({ saved: false });
-		debugger
 		api.deleteSheet(findId, auth.getUserId());
 		this.updateSheets();
-		this.setState({ open: false });
-		this.resetForm();
+		// this.props.deleteCallback(this.props._id)
 	}
 
-	// handleDeleteEvent = () => {
-	// 	let findId = this.state.id;
-	// 	let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === findId);
-	// 	console.log(findId);
-	// 	if (deletedIndex > -1) {
-	// 		let updatedSheets = this.state.sheets;
-	// 		updatedSheets.splice(deletedIndex, 1);
-	// 		this.setState({ sheets: updatedSheets });
-	// 	}
-	// }
+	 handleDeleteEvent = () => {
+	 	let findId = this.state.id;
+	 	let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === findId);
+	 	console.log(findId);
+	 	if (deletedIndex > -1) {
+	 		let updatedSheets = this.state.sheets;
+	 		updatedSheets.splice(deletedIndex, 1);
+	 		this.setState({ sheets: updatedSheets });
+		 }
+		 this.setState({ open: false });
+		this.resetForm();
+	 };
+
+	 handleClose = () => {
+		this.setState({ open: false });
+		this.resetForm();
+	};
 
 	resetForm = () => {
 		this.setState({
@@ -324,7 +330,7 @@ class SpreadSheet extends Component {
 			currentStatus: '',
 			dateApplied: ''
 		})
-	}
+	};
 
 	render() {
 
@@ -458,7 +464,7 @@ class SpreadSheet extends Component {
 							variant="fab" 
 							color="primary" 
 							aria-label="Delete"
-							deleteCallback={this.handleDeleteEvent}
+							
 							>
 							<DeleteIcon onClick={this.handleDelete} />
 						</Button>
@@ -513,6 +519,7 @@ class SpreadSheet extends Component {
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
+														deleteCallback={this.handleDeleteEvent}
 														handleCreateEvent={this.handleCreateEvent}
 													/>
 
@@ -534,6 +541,7 @@ class SpreadSheet extends Component {
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
+													deleteCallback={this.handleDeleteEvent}
 													handleCreateEvent={this.handleCreateEvent}
 												/>
 											)
