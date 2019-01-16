@@ -22,17 +22,6 @@ const styles = theme => ({
 
 class SpreadSheetList extends Component {
 
-	handleSheetSave = () => {
-
-		this.setState({ saved: true })
-		api.userSaveSheet({
-			...this.props,
-			saved: true,
-			notes: '',
-			dateSaved: Date.now()
-		}, auth.getUserId())
-	}
-
 	state = {
 		saved: this.props.saved,
 
@@ -47,16 +36,7 @@ class SpreadSheetList extends Component {
 			this.setState({ saved: newProps.saved })
 		}
 	}
-	updateSheets = () => {
-		console.log("yes")
-		this.setState({ saved: true })
-		api.getUserSpreadSheets({
-			...this.props,
-			saved: true,
-			notes: '',
-			dateSaved: Date.now()
-		}, auth.getUserId())
-	}
+	
 
 	render() {
 

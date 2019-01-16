@@ -51,6 +51,7 @@ const styles = theme => ({
 	},
 });
 
+//set varibles for modal form choices dropdown
 const numberOfEmployees = [
 	{
 		value: 100,
@@ -137,6 +138,7 @@ const currentStatus = [
 ];
 
 class SpreadSheet extends Component {
+
 	state = {
 		open: false,
 		loading: false,
@@ -167,31 +169,26 @@ class SpreadSheet extends Component {
 		saved: this.props.saved,
 	};
 
-
 	updateSheets = () => {
+		console.log('spreadsheet')
 		fetch('/api/spreadSheet')
 			.then(response => response.json())
 			.then(x => this.setState({ sheets: x }))
 			.catch(err => { throw new Error(err) });
-	}
+	};
+
 	componentDidMount() {
 		this.updateSheets()
-	}
+	};
 
-	// handleChange for input
+	// handle change for user input in modal form
 	handleChange = name => event => {
 		this.setState({
 			[name]: event.target.value,
 		});
 	};
 
-	handleInputChange = event => {
-		const { name, value } = event.target;
-		this.setState({
-			[name]: value
-		});
-	};
-
+	// attempting to use a loading gif
 	handleClickLoading = () => {
 		this.setState(state => ({
 			loading: !state.loading,
@@ -200,7 +197,7 @@ class SpreadSheet extends Component {
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-		this.handleClickLoading();
+		//this.handleClickLoading();
 
 		let title = document.getElementById("standard-title").value;
 		let site_link = document.getElementById("standard-jobLink").value;
@@ -212,9 +209,14 @@ class SpreadSheet extends Component {
 		let status = document.getElementById("standard-select-status").value;
 		let date = document.getElementById('date').value;
 
-		var url = '/api/spreadSheet';
+		let findId = this.state.id;
+		console.log(findId);
+
+		let postUrl = '/api/spreadSheet';
+		let putUrl = `/api/user/spreadSheet/${findId}`;
+
+		
 		var data = {
-			//id: _id,
 			title: title,
 			site_link: site_link,
 			hr_link: hr_link,
@@ -225,25 +227,28 @@ class SpreadSheet extends Component {
 			status: status,
 			date: date,
 		};
-		//console.log(data.id)
-		//  if (id !== '' && id !== undefined) {
-        //      fetch(url, {
-		//  		method: 'PUT', // or 'PUT'
-		//  		body: JSON.stringify(data), // data can be `string` or {object}!
-		//  		headers: {
-		//  			'Content-Type': 'application/json'
-		//  		}
-		//  	}).then(res => res.json())
-		//  		.then(response => console.log('Success:', JSON.stringify(response)))
-		//  		.then(this.updateSheets())
-		//  		.then(document.getElementById("jobForm").reset())
-		//  		.catch(error => console.error('Error:', error));
-		//  		this.setState({ open: false })
-		//  		this.resetForm();
-        //  } else {
-		// }
-			fetch(url, {
-			method: 'POST', // or 'PUT'
+		
+		if (findId) {
+			console.log(`I'm updating ${putUrl}`)
+			debugger
+            fetch(putUrl, {
+				method: 'PUT', // or 'PUT'
+				body: JSON.stringify(data), // data can be `string` or {object}!
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(res => res.json())
+			.then(response => console.log('Success:', JSON.stringify(response)))
+			.then(this.updateSheets())
+			.then(document.getElementById("jobForm").reset())
+			.then(this.handleClose())
+			.catch(error => console.error('Error:', error));
+			
+			
+        } else {
+			console.log(`I'm making a new job`)
+			fetch(postUrl, {
+			method: 'POST', 
 			body: JSON.stringify(data), // data can be `string` or {object}!
 			headers: {
 				'Content-Type': 'application/json'
@@ -253,21 +258,24 @@ class SpreadSheet extends Component {
 			.then(this.updateSheets())
 			.then(document.getElementById("jobForm").reset())
 			.catch(error => console.error('Error:', error));
-			this.setState({ open: false })
+			this.handleClose();
 			
+		}
 
 	};
 
+	// Open modal for spreadsheet
 	handleCreateEvent = (id) => {
 
 		let findIndex = id.currentTarget.id;
-		let sheetRow = this.state.sheets;
 		console.log(findIndex)
+		let sheetRow = this.state.sheets;
+
+		//if there is an id, populate the form in the modal with the data. else open a blank modal
 		if (findIndex) {
 			id=findIndex
 				for (let i = 0; i < sheetRow.length; i++) {
 					if (sheetRow[i]._id === id) {
-						console.log(sheetRow[i])
 						this.setState({
 							id: findIndex,
 							jobname: sheetRow[i].title,
@@ -283,42 +291,38 @@ class SpreadSheet extends Component {
 						});
 					};
 				};
+
 				this.setState({ open: true });
+
 		} else {
-			console.log('create');
+
 				this.setState({ open: true });
+
 		};
+
 	};
 
+	// Delete a spreadsheet row by id from database
 	handleDelete = () => {
 		let findId = this.state.id;
-		console.log('Unsaving job: ', this.state.id);
 
-		this.setState({ sheets: this.state.sheets.filter(item => item._id !== findId), open: false});
+		this.setState({ sheets: this.state.sheets.filter(item => item._id !== findId) });
 		api.deleteSheet(findId, auth.getUserId());
-		
-		//this.props.deleteCallback(this.props._id)
-		
+
+		this.handleClose();
+
 	}
 
-	 handleDeleteEvent = () => {
-	 	let findId = this.state.id;
-	 	let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === findId);
-	 	console.log(findId);
-	 	if (deletedIndex > -1) {
-	 		let updatedSheets = this.state.sheets;
-	 		updatedSheets.splice(deletedIndex, 1);
-	 		this.setState({ sheets: updatedSheets });
-		 }
-		 this.setState({ open: false });
-		this.resetForm();
-	 };
+	// close modal
+	handleClose = () => {
+		this.setState({
+			open: false
+		});
 
-	 handleClose = () => {
-		this.setState({ open: false });
 		this.resetForm();
 	};
 
+	// reset modal form
 	resetForm = () => {
 		this.setState({
 			jobname: '',
@@ -520,7 +524,7 @@ class SpreadSheet extends Component {
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
-														deleteCallback={this.handleDeleteEvent}
+														deleteCallback={this.handleClose}
 														handleCreateEvent={this.handleCreateEvent}
 													/>
 
@@ -542,7 +546,7 @@ class SpreadSheet extends Component {
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
-													deleteCallback={this.handleDeleteEvent}
+													deleteCallback={this.handleClose}
 													handleCreateEvent={this.handleCreateEvent}
 												/>
 											)
