@@ -242,7 +242,6 @@ class SpreadSheet extends Component {
 		//  		this.resetForm();
         //  } else {
 		// }
-		debugger
 			fetch(url, {
 			method: 'POST', // or 'PUT'
 			body: JSON.stringify(data), // data can be `string` or {object}!
@@ -294,10 +293,12 @@ class SpreadSheet extends Component {
 	handleDelete = () => {
 		let findId = this.state.id;
 		console.log('Unsaving job: ', this.state.id);
-		this.setState({ saved: false });
+
+		this.setState({ sheets: this.state.sheets.filter(item => item._id !== findId), open: false});
 		api.deleteSheet(findId, auth.getUserId());
-		this.updateSheets();
-		// this.props.deleteCallback(this.props._id)
+		
+		//this.props.deleteCallback(this.props._id)
+		
 	}
 
 	 handleDeleteEvent = () => {
