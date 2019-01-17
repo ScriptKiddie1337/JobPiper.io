@@ -144,16 +144,16 @@ class SpreadSheet extends Component {
 		loading: false,
 		sheets: [],
 		id: '',
-		title: "",
-		site_link: "",
-		hr_link: "",
-		body: "",
-		company: "",
-		industry: "",
-		size: "",
-		method: "",
-		status: "",
-		image: "",
+		title: '',
+		site_link: '',
+		hr_link: '',
+		body: '',
+		company: '',
+		industry: '',
+		size: '',
+		method: '',
+		status: '',
+		image: '',
 		note: [],
 		contact: [],
 		// form states
@@ -169,7 +169,7 @@ class SpreadSheet extends Component {
 		saved: this.props.saved,
 	};
 
-	updateSheets = () => {
+	refreshSheets = () => {
 		console.log('spreadsheet')
 		fetch('/api/spreadSheet')
 			.then(response => response.json())
@@ -178,7 +178,7 @@ class SpreadSheet extends Component {
 	};
 
 	componentDidMount() {
-		this.updateSheets()
+		this.refreshSheets()
 	};
 
 	// handle change for user input in modal form
@@ -210,12 +210,6 @@ class SpreadSheet extends Component {
 		let date = document.getElementById('date').value;
 
 		let findId = this.state.id;
-		console.log(findId);
-
-		let postUrl = '/api/spreadSheet';
-		let putUrl = `/api/user/spreadSheet/${findId}`;
-
-		
 		var data = {
 			title: title,
 			site_link: site_link,
@@ -227,48 +221,31 @@ class SpreadSheet extends Component {
 			status: status,
 			date: date,
 		};
-		
+	
 		if (findId) {
-			console.log(`I'm updating ${putUrl}`)
-			debugger
-            fetch(putUrl, {
-				method: 'PUT', // or 'PUT'
-				body: JSON.stringify(data), // data can be `string` or {object}!
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(res => res.json())
-			.then(response => console.log('Success:', JSON.stringify(response)))
-			.then(this.updateSheets())
-			.then(document.getElementById("jobForm").reset())
-			.then(this.handleClose())
-			.catch(error => console.error('Error:', error));
 			
+			api.updateSheet(findId, data, auth.getUserId())
+			.then(userSavedSheet => {
+				this.refreshSheets(userSavedSheet)
+			})
 			
         } else {
-			console.log(`I'm making a new job`)
-			fetch(postUrl, {
-			method: 'POST', 
-			body: JSON.stringify(data), // data can be `string` or {object}!
-			headers: {
-				'Content-Type': 'application/json'
-			}
-			}).then(res => res.json())
-			.then(response => console.log('Success:', JSON.stringify(response)))
-			.then(this.updateSheets())
-			.then(document.getElementById("jobForm").reset())
-			.catch(error => console.error('Error:', error));
-			this.handleClose();
+		
+			api.saveSheet(data, auth.getUserId())
+			.then(userSavedSheet => {
+				this.refreshSheets(userSavedSheet)
+			})
 			
 		}
-
+		
+		this.handleClose();
+		this.resetForm();
 	};
 
 	// Open modal for spreadsheet
 	handleCreateEvent = (id) => {
 
 		let findIndex = id.currentTarget.id;
-		console.log(findIndex)
 		let sheetRow = this.state.sheets;
 
 		//if there is an id, populate the form in the modal with the data. else open a blank modal
@@ -296,7 +273,10 @@ class SpreadSheet extends Component {
 
 		} else {
 
-				this.setState({ open: true });
+				this.setState({ 
+					open: true, 
+					id: false
+				});
 
 		};
 
