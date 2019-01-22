@@ -21,6 +21,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import api from '../../utils/API'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment'
 
 const styles = theme => ({
 	root: {
@@ -52,24 +53,24 @@ const styles = theme => ({
 });
 
 //set varibles for modal form choices dropdown
-const numberOfEmployees = [
-	{
-		value: 100,
-		label: '100',
-	},
-	{
-		value: 1000,
-		label: '1,000',
-	},
-	{
-		value: 5000,
-		label: '5,000',
-	},
-	{
-		value: 10000,
-		label: '10,000',
-	},
-];
+// const numberOfEmployees = [
+// 	{
+// 		value: '50',
+// 		label: '50',
+// 	},
+// 	{
+// 		value: '100',
+// 		label: '100',
+// 	},
+// 	{
+// 		value: '200',
+// 		label: '200',
+// 	},
+// 	{
+// 		value: '1000',
+// 		label: '1,000',
+// 	},
+// ];
 
 const methodApplied = [
 	{
@@ -150,7 +151,7 @@ class SpreadSheet extends Component {
 		body: '',
 		company: '',
 		industry: '',
-		size: '',
+		// size: '',
 		method: '',
 		status: '',
 		image: '',
@@ -160,7 +161,7 @@ class SpreadSheet extends Component {
 		jobname: '',
 		companyName: '',
 		industryDescription: '',
-		numberOfEmployees: '',
+		// numberOfEmployees: '',
 		jobLink: '',
 		hrLink: '',
 		methodApplied: '',
@@ -204,7 +205,7 @@ class SpreadSheet extends Component {
 		let hr_link = document.getElementById("standard-hrLink").value;
 		let company = document.getElementById("standard-hrLink").value;
 		let industry = document.getElementById("standard-industry").value;
-		let size = document.getElementById("standard-select-number").value;
+		// let size = document.getElementById("standard-select-number").value;
 		let method = document.getElementById("standard-select-method").value;
 		let status = document.getElementById("standard-select-status").value;
 		let date = document.getElementById('date').value;
@@ -216,7 +217,7 @@ class SpreadSheet extends Component {
 			hr_link: hr_link,
 			company: company,
 			industry: industry,
-			size: size,
+			// size: size,
 			method: method,
 			status: status,
 			date: date,
@@ -258,7 +259,7 @@ class SpreadSheet extends Component {
 							jobname: sheetRow[i].title,
 							companyName: sheetRow[i].company,
 							industryDescription: sheetRow[i].industry,
-							numberOfEmployees: sheetRow[i].size,
+							// numberOfEmployees: sheetRow[i].size,
 							jobLink: sheetRow[i].site_link,
 							hrLink: sheetRow[i].hr_link,
 							dateApplied: sheetRow[i].date,
@@ -275,7 +276,7 @@ class SpreadSheet extends Component {
 
 				this.setState({ 
 					open: true, 
-					id: false
+					id: ''
 				});
 
 		};
@@ -308,7 +309,7 @@ class SpreadSheet extends Component {
 			jobname: '',
 			companyName: '',
 			industryDescription: '',
-			numberOfEmployees: '',
+			// numberOfEmployees: '',
 			jobLink: '',
 			hrLink: '',
 			methodApplied: '',
@@ -317,10 +318,13 @@ class SpreadSheet extends Component {
 		})
 	};
 
+	formatDate = () => {
+		
+	}
 	render() {
-
+		
 		const { classes } = this.props;
-
+		
 		return (
 			<div>
 				<Dialog
@@ -355,7 +359,7 @@ class SpreadSheet extends Component {
 								onChange={this.handleChange('industryDescription')}
 								margin="normal"
 							/>
-							<TextField
+							{/* <TextField
 								id="standard-select-number"
 								select
 								label="Number of employees"
@@ -374,7 +378,7 @@ class SpreadSheet extends Component {
 										{option.label}
 									</MenuItem>
 								))}
-							</TextField>
+							</TextField> */}
 							<TextField
 								id="standard-jobLink"
 								label="Link to Job Description"
@@ -387,7 +391,7 @@ class SpreadSheet extends Component {
 								id="date"
 								label="Date Applied"
 								type="date"
-								defaultValue="2017-05-24"
+								defaultValue={moment().format('YYYY-MM-DD')}
 								className={classes.textField}
 								InputLabelProps={{
 									shrink: true,
@@ -476,7 +480,7 @@ class SpreadSheet extends Component {
 										<TableCell>Job Title</TableCell>
 										<TableCell>Company</TableCell>
 										<TableCell>Industry</TableCell>
-										<TableCell>Company Size</TableCell>
+										{/* <TableCell>Company Size</TableCell> */}
 										<TableCell>Date</TableCell>
 										<TableCell>Link to Job Desc</TableCell>
 										<TableCell>Link to HR</TableCell>
@@ -499,8 +503,8 @@ class SpreadSheet extends Component {
 														body={sheet.item.body}
 														company={sheet.item.company}
 														industry={sheet.item.industry}
-														size={sheet.item.size}
-														date={sheet.item.date}
+														// size={sheet.item.size}
+														date={moment(sheet.item.date).format('MM/DD/YYYY')}
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
@@ -521,8 +525,8 @@ class SpreadSheet extends Component {
 													body={sheet.body}
 													company={sheet.company}
 													industry={sheet.industry}
-													size={sheet.size}
-													date={sheet.date}
+													// size={sheet.size}
+													date={moment(sheet.date).format('MM/DD/YYYY')}
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
