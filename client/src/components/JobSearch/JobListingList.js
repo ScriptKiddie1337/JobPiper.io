@@ -28,7 +28,7 @@ const styles = theme => ({
 class JobListingList extends Component {
 
 	handleJobSave = () => {
-
+		console.log('saving ', this.props.title )
 		this.setState({ saved: true })
 		api.userSaveJob({
 			...this.props,

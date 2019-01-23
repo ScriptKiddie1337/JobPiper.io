@@ -9,10 +9,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormGroup from '@material-ui/core/FormGroup';
 
+
 class EventModal extends Component {
     render() {
+
         const { open, title, start, end, isAllDay, eventId, description } = this.props.updateEvent;
 
+        
         return (
             <Dialog
                 open={ open }

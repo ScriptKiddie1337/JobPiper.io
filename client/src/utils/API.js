@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // get states by country ID
   getStates: function (id) {
-    return axios.get('api/loc/state/' + id);
+    return axios.get('/api/loc/state/' + id);
   },
   // Gets all jobs
   getJobListings: function () {
@@ -46,11 +46,11 @@ export default {
   },
 
   getUserJobs: googleId => {
-    return axios.get(`api/user/jobs/saved/${googleId}`)
+    return axios.get(`/api/user/jobs/saved/${googleId}`)
   },
   // takes the users jobs and replaces them with updated info
   updateUserJobs: (jobs, googleId) => {
-    return axios.put(`api/user/jobs/saved/`, { googleId: googleId, jobs: jobs })
+    return axios.put(`/api/user/jobs/saved/`, { googleId: googleId, jobs: jobs })
       .catch(error => {
         console.log(error.response)
       });
@@ -66,30 +66,23 @@ export default {
         console.log(error.response)
       })
   },
-	// get spreadsheet
-  	getUserSpreadSheets: googleId => {
-    return axios.get(`/api/spreadsheets/saved/${googleId}`);
-  },  
-   // Gets the job with the given id
-   getSpreadSheetsId: function (id) {
-    return axios.get("/api/spreadsheet/" + id);
+
+  // Saves a sheet to the database
+  saveSheet: function (sheetData) {
+    return axios.post("/api/spreadSheet", sheetData);
   },
 
- 	// Saves a job for the current user
- 	userSaveSheet: function (sheetData, googleId) {
-    return axios.post("api/user/spreadsheet", { sheetData, googleId })
-  },
-
-  // takes the users sheet and replaces them with updated info
-  updateUserSheets: (sheets, googleId) => {
-    return axios.put(`api/user/spreadsheet/saved/`, { googleId: googleId, sheets: sheets })
-      .catch(error => {
-        console.log(error.response)
-      });
-  },
-
-   // Deletes the job with the given id
-   deleteSheet: function (id) {
+  updateSheet: function (id,data) {
+	  const body = data
+	  const params={}
+	  return axios.put("/api/spreadsheet/" + id, body,{params})
+	  .catch(error => {
+		  console.log(error.response)
+		})
+	},
+	// Deletes the job with the given id
+	deleteSheet: function (id) {
+		console.log(id)
     return axios.delete("/api/spreadsheet/" + id);
   },
 };

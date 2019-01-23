@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-//import classNames from 'classnames';
+import { auth } from '../../firebase'
 import { Grid } from '@material-ui/core';
 import SpreadSheetList from '../../components/SpreadSheetList';
 import Paper from '@material-ui/core/Paper';
@@ -18,9 +18,10 @@ import AddIcon from '@material-ui/icons/Add';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-//import DialogContentText from '@material-ui/core/DialogContentText';
+import api from '../../utils/API'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment'
 
 const styles = theme => ({
 	root: {
@@ -51,24 +52,25 @@ const styles = theme => ({
 	},
 });
 
-const numberOfEmployees = [
-	{
-		value: 100,
-		label: '100',
-	},
-	{
-		value: 1000,
-		label: '1,000',
-	},
-	{
-		value: 5000,
-		label: '5,000',
-	},
-	{
-		value: 10000,
-		label: '10,000',
-	},
-];
+//set varibles for modal form choices dropdown
+// const numberOfEmployees = [
+// 	{
+// 		value: '50',
+// 		label: '50',
+// 	},
+// 	{
+// 		value: '100',
+// 		label: '100',
+// 	},
+// 	{
+// 		value: '200',
+// 		label: '200',
+// 	},
+// 	{
+// 		value: '1000',
+// 		label: '1,000',
+// 	},
+// ];
 
 const methodApplied = [
 	{
@@ -132,61 +134,62 @@ const currentStatus = [
 	},
 	{
 		value: 'yes',
-		label: 'No offer',
+		label: 'Got job offer',
 	},
 ];
 
 class SpreadSheet extends Component {
+
 	state = {
+		open: false,
 		loading: false,
 		sheets: [],
-		title: "",
-		site_link: "",
-		hr_link: "",
-		body: "",
-		company: "",
-		industry: "",
-		size: "",
-		method: "",
-		status: "",
-		image: "",
+		id: '',
+		title: '',
+		site_link: '',
+		hr_link: '',
+		body: '',
+		company: '',
+		industry: '',
+		// size: '',
+		method: '',
+		status: '',
+		image: '',
 		note: [],
 		contact: [],
 		// form states
 		jobname: '',
 		companyName: '',
 		industryDescription: '',
-		numberOfEmployees: '',
+		// numberOfEmployees: '',
 		jobLink: '',
 		hrLink: '',
 		methodApplied: '',
 		currentStatus: '',
+		dateApplied: '',
+		saved: this.props.saved,
 	};
 
-	updateSheets = () => {
+	refreshSheets = () => {
+		console.log('spreadsheet')
 		fetch('/api/spreadSheet')
 			.then(response => response.json())
 			.then(x => this.setState({ sheets: x }))
 			.catch(err => { throw new Error(err) });
-	}
-	componentDidMount() {
-		this.updateSheets()
-	}
+	};
 
-	// handleChange for input
+	componentDidMount() {
+		this.refreshSheets()
+	};
+
+	// handle change for user input in modal form
 	handleChange = name => event => {
 		this.setState({
 			[name]: event.target.value,
 		});
 	};
 
-	handleInputChange = event => {
-		const { name, value } = event.target;
-		this.setState({
-			[name]: value
-		});
-	};
-
+	// attempting to use a loading gif
 	handleClickLoading = () => {
 		this.setState(state => ({
 			loading: !state.loading,
@@ -195,83 +198,133 @@ class SpreadSheet extends Component {
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-		this.handleClickLoading();
+		//this.handleClickLoading();
+
 		let title = document.getElementById("standard-title").value;
 		let site_link = document.getElementById("standard-jobLink").value;
 		let hr_link = document.getElementById("standard-hrLink").value;
 		let company = document.getElementById("standard-hrLink").value;
 		let industry = document.getElementById("standard-industry").value;
-		let size = document.getElementById("standard-select-number").value;
+		// let size = document.getElementById("standard-select-number").value;
 		let method = document.getElementById("standard-select-method").value;
 		let status = document.getElementById("standard-select-status").value;
 		let date = document.getElementById('date').value;
-
-		var url = '/api/spreadSheet';
+		
+		let findId = this.state.id;
 		var data = {
 			title: title,
 			site_link: site_link,
 			hr_link: hr_link,
 			company: company,
 			industry: industry,
-			size: size,
+			// size: size,
 			method: method,
 			status: status,
 			date: date,
 		};
-
-		fetch(url, {
-			method: 'POST', // or 'PUT'
-			body: JSON.stringify(data), // data can be `string` or {object}!
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(res => res.json())
-			.then(response => console.log('Success:', JSON.stringify(response)))
-			.then(this.updateSheets())
-			.then(document.getElementById("jobForm").reset())
-			.catch(error => console.error('Error:', error));
-		this.setState({ open: false })
-	};
-
-	handleCreateEvent = () => {
-		//const { start, end, title, eventId } = this.state
-		// const updateEvent = { start: new Date(start), end: new Date(end), title: title, eventId: eventId }
-		this.setState({ open: true })
-	};
-
-	handleDeleteEvent = id => {
-
-		let deletedIndex = this.state.sheets.findIndex(sheet => sheet._id === id)
-		if (deletedIndex > -1) {
-			let updatedSheets = this.state.sheets
-			updatedSheets.splice(deletedIndex, 1)
-			this.setState({ sheets: updatedSheets })
+	
+		if (findId) {
+			
+			api.updateSheet(findId, data, auth.getUserId())
+			.then(userSavedSheet => {
+				this.refreshSheets(userSavedSheet)
+			})
+			
+        } else {
+		
+			api.saveSheet(data, auth.getUserId())
+			.then(userSavedSheet => {
+				this.refreshSheets(userSavedSheet)
+			})
+			
 		}
+		
+		this.handleClose();
+		this.resetForm();
+	};
+
+	// Open modal for spreadsheet
+	handleCreateEvent = (id) => {
+
+		let findIndex = id.currentTarget.id;
+		let sheetRow = this.state.sheets;
+
+		//if there is an id, populate the form in the modal with the data. else open a blank modal
+		if (findIndex) {
+			id=findIndex
+				for (let i = 0; i < sheetRow.length; i++) {
+					if (sheetRow[i]._id === id) {
+						this.setState({
+							id: findIndex,
+							jobname: sheetRow[i].title,
+							companyName: sheetRow[i].company,
+							industryDescription: sheetRow[i].industry,
+							// numberOfEmployees: sheetRow[i].size,
+							jobLink: sheetRow[i].site_link,
+							hrLink: sheetRow[i].hr_link,
+							dateApplied: sheetRow[i].date,
+							methodApplied: sheetRow[i].method,
+							currentStatus: sheetRow[i].status,
+							date: sheetRow[i].date,
+						});
+					};
+				};
+
+				this.setState({ open: true });
+
+		} else {
+
+				this.setState({ 
+					open: true, 
+					id: ''
+				});
+
+		};
+
+	};
+
+	// Delete a spreadsheet row by id from database
+	handleDelete = () => {
+		let findId = this.state.id;
+
+		this.setState({ sheets: this.state.sheets.filter(item => item._id !== findId) });
+		api.deleteSheet(findId, auth.getUserId());
+
+		this.handleClose();
+
 	}
 
+	// close modal
+	handleClose = () => {
+		this.setState({
+			open: false
+		});
+
+		this.resetForm();
+	};
+
+	// reset modal form
 	resetForm = () => {
 		this.setState({
 			jobname: '',
 			companyName: '',
 			industryDescription: '',
-			numberOfEmployees: '',
+			// numberOfEmployees: '',
 			jobLink: '',
 			hrLink: '',
 			methodApplied: '',
 			currentStatus: '',
+			dateApplied: ''
 		})
-	}
-	handleClose = () => {
-		this.setState({ open: false });
-		this.resetForm();
 	};
 
-
-
+	formatDate = () => {
+		
+	}
 	render() {
-
+		
 		const { classes } = this.props;
-
+		let day = moment(this.props.date).format('MM/DD/YY')
 		return (
 			<div>
 				<Dialog
@@ -283,7 +336,7 @@ class SpreadSheet extends Component {
 					<DialogContent>
 						<form id='jobForm' className={classes.formData} noValidate autoComplete="off">
 							<TextField
-								id="standard-title"
+								id='standard-title'
 								label="Job Description"
 								className={classes.textField}
 								value={this.state.jobname}
@@ -306,7 +359,7 @@ class SpreadSheet extends Component {
 								onChange={this.handleChange('industryDescription')}
 								margin="normal"
 							/>
-							<TextField
+							{/* <TextField
 								id="standard-select-number"
 								select
 								label="Number of employees"
@@ -325,7 +378,7 @@ class SpreadSheet extends Component {
 										{option.label}
 									</MenuItem>
 								))}
-							</TextField>
+							</TextField> */}
 							<TextField
 								id="standard-jobLink"
 								label="Link to Job Description"
@@ -338,7 +391,7 @@ class SpreadSheet extends Component {
 								id="date"
 								label="Date Applied"
 								type="date"
-								defaultValue="2017-05-24"
+								defaultValue={moment().format('YYYY-MM-DD')}
 								className={classes.textField}
 								InputLabelProps={{
 									shrink: true,
@@ -395,20 +448,26 @@ class SpreadSheet extends Component {
 						</form>
 					</DialogContent>
 					<DialogActions>
-						<Button variant="fab" color="primary" aria-label="Delete">
-							<DeleteIcon onClick={this.deleteEvent} />
+						<Button 
+							id={this.state.id} 
+							variant="fab" 
+							color="primary" 
+							aria-label="Delete"
+							
+							>
+							<DeleteIcon onClick={this.handleDelete} />
 						</Button>
 						<Button onClick={this.handleClose} color="primary">
 							Cancel
-          </Button>
+    					</Button>
 						<Button onClick={this.handleFormSubmit} color="primary">
 							Save
-          </Button>
+        				</Button>
 					</DialogActions>
 				</Dialog>
 				<Grid container>
 					<Grid item xs={12}>
-						<Button aria-label="Create Event" style={{ color: '#546e7a', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="secondary" aria-label="Add" ><AddIcon onClick={this.handleCreateEvent} /></Button>
+						<Button aria-label="Create Event" style={{ color: '#546e7a', position: 'fixed', right: 30, bottom: 70, zIndex: 999 }} variant="fab" color="secondary"><AddIcon onClick={this.handleCreateEvent} /></Button>
 
 
 					</Grid>
@@ -421,7 +480,8 @@ class SpreadSheet extends Component {
 										<TableCell>Job Title</TableCell>
 										<TableCell>Company</TableCell>
 										<TableCell>Industry</TableCell>
-										<TableCell>Company Size</TableCell>
+										{/* <TableCell>Company Size</TableCell> */}
+										<TableCell>Date</TableCell>
 										<TableCell>Link to Job Desc</TableCell>
 										<TableCell>Link to HR</TableCell>
 										<TableCell>Method Applied</TableCell>
@@ -443,11 +503,13 @@ class SpreadSheet extends Component {
 														body={sheet.item.body}
 														company={sheet.item.company}
 														industry={sheet.item.industry}
-														size={sheet.item.size}
+														// size={sheet.item.size}
+														date={moment(sheet.item.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
-														deleteCallback={this.handleDeleteEvent}
+														deleteCallback={this.handleClose}
+														handleCreateEvent={this.handleCreateEvent}
 													/>
 
 												)
@@ -455,8 +517,6 @@ class SpreadSheet extends Component {
 										} else {
 											return (
 												<SpreadSheetList
-													//onChange={this.handleDelete()}
-
 													key={i}
 													site_link={sheet.site_link}
 													_id={sheet._id}
@@ -465,11 +525,13 @@ class SpreadSheet extends Component {
 													body={sheet.body}
 													company={sheet.company}
 													industry={sheet.industry}
-													size={sheet.size}
+													// size={sheet.size}
+													date={moment(sheet.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
-													deleteCallback={this.handleDeleteEvent}
+													deleteCallback={this.handleClose}
+													handleCreateEvent={this.handleCreateEvent}
 												/>
 											)
 										}
