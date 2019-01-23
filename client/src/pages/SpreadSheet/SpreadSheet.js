@@ -52,25 +52,6 @@ const styles = theme => ({
 	},
 });
 
-//set varibles for modal form choices dropdown
-// const numberOfEmployees = [
-// 	{
-// 		value: '50',
-// 		label: '50',
-// 	},
-// 	{
-// 		value: '100',
-// 		label: '100',
-// 	},
-// 	{
-// 		value: '200',
-// 		label: '200',
-// 	},
-// 	{
-// 		value: '1000',
-// 		label: '1,000',
-// 	},
-// ];
 
 const methodApplied = [
 	{
@@ -151,7 +132,6 @@ class SpreadSheet extends Component {
 		body: '',
 		company: '',
 		industry: '',
-		// size: '',
 		method: '',
 		status: '',
 		image: '',
@@ -161,7 +141,6 @@ class SpreadSheet extends Component {
 		jobname: '',
 		companyName: '',
 		industryDescription: '',
-		// numberOfEmployees: '',
 		jobLink: '',
 		hrLink: '',
 		methodApplied: '',
@@ -198,14 +177,12 @@ class SpreadSheet extends Component {
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-		//this.handleClickLoading();
 
 		let title = document.getElementById("standard-title").value;
 		let site_link = document.getElementById("standard-jobLink").value;
 		let hr_link = document.getElementById("standard-hrLink").value;
 		let company = document.getElementById("standard-hrLink").value;
 		let industry = document.getElementById("standard-industry").value;
-		// let size = document.getElementById("standard-select-number").value;
 		let method = document.getElementById("standard-select-method").value;
 		let status = document.getElementById("standard-select-status").value;
 		let date = document.getElementById('date').value;
@@ -217,7 +194,6 @@ class SpreadSheet extends Component {
 			hr_link: hr_link,
 			company: company,
 			industry: industry,
-			// size: size,
 			method: method,
 			status: status,
 			date: date,
@@ -259,7 +235,6 @@ class SpreadSheet extends Component {
 							jobname: sheetRow[i].title,
 							companyName: sheetRow[i].company,
 							industryDescription: sheetRow[i].industry,
-							// numberOfEmployees: sheetRow[i].size,
 							jobLink: sheetRow[i].site_link,
 							hrLink: sheetRow[i].hr_link,
 							dateApplied: sheetRow[i].date,
@@ -309,7 +284,6 @@ class SpreadSheet extends Component {
 			jobname: '',
 			companyName: '',
 			industryDescription: '',
-			// numberOfEmployees: '',
 			jobLink: '',
 			hrLink: '',
 			methodApplied: '',
@@ -324,7 +298,7 @@ class SpreadSheet extends Component {
 	render() {
 		
 		const { classes } = this.props;
-		let day = moment(this.props.date).format('MM/DD/YY')
+		
 		return (
 			<div>
 				<Dialog
@@ -359,26 +333,6 @@ class SpreadSheet extends Component {
 								onChange={this.handleChange('industryDescription')}
 								margin="normal"
 							/>
-							{/* <TextField
-								id="standard-select-number"
-								select
-								label="Number of employees"
-								className={classes.textField}
-								value={this.state.numberOfEmployees}
-								onChange={this.handleChange('numberOfEmployees')}
-								SelectProps={{
-									MenuProps: {
-										className: classes.menu,
-									},
-								}}
-								margin="normal"
-							>
-								{numberOfEmployees.map(option => (
-									<MenuItem key={option.value} value={option.value}>
-										{option.label}
-									</MenuItem>
-								))}
-							</TextField> */}
 							<TextField
 								id="standard-jobLink"
 								label="Link to Job Description"
@@ -480,7 +434,6 @@ class SpreadSheet extends Component {
 										<TableCell>Job Title</TableCell>
 										<TableCell>Company</TableCell>
 										<TableCell>Industry</TableCell>
-										{/* <TableCell>Company Size</TableCell> */}
 										<TableCell>Date</TableCell>
 										<TableCell>Link to Job Desc</TableCell>
 										<TableCell>Link to HR</TableCell>
@@ -503,7 +456,6 @@ class SpreadSheet extends Component {
 														body={sheet.item.body}
 														company={sheet.item.company}
 														industry={sheet.item.industry}
-														// size={sheet.item.size}
 														date={moment(sheet.item.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 														method={sheet.item.method}
 														status={sheet.item.status}
@@ -525,7 +477,6 @@ class SpreadSheet extends Component {
 													body={sheet.body}
 													company={sheet.company}
 													industry={sheet.industry}
-													// size={sheet.size}
 													date={moment(sheet.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 													method={sheet.method}
 													status={sheet.status}
