@@ -209,7 +209,7 @@ class SpreadSheet extends Component {
 		let method = document.getElementById("standard-select-method").value;
 		let status = document.getElementById("standard-select-status").value;
 		let date = document.getElementById('date').value;
-
+		
 		let findId = this.state.id;
 		var data = {
 			title: title,
@@ -324,7 +324,7 @@ class SpreadSheet extends Component {
 	render() {
 		
 		const { classes } = this.props;
-		
+		let day = moment(this.props.date).format('MM/DD/YY')
 		return (
 			<div>
 				<Dialog
@@ -504,7 +504,7 @@ class SpreadSheet extends Component {
 														company={sheet.item.company}
 														industry={sheet.item.industry}
 														// size={sheet.item.size}
-														date={moment(sheet.item.date).format('MM/DD/YYYY')}
+														date={moment(sheet.item.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 														method={sheet.item.method}
 														status={sheet.item.status}
 														saved={false}
@@ -526,7 +526,7 @@ class SpreadSheet extends Component {
 													company={sheet.company}
 													industry={sheet.industry}
 													// size={sheet.size}
-													date={moment(sheet.date).format('MM/DD/YYYY')}
+													date={moment(sheet.date, 'YYYY/MM/DD').format('MM/DD/YYYY')}
 													method={sheet.method}
 													status={sheet.status}
 													saved={true}
