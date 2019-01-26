@@ -1,9 +1,9 @@
-/* global gapi */
+
 
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { firebase, auth } from '../firebase'
+import { firebase } from '../firebase'
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {

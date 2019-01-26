@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // get states by country ID
   getStates: function (id) {
-    return axios.get('api/loc/state/' + id);
+    return axios.get('/api/loc/state/' + id);
   },
   // Gets all jobs
   getJobListings: function () {
@@ -36,7 +36,7 @@ export default {
     return axios.post("api/user/jobs", { jobData, googleId })
   },
   // get job by id for current user
-  getUserJob: function(jobId, googleId) {
+  getUserJob: function (jobId, googleId) {
     return axios.get(`api/user/jobs/saved/${googleId}/${jobId}`)
   },
 
@@ -46,17 +46,43 @@ export default {
   },
 
   getUserJobs: googleId => {
-    return axios.get(`api/user/jobs/saved/${googleId}`)
+    return axios.get(`/api/user/jobs/saved/${googleId}`)
   },
   // takes the users jobs and replaces them with updated info
   updateUserJobs: (jobs, googleId) => {
-    return axios.put(`api/user/jobs/saved/`,{googleId: googleId,jobs: jobs})
-    .catch(error => {
-      console.log(error.response)
-    });
+    return axios.put(`/api/user/jobs/saved/`, { googleId: googleId, jobs: jobs })
+      .catch(error => {
+        console.log(error.response)
+      });
   },
 
   createUser: user => {
     return axios.post("/api/user", user)
-  }
+  },
+
+  createEvent: (googleId, newEvent) => {
+    return axios.post('/api/event/', { googleId: googleId, newEvent: newEvent })
+      .catch(error => {
+        console.log(error.response)
+      })
+  },
+
+  // Saves a sheet to the database
+  saveSheet: function (sheetData) {
+    return axios.post("/api/spreadSheet", sheetData);
+  },
+
+  updateSheet: function (id,data) {
+	  const body = data
+	  const params={}
+	  return axios.put("/api/spreadsheet/" + id, body,{params})
+	  .catch(error => {
+		  console.log(error.response)
+		})
+	},
+	// Deletes the job with the given id
+	deleteSheet: function (id) {
+		console.log(id)
+    return axios.delete("/api/spreadsheet/" + id);
+  },
 };

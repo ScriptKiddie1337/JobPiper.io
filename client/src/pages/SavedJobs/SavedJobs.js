@@ -104,9 +104,7 @@ const styles = theme => ({
 		width: '100%',
 		marginTop: theme.spacing.unit * 3,
 	},
-	table: {
-		minWidth: 500,
-	},
+	
 	tableWrapper: {
 		overflowX: 'auto',
 	},
@@ -173,7 +171,7 @@ class SavedJobs extends Component {
 		const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
 		return (
-			<div style={{ padding: '20px', borderRadius: '5px' }}>
+			<div style={{ borderRadius: '5px' }}>
 
 				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
@@ -193,7 +191,7 @@ class SavedJobs extends Component {
 						<TableBody>
 							{this.state.jobs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((job, i) => {
 								return (
-									<TableRow key={i} style={{ listStyleType: 'none', padding: '5px', margin: '0px' }}>
+									<TableRow key={i} style={{ listStyleType: 'none' }}>
 
 										<TableCell component="th" scope="row" style={{ padding: '0px' }}>
 											<SavedJobListing
@@ -203,7 +201,7 @@ class SavedJobs extends Component {
 												keywords={job.keywords}
 												body={job.body}
 												image={job.image}
-												notes={job.notes}
+												description={job.description}
 												saved={true}
 											/>
 										</TableCell>
@@ -212,7 +210,8 @@ class SavedJobs extends Component {
 							})}
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 48 * emptyRows }}>
-									<TableCell colSpan={6} />
+									<TableCell colSpan={6} 
+									component="th" scope="row" style={{ padding: '0px' }}/>
 								</TableRow>
 							)}
 						</TableBody>

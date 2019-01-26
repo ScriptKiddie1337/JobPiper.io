@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import LabelBottomNavigation from '../../components/Footer/Footer';
 import Hidden from '@material-ui/core/Hidden';
-import AccountIcon from '../../components/Icons/AccountIcon';
-import LogOutIcon from '../../components/Icons/LogOutIcon';
-import HomeIcon from '../../components/Icons/HomeIcon';
+// import AccountIcon from '../../components/Icons/AccountIcon';
+// import LogOutIcon from '../../components/Icons/LogOutIcon';
+// import HomeIcon from '../../components/Icons/HomeIcon';
 import Paper from '@material-ui/core/Paper';
 import SwitchLabels from '../../components/Switches';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -84,7 +84,7 @@ class UserSetting extends Component {
 					</Paper>
   			</Grid>
 		</Grid>
-		<Hidden smUp>
+		<Hidden mdUp>
 			<LabelBottomNavigation />
 		</Hidden>
 	</div>

@@ -17,7 +17,7 @@ const styles = theme => ({
 	root: {
 		flexShrink: 0,
 		color: theme.palette.text.secondary,
-		marginLeft: theme.spacing.unit * 2.5,
+		
 	},
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
@@ -28,7 +28,7 @@ const styles = theme => ({
 class JobListingList extends Component {
 
 	handleJobSave = () => {
-
+		console.log('saving ', this.props.title )
 		this.setState({ saved: true })
 		api.userSaveJob({
 			...this.props,
@@ -96,12 +96,12 @@ class JobListingList extends Component {
 							</Grid>
 						</Grid>
 
-						<ExpansionPanel style={{ minWidth: '100%', margin: '10px 10px 0px 10px'}}>
+						<ExpansionPanel style={{margin: '10px 10px 0px 10px'}}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
 								<Typography dangerouslySetInnerHTML={createMarkup(keywordsString)} />
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
-								<Grid item xs={12} style={{ paddingLeft: '10px', paddingRight: '10px', paddingBottom: '10px' }}
+								<Grid item xs={12} style={{ padding: '10px 10px 10px 0px' }}
 									dangerouslySetInnerHTML={createMarkup(body)} />
 							</ExpansionPanelDetails>
 						</ExpansionPanel>

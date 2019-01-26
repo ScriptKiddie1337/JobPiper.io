@@ -6,5 +6,6 @@ module.exports = {
   Users: require("./Users"),
   Cities: require("./Cities"),
   Countries: require("./Countries"),
-  States: require("./States")
+  States: require("./States"),
+  SpreadSheet: require('./Spreadsheet')
 };

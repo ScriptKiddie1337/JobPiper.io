@@ -1,51 +1,36 @@
 import React, { Component } from "react";
 import { signInPopUp } from "../../firebase/auth";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Icon from '@mdi/react';
+import { mdiGoogle } from '@mdi/js';
+import Header from '../../components/Jumbotron'
 
 class Login extends Component {
-  state = {
-    jobs: [],
-    title: "",
-    link: "",
-    image: "",
-    note: [],
-    contact: [],
-    loginTimeout: null
-  };
-
-  componentDidMount() {
-
-    this.setState({ loginTimeout: setTimeout(signInPopUp, 1000) })
-  }
 
   signIn = () => {
 
     signInPopUp()
-    this.setState({ loginTimeout: null })
   }
-
-  componentWillUnmount() {
-
-    if (this.state.loginTimeout) {
-
-      clearTimeout(this.state.loginTimeout)
-    }
-  }
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-
-  };
 
   render() {
     return (
       <div>
+        <Grid container style={{ minHeight: '100vh' }}>
+        <Grid item xs={12} >
+        <Header />
+        </Grid>
+          <Grid item xs={12} style={{ marginTop: '-15vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <Button onClick={this.signIn} style={{ backgroundColor: 'white', minWidth: '25vw' }}>
+              <Icon 
+                style={{ margin: '0px 10px 0px 0px' }}
+                path={mdiGoogle} 
+                size={1} 
+                color='red'/>
+                Sign In / Create Account
+                </Button>
+          </Grid>
+        </Grid>
       </div>
     );
   }
